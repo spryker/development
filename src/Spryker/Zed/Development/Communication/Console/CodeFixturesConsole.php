@@ -16,19 +16,14 @@ use Symfony\Component\Console\Output\OutputInterface;
  * @method \Spryker\Zed\Development\Business\DevelopmentFacadeInterface getFacade()
  * @method \Spryker\Zed\Development\Communication\DevelopmentCommunicationFactory getFactory()
  */
-class CodeTestConsole extends Console
+class CodeFixturesConsole extends Console
 {
-    public const COMMAND_NAME = 'code:test';
-
+    public const COMMAND_NAME = 'code:fixtures';
     public const OPTION_MODULE = 'module';
     public const OPTION_MODULE_ALL = 'all';
     public const OPTION_INITIALIZE = 'initialize';
     public const OPTION_GROUP = 'group';
     public const OPTION_TYPE_EXCLUDE = 'exclude';
-
-    public const OPTION_CONFIG_PATH = 'config';
-
-    protected const CODECEPTION_CONFIG_FILE_NAME = 'codeception.yml';
 
     /**
      * @return void
@@ -40,12 +35,12 @@ class CodeTestConsole extends Console
         $this
             ->setName(static::COMMAND_NAME)
             ->setHelp('<info>' . static::COMMAND_NAME . ' -h</info>')
-            ->setDescription('Run codecept tests for project or core');
+            ->setDescription('Build fixtures for codeception tests');
 
-        $this->addOption(static::OPTION_MODULE, 'm', InputOption::VALUE_OPTIONAL, 'Name of core module to run tests for (or "all")');
-        $this->addOption(static::OPTION_GROUP, 'g', InputOption::VALUE_OPTIONAL, 'Groups of tests to be executed (multiple values allowed, comma separated)');
-        $this->addOption(static::OPTION_TYPE_EXCLUDE, 'x', InputOption::VALUE_OPTIONAL, 'Types of tests to be skipped (e.g. Presentation; multiple values allowed, comma separated)');
-        $this->addOption(static::OPTION_INITIALIZE, 'i', InputOption::VALUE_NONE, 'Initialize test suite by (re)generating required test classes');
+        $this->addOption(static::OPTION_MODULE, 'm', InputOption::VALUE_OPTIONAL, 'Name of core module to build fixtures for (or "all")');
+        $this->addOption(static::OPTION_GROUP, 'g', InputOption::VALUE_OPTIONAL, 'Groups of fixtures to be build (multiple values allowed, comma separated)');
+        $this->addOption(static::OPTION_TYPE_EXCLUDE, 'x', InputOption::VALUE_OPTIONAL, 'Types of fixtures to be skipped (e.g. Slow; multiple values allowed, comma separated)');
+        $this->addOption(static::OPTION_INITIALIZE, 'i', InputOption::VALUE_NONE, 'Initialize actors by (re)generating required classes');
     }
 
     /**
@@ -58,9 +53,9 @@ class CodeTestConsole extends Console
     {
         $module = $this->input->getOption(static::OPTION_MODULE);
 
-        $message = 'Run codecept tests for project level';
+        $message = 'Build fixtures for codeception tests for project level';
         if ($module) {
-            $message = 'Run codecept tests for ' . $module . ' module';
+            $message = 'Build fixtures for codeception tests for ' . $module . ' module';
         }
         $this->info($message);
 
@@ -69,31 +64,6 @@ class CodeTestConsole extends Console
             $this->warning('Make sure you ran `codecept build` already.');
         }
 
-        $this->getFacade()->runTest(
-            $module,
-            $this->extendOptions($input)
-        );
-    }
-
-    /**
-     * @param \Symfony\Component\Console\Input\InputInterface $input
-     *
-     * @return array
-     */
-    protected function extendOptions(InputInterface $input): array
-    {
-        $options = $input->getOptions();
-
-        $options[static::OPTION_CONFIG_PATH] = $this->getCodeceptionConfigPath();
-
-        return $options;
-    }
-
-    /**
-     * @return string
-     */
-    protected function getCodeceptionConfigPath(): string
-    {
-        return APPLICATION_ROOT_DIR . DIRECTORY_SEPARATOR . static::CODECEPTION_CONFIG_FILE_NAME;
+        $this->getFacade()->runFixtures($module, $this->input->getOptions());
     }
 }
