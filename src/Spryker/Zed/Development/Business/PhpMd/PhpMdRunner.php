@@ -35,6 +35,11 @@ class PhpMdRunner
     public const OPTION_FORMAT = 'format';
 
     /**
+     * @var string
+     */
+    protected const CUSTOM_RULESET = 'phpmd-ruleset.xml';
+
+    /**
      * @var \Spryker\Zed\Development\DevelopmentConfig
      */
     protected $config;
@@ -163,7 +168,7 @@ class PhpMdRunner
             $format = $options[static::OPTION_FORMAT];
         }
 
-        $config = $this->config->getArchitectureStandard();
+        $config = $this->resolveRulesetPath($path);
 
         if ($options['ignore']) {
             $config .= ' --exclude ' . $options['ignore'];
@@ -183,5 +188,21 @@ class PhpMdRunner
         });
 
         return $process->getExitCode();
+    }
+
+    /**
+     * @param string $directory
+     *
+     * @return string
+     */
+    protected function resolveRulesetPath(string $directory): string
+    {
+        $rulesetFilepath = $directory . static::CUSTOM_RULESET;
+
+        if (file_exists($rulesetFilepath) === true) {
+            return $rulesetFilepath;
+        }
+
+        return $this->config->getArchitectureStandard();
     }
 }

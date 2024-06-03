@@ -79,6 +79,11 @@ class PhpstanRunner implements PhpstanRunnerInterface
     public const OPTION_OFFSET = 'offset';
 
     /**
+     * @var string
+     */
+    public const OPTION_IS_MERGABLE_CONFIG = 'is-mergable-config';
+
+    /**
      * @var int
      */
     protected const SUCCESS_EXIT_CODE = 0;
@@ -146,7 +151,7 @@ class PhpstanRunner implements PhpstanRunnerInterface
 
         $output->writeln($message);
 
-        $paths = $this->getPathsToAnalyze($module);
+        $paths = $this->getPathsToAnalyze($module, $input);
         $resultCode = 0;
         $count = 0;
         $total = count($paths);
@@ -294,15 +299,16 @@ class PhpstanRunner implements PhpstanRunnerInterface
 
     /**
      * @param string|bool|null $module
+     * @param \Symfony\Component\Console\Input\InputInterface $input
      *
      * @throws \RuntimeException
      *
      * @return array
      */
-    protected function getPathsToAnalyze($module): array
+    protected function getPathsToAnalyze($module, InputInterface $input): array
     {
         if (is_string($module) && $module) {
-            $paths = $this->getPaths($module);
+            $paths = $this->getPaths($module, $input);
 
             if (!$paths) {
                 throw new RuntimeException('No path found for module ' . $module);
@@ -326,13 +332,14 @@ class PhpstanRunner implements PhpstanRunnerInterface
 
     /**
      * @param string $module
+     * @param \Symfony\Component\Console\Input\InputInterface $input
      *
      * @return array
      */
-    protected function getPaths($module)
+    protected function getPaths($module, InputInterface $input)
     {
         if (strpos($module, '.') !== false) {
-            $paths = $this->resolveCorePaths($module);
+            $paths = $this->resolveCorePaths($module, $input);
         } else {
             $paths = $this->resolveProjectPaths($module);
         }
@@ -378,12 +385,13 @@ class PhpstanRunner implements PhpstanRunnerInterface
      * @param array<string, string> $paths
      * @param string $moduleDirectoryPath
      * @param string|null $namespace
+     * @param \Symfony\Component\Console\Input\InputInterface $input
      *
      * @return array<string, string>
      */
-    protected function addPath(array $paths, string $moduleDirectoryPath, $namespace = null): array
+    protected function addPath(array $paths, string $moduleDirectoryPath, $namespace, InputInterface $input): array
     {
-        $paths[$moduleDirectoryPath] = $this->getConfigFilePathByModuleDirectory($moduleDirectoryPath, $namespace);
+        $paths[$moduleDirectoryPath] = $this->getConfigFilePathByModuleDirectory($moduleDirectoryPath, $namespace, $input);
 
         return $paths;
     }
@@ -391,10 +399,11 @@ class PhpstanRunner implements PhpstanRunnerInterface
     /**
      * @param string $moduleDirectoryPath
      * @param string|null $namespace
+     * @param \Symfony\Component\Console\Input\InputInterface $input
      *
      * @return string
      */
-    protected function getConfigFilePathByModuleDirectory(string $moduleDirectoryPath, $namespace = null): string
+    protected function getConfigFilePathByModuleDirectory(string $moduleDirectoryPath, $namespace, InputInterface $input): string
     {
         $moduleConfigFile = $this->phpstanConfigFileFinder
             ->searchIn($moduleDirectoryPath);
@@ -404,7 +413,9 @@ class PhpstanRunner implements PhpstanRunnerInterface
         $vendorConfigFile = $this->phpstanConfigFileFinder
             ->searchIn($vendorDirectoryPath);
 
-        if ($moduleConfigFile && $vendorConfigFile) {
+        $isMergable = $input->getOption(static::OPTION_IS_MERGABLE_CONFIG);
+
+        if ($moduleConfigFile && $vendorConfigFile && $isMergable === true) {
             return $this->phpstanConfigFileManager->merge(
                 [$moduleConfigFile, $vendorConfigFile],
                 $this->getConfigFilenameForMerge($moduleConfigFile),
@@ -461,12 +472,13 @@ class PhpstanRunner implements PhpstanRunnerInterface
 
     /**
      * @param string $module
+     * @param \Symfony\Component\Console\Input\InputInterface $input
      *
      * @throws \RuntimeException
      *
      * @return array<string, string>
      */
-    protected function resolveCorePaths($module)
+    protected function resolveCorePaths($module, InputInterface $input)
     {
         $paths = [];
         [$namespace, $module] = explode('.', $module, 2);
@@ -480,7 +492,7 @@ class PhpstanRunner implements PhpstanRunnerInterface
             $modules = $this->getCoreModules($pathToInternalNamespace);
             foreach ($modules as $module) {
                 $path = $pathToInternalNamespace . $module . DIRECTORY_SEPARATOR;
-                $paths = $this->addPath($paths, $path, $namespace);
+                $paths = $this->addPath($paths, $path, $namespace, $input);
             }
 
             return $paths;
@@ -488,13 +500,13 @@ class PhpstanRunner implements PhpstanRunnerInterface
 
         $pathToInternalNamespace = $this->config->getPathToInternalNamespace($namespace);
         if ($pathToInternalNamespace && is_dir($pathToInternalNamespace . $module)) {
-            return $this->addPath($paths, $pathToInternalNamespace . $module . DIRECTORY_SEPARATOR, $namespace);
+            return $this->addPath($paths, $pathToInternalNamespace . $module . DIRECTORY_SEPARATOR, $namespace, $input);
         }
 
         $vendor = $this->dasherize($namespace);
         $module = $this->dasherize($module);
         $path = $this->config->getPathToRoot() . 'vendor' . DIRECTORY_SEPARATOR . $vendor . DIRECTORY_SEPARATOR . $module . DIRECTORY_SEPARATOR;
-        $paths = $this->addPath($paths, $path, $namespace);
+        $paths = $this->addPath($paths, $path, $namespace, $input);
 
         return $paths;
     }
