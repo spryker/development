@@ -194,6 +194,8 @@ use Spryker\Zed\Development\Business\Phpstan\Config\PhpstanConfigFileSaverInterf
 use Spryker\Zed\Development\Business\Phpstan\PhpstanRunner;
 use Spryker\Zed\Development\Business\Propel\PropelAbstractClassValidator;
 use Spryker\Zed\Development\Business\Propel\PropelAbstractClassValidatorInterface;
+use Spryker\Zed\Development\Business\Resolver\CodeStylePathResolver;
+use Spryker\Zed\Development\Business\Resolver\PathResolverInterface;
 use Spryker\Zed\Development\Business\SnifferConfiguration\Builder\ArchitectureSnifferConfigurationBuilder;
 use Spryker\Zed\Development\Business\SnifferConfiguration\Builder\SnifferConfigurationBuilderInterface;
 use Spryker\Zed\Development\Business\SnifferConfiguration\ConfigurationReader\ConfigurationReader;
@@ -219,7 +221,7 @@ class DevelopmentBusinessFactory extends AbstractBusinessFactory
     {
         return new CodeStyleSniffer(
             $this->getConfig(),
-            $this->createCodeStyleSnifferConfigurationLoader(),
+            $this->createCodeStylePathResolver(),
         );
     }
 
@@ -2200,5 +2202,16 @@ class DevelopmentBusinessFactory extends AbstractBusinessFactory
     public function getPhpstanFileAdapters(): array
     {
         return $this->getProvidedDependency(DevelopmentDependencyProvider::PHPSTAN_ADAPTERS);
+    }
+
+    /**
+     * @return \Spryker\Zed\Development\Business\Resolver\PathResolverInterface
+     */
+    public function createCodeStylePathResolver(): PathResolverInterface
+    {
+        return new CodeStylePathResolver(
+            $this->getConfig(),
+            $this->createCodeStyleSnifferConfigurationLoader(),
+        );
     }
 }

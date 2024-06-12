@@ -22,6 +22,11 @@ class PhpMdRunner
     /**
      * @var string
      */
+    protected const CONFIG_LOCAL = 'phpmd.xml';
+
+    /**
+     * @var string
+     */
     public const BUNDLE_ALL = 'all';
 
     /**
@@ -33,6 +38,11 @@ class PhpMdRunner
      * @var string
      */
     public const OPTION_FORMAT = 'format';
+
+    /**
+     * @var string
+     */
+    protected const OPTION_IGNORE = 'ignore';
 
     /**
      * @var \Spryker\Zed\Development\DevelopmentConfig
@@ -68,12 +78,25 @@ class PhpMdRunner
             throw new ErrorException($message);
         }
 
-        $defaults = [
-            'ignore' => $bundle ? '' : 'vendor/',
-        ];
-        $options += $defaults;
+        $options += $this->getDefaultIgnoredPath($bundle);
 
         return $this->runPhpMdCommand($path, $options);
+    }
+
+
+    /**
+     * @param string|null $namespace
+     * @param string|null $pathOption
+     *
+     * @return array<string, string|null>
+     */
+    protected function getDefaultIgnoredPath(?string $bundle = null): array
+    {
+        $dontIgnoreVendor = $bundle !== null || $this->config->isStandaloneMode();
+
+        return [
+            static::OPTION_IGNORE => $dontIgnoreVendor ? null : 'vendor/',
+        ];
     }
 
     /**
@@ -134,6 +157,10 @@ class PhpMdRunner
         [$namespace, $module] = explode('.', $module, 2);
 
         $pathToInternalNamespace = $this->config->getPathToInternalNamespace($namespace);
+        if ($namespace !== null && $pathToInternalNamespace === null) {
+            return $this->resolveCommonModulePath($module, $namespace);
+        }
+
         if ($pathToInternalNamespace !== null && is_dir($pathToInternalNamespace . $module)) {
             return $pathToInternalNamespace . $module . DIRECTORY_SEPARATOR;
         }
@@ -144,6 +171,21 @@ class PhpMdRunner
 
         return $path;
     }
+
+    /**
+     * @param string $module
+     * @param string $namespace
+     *
+     * @return string
+     */
+    protected function resolveCommonModulePath(string $module, string $namespace): string
+    {
+        $moduleVendor = strtolower($namespace);
+        $module = strtolower($module);
+
+        return $this->config->getPathToRoot() . 'vendor' . DIRECTORY_SEPARATOR . $moduleVendor . DIRECTORY_SEPARATOR . $module . DIRECTORY_SEPARATOR;
+    }
+
 
     /**
      * @param string $path
@@ -163,7 +205,7 @@ class PhpMdRunner
             $format = $options[static::OPTION_FORMAT];
         }
 
-        $config = $this->config->getArchitectureStandard();
+        $config = $this->getArchitectureStandard($path);
 
         if ($options['ignore']) {
             $config .= ' --exclude ' . $options['ignore'];
@@ -183,5 +225,25 @@ class PhpMdRunner
         });
 
         return $process->getExitCode();
+    }
+
+    /**
+     * @param strring $path
+     *
+     * @return string
+     */
+    protected function getArchitectureStandard(string $path): string
+    {
+        $standardConfig = $this->config->getArchitectureStandard();
+        if (!$this->config->isStandaloneMode()) {
+            return $standardConfig;
+        }
+
+        $configPath = $path . static::CONFIG_LOCAL;
+        if (file_exists($configPath)) {
+            return $configPath;
+        }
+
+        return $standardConfig;
     }
 }

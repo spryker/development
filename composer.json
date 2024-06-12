@@ -1,5 +1,6 @@
 {
     "name": "spryker/development",
+    "bin": ["bin/development"],
     "type": "library",
     "description": "Development module",
     "license": "proprietary",
@@ -16,6 +17,9 @@
         "spryker/twig": "^3.16.0"
     },
     "require-dev": {
+        "codeception/module-filesystem": "^3.0",
+        "spryker-sdk/phpstan-spryker": "^0.4.0",
+        "spryker/architecture-sniffer": "^0.5.7",
         "spryker/code-sniffer": "*",
         "spryker/propel": "*",
         "spryker/testify": "*"

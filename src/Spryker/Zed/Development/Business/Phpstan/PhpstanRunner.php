@@ -139,11 +139,7 @@ class PhpstanRunner implements PhpstanRunnerInterface
         /** @var string|null $module */
         $module = $input->getOption(static::OPTION_MODULE);
 
-        $message = 'Run PHPStan in PROJECT level';
-        if ($module) {
-            $message = 'Run PHPStan in module ' . $module;
-        }
-
+        $message = $this->buildMessage($module);
         $output->writeln($message);
 
         $paths = $this->getPathsToAnalyze($module);
@@ -285,6 +281,10 @@ class PhpstanRunner implements PhpstanRunnerInterface
         /** @var string $level */
         $level = $input->getOption(static::OPTION_LEVEL);
 
+        if ($level === null) {
+            return $defaultLevel;
+        }
+
         if (preg_match('/^([+])(\d)$/', $level, $matches)) {
             return $defaultLevel + (int)$matches[2];
         }
@@ -338,6 +338,60 @@ class PhpstanRunner implements PhpstanRunnerInterface
         }
 
         return $paths;
+    }
+
+    /**
+     * @param string $module
+     *
+     * @throws \RuntimeException
+     *
+     * @return array<string, string>
+     */
+    protected function resolveCorePaths($module)
+    {
+        $paths = [];
+        [$namespace, $module] = explode('.', $module, 2);
+
+        $pathToInternalNamespace = $this->config->getPathToInternalNamespace($namespace);
+        if ($namespace !== null && $pathToInternalNamespace === null) {
+            return $this->resolveCommonModulePath([], $module, $namespace);
+        }
+
+        if ($module === 'all') {
+            if ($pathToInternalNamespace === null) {
+                throw new RuntimeException('Namespace invalid: ' . $namespace);
+            }
+
+            $modules = $this->getCoreModules($pathToInternalNamespace);
+            foreach ($modules as $module) {
+                $path = $pathToInternalNamespace . $module . DIRECTORY_SEPARATOR;
+                $paths = $this->addPath($paths, $path, $namespace);
+            }
+
+            return $paths;
+        }
+
+        if ($pathToInternalNamespace && is_dir($pathToInternalNamespace . $module)) {
+            return $this->addPath($paths, $pathToInternalNamespace . $module . DIRECTORY_SEPARATOR, $namespace);
+        }
+
+        return $this->resolveCommonModulePath($paths, $module, $namespace);
+    }
+
+    /**
+     * @param array $paths
+     * @param string|null $module
+     * @param string|null $namespace
+     *
+     * @return array<string>
+     */
+    protected function resolveCommonModulePath(array $paths, ?string $module, ?string $namespace): array
+    {
+        $moduleVendor = $this->dasherize($namespace);
+        $module = $this->dasherize($module);
+        $path = $this->config->getPathToRoot() . 'vendor' . DIRECTORY_SEPARATOR . $moduleVendor . DIRECTORY_SEPARATOR . $module . DIRECTORY_SEPARATOR;
+
+        return $this->addPath($paths, $path, $namespace);
     }
 
     /**
@@ -457,46 +511,6 @@ class PhpstanRunner implements PhpstanRunnerInterface
         $pathToModules = $this->config->getPathToInternalNamespace($namespace);
 
         return dirname($pathToModules) . DIRECTORY_SEPARATOR;
-    }
-
-    /**
-     * @param string $module
-     *
-     * @throws \RuntimeException
-     *
-     * @return array<string, string>
-     */
-    protected function resolveCorePaths($module)
-    {
-        $paths = [];
-        [$namespace, $module] = explode('.', $module, 2);
-
-        if ($module === 'all') {
-            $pathToInternalNamespace = $this->config->getPathToInternalNamespace($namespace);
-            if ($pathToInternalNamespace === null) {
-                throw new RuntimeException('Namespace invalid: ' . $namespace);
-            }
-
-            $modules = $this->getCoreModules($pathToInternalNamespace);
-            foreach ($modules as $module) {
-                $path = $pathToInternalNamespace . $module . DIRECTORY_SEPARATOR;
-                $paths = $this->addPath($paths, $path, $namespace);
-            }
-
-            return $paths;
-        }
-
-        $pathToInternalNamespace = $this->config->getPathToInternalNamespace($namespace);
-        if ($pathToInternalNamespace && is_dir($pathToInternalNamespace . $module)) {
-            return $this->addPath($paths, $pathToInternalNamespace . $module . DIRECTORY_SEPARATOR, $namespace);
-        }
-
-        $vendor = $this->dasherize($namespace);
-        $module = $this->dasherize($module);
-        $path = $this->config->getPathToRoot() . 'vendor' . DIRECTORY_SEPARATOR . $vendor . DIRECTORY_SEPARATOR . $module . DIRECTORY_SEPARATOR;
-        $paths = $this->addPath($paths, $path, $namespace);
-
-        return $paths;
     }
 
     /**
@@ -662,5 +676,24 @@ class PhpstanRunner implements PhpstanRunnerInterface
         }
 
         return false;
+    }
+
+    /**
+     * @param string|null $module
+     *
+     * @return string
+     */
+    protected function buildMessage(?string $module = null): string
+    {
+        $message = 'Run PHPStan in ';
+        if ($this->config->isStandaloneMode()) {
+            return $message . 'Standalone Mode';
+        }
+
+        if ($module !== null) {
+            return $message . 'module ' . $module;
+        }
+
+        return $message . 'PROJECT level';
     }
 }

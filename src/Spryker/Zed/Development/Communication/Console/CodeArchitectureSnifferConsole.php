@@ -113,21 +113,11 @@ class CodeArchitectureSnifferConsole extends Console
     {
         /** @var string $module */
         $module = $this->input->getOption(static::OPTION_MODULE);
-        $isCore = strpos($module, '.') !== false;
-        $message = sprintf('Run Architecture Sniffer for %s', $isCore ? 'CORE' : 'PROJECT');
-
-        if ($module) {
-            $module = $this->normalizeModuleName($module);
-            $message .= ' in ' . $module . ' module';
-        }
-
         /** @var string|null $path */
         $path = $this->input->getArgument(static::ARGUMENT_SUB_PATH);
+        $isCore = strpos((string)$module, '.') !== false;
 
-        if ($path) {
-            $message .= ' (' . $path . ')';
-        }
-
+        $message = $this->buildMessage($module, $path, $isCore);
         $this->info($message);
 
         if ($isCore) {
@@ -155,6 +145,15 @@ class CodeArchitectureSnifferConsole extends Console
     protected function runForCore(OutputInterface $output, $moduleArgument, $subPath): bool
     {
         $moduleTransferCollection = $this->getModulesToExecute($moduleArgument);
+
+        if (!$moduleTransferCollection) {
+            $customPath = $this->getCommonPath($moduleArgument, $subPath);
+
+            if (file_exists($customPath)) {
+                return $this->runCustomPath($output, $customPath);
+            }
+        }
+
         if (!$moduleTransferCollection) {
             $output->writeln(sprintf('<error>No module(s) found: `%s`.</error>', $moduleArgument));
 
@@ -462,5 +461,54 @@ class CodeArchitectureSnifferConsole extends Console
         }
 
         return $this->buildPath($customPath);
+    }
+
+    /**
+     * @param string|null $module
+     * @param string|null $path
+     *
+     * @return string
+     */
+    protected function getCommonPath(?string $module, ?string $path): string
+    {
+        [$namespace, $module] = explode('.', $module);
+
+        $moduleVendor = $this->dasherize($namespace);
+        $module = $this->dasherize($module);
+
+        return sprintf(
+            '%s/vendor/%s/%s/%s',
+            $this->getFactory()->getConfig()->getPathToRoot(),
+            $moduleVendor,
+            $module,
+            $path,
+        );
+    }
+
+    /**
+     * @param string|null $module
+     * @param string|null $path
+     * @param bool $isCore
+     *
+     * @return string
+     */
+    protected function buildMessage(?string $module = null, ?string $path = null, bool $isCore = true): string
+    {
+        if ($this->getFactory()->getConfig()->isStandaloneMode()) {
+            return 'Run Architecture Sniffer in Standalone Mode';
+        }
+
+        $message = sprintf('Run Architecture Sniffer for %s', $isCore ? 'CORE' : 'PROJECT');
+
+        if ($module !== null) {
+            $module = $this->normalizeModuleName($module);
+            $message .= ' in ' . $module . ' module';
+        }
+
+        if ($path) {
+            $message .= ' (' . $path . ')';
+        }
+
+        return $message;
     }
 }

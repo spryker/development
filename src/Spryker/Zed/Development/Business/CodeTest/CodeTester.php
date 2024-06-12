@@ -107,7 +107,9 @@ class CodeTester
         $moduleFilterTransfer = $this->buildModuleFilterTransfer($moduleName);
         $modules = $this->developmentToModuleFinderFacade->getModules($moduleFilterTransfer);
         if (!$modules) {
-            throw new RuntimeException('No matching core modules found.');
+            $path = $this->getCommonModulePath($moduleName);
+
+            return $this->runTestCommand($path, $options) ? static::CODE_SUCCESS : static::CODE_ERROR;
         }
 
         $result = static::CODE_SUCCESS;
@@ -146,7 +148,9 @@ class CodeTester
         $moduleFilterTransfer = $this->buildModuleFilterTransfer($moduleName);
         $modules = $this->developmentToModuleFinderFacade->getModules($moduleFilterTransfer);
         if (!$modules) {
-            throw new RuntimeException('No matching core modules found.');
+            $path = $this->getCommonModulePath($moduleName);
+
+            return $this->runFixturesCommand($path, $options) ? static::CODE_SUCCESS : static::CODE_ERROR;
         }
 
         $result = static::CODE_SUCCESS;
@@ -258,7 +262,7 @@ class CodeTester
     protected function runFixturesCommand(?string $path, array $options): int
     {
         if ($options[static::OPTION_INITIALIZE] && !$options[static::OPTION_DRY_RUN]) {
-            $this->runCodeceptionBuild($options);
+            $this->runCodeceptionBuild($options, $path);
         }
 
         $commandLine = [];
@@ -283,14 +287,16 @@ class CodeTester
 
     /**
      * @param array<string, mixed> $options
+     * @param string|null $path
      *
      * @return void
      */
-    protected function runCodeceptionBuild(array $options): void
+    protected function runCodeceptionBuild(array $options, ?string $path = null): void
     {
         $commandLine = [];
 
-        $commandLine[] = 'vendor/bin/codecept';
+        $commandPath = $path ?? '';
+        $commandLine[] = $commandPath . 'vendor/bin/codecept';
         $commandLine[] = 'build';
 
         $process = new Process($commandLine, $this->config->getPathToRoot(), null, null, $this->config->getProcessTimeout());
@@ -318,5 +324,25 @@ class CodeTester
         echo implode(' ', $output) . PHP_EOL;
 
         return static::CODE_SUCCESS;
+    }
+
+    /**
+     * @param string|null $module
+     *
+     * @return string
+     */
+    protected function getCommonModulePath(?string $module = null): string
+    {
+        [$namespace, $module] = explode('.', $module);
+
+        $moduleVendor = strtolower($namespace);
+        $module = strtolower($module);
+
+        return sprintf(
+            '%s/vendor/%s/%s/',
+            $this->config->getPathToRoot(),
+            $moduleVendor,
+            $module,
+        );
     }
 }

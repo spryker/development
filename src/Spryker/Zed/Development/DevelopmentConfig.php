@@ -7,6 +7,7 @@
 
 namespace Spryker\Zed\Development;
 
+use Spryker\Shared\Config\Config;
 use Spryker\Shared\Development\DevelopmentConstants;
 use Spryker\Shared\Kernel\KernelConstants;
 use Spryker\Zed\Development\Business\IdeAutoCompletion\IdeAutoCompletionConstants;
@@ -826,5 +827,37 @@ class DevelopmentConfig extends AbstractBundleConfig
     public function getProcessTimeout(): int
     {
         return static::TIMEOUT_DEFAULT;
+    }
+
+    /**
+     * Specification:
+     * - Is used to determine if the application is in the standalone mode e.g. without the project context.
+     *
+     * @api
+     *
+     * @return bool
+     */
+    public function isStandaloneMode(): bool
+    {
+        return defined('DEVELOPMENT_STANDALONE_MODE') && DEVELOPMENT_STANDALONE_MODE;
+    }
+
+    /**
+     * Specification:
+     * - Gets list of console commands for the standalone mode e.g. without the project context.
+     *
+     * @api
+     *
+     * @return array
+     */
+    public function getStandaloneConsoleCommands(): array
+    {
+        if (!$this->isStandaloneMode()) {
+            return [];
+        }
+
+        include APPLICATION_ROOT_DIR . Config::CONFIG_FILE_PREFIX . 'development' . Config::CONFIG_FILE_SUFFIX;
+
+        return $config[DevelopmentConstants::STANDALONE_COMMANDS] ?? [];
     }
 }

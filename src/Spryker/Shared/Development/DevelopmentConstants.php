@@ -50,4 +50,14 @@ interface DevelopmentConstants
      * @var string
      */
     public const DIRECTORY_PERMISSION = 'DEVELOPMENT:DIRECTORY_PERMISSION';
+
+    /**
+     * Specification:
+     * - Sets the list of available console commands for the standalone mode.
+     *
+     * @api
+     *
+     * @var string
+     */
+    public const STANDALONE_COMMANDS = 'DEVELOPMENT:COMMANDS_STANDALONE';
 }

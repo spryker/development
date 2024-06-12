@@ -108,6 +108,10 @@ class CodeStyleSnifferConsole extends Console
      */
     protected function buildMessage($module, $path)
     {
+        if ($this->getFactory()->getConfig()->isStandaloneMode()) {
+            return 'Run Code Style Sniffer in Standalone Mode';
+        }
+
         $isCore = strpos($module, '.') !== false;
         $message = sprintf('Run Code Style Sniffer for %s', $isCore ? 'CORE' : 'PROJECT');
 
