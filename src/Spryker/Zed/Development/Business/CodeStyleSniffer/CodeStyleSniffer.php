@@ -8,16 +8,9 @@
 namespace Spryker\Zed\Development\Business\CodeStyleSniffer;
 
 use Laminas\Config\Reader\Xml;
-use Laminas\Filter\FilterChain;
-use Laminas\Filter\StringToLower;
-use Laminas\Filter\Word\CamelCaseToDash;
-use RuntimeException;
 use Spryker\Zed\Development\Business\CodeStyleSniffer\Config\CodeStyleSnifferConfigurationInterface;
-use Spryker\Zed\Development\Business\CodeStyleSniffer\Config\CodeStyleSnifferConfigurationLoaderInterface;
-use Spryker\Zed\Development\Business\Exception\CodeStyleSniffer\PathDoesNotExistException;
 use Spryker\Zed\Development\Business\Resolver\PathResolverInterface;
 use Spryker\Zed\Development\DevelopmentConfig;
-use Symfony\Component\Finder\Finder;
 use Symfony\Component\Process\Process;
 
 class CodeStyleSniffer
@@ -95,7 +88,7 @@ class CodeStyleSniffer
         }
 
         $pathOption = $options['path'] ?? null;
-        $options +=  $this->getDefaultIgnoredPath($module, $pathOption);
+        $options += $this->getDefaultIgnoredPath($module, $pathOption);
 
         $paths = $this->pathResolver->resolvePaths($module, $namespace, $pathOption, $options);
         $this->countTotalPaths = count($paths);

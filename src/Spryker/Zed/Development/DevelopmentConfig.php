@@ -81,6 +81,17 @@ class DevelopmentConfig extends AbstractBundleConfig
     ];
 
     /**
+     * @var array
+     */
+    protected const APPLICATION_LAYERS = [
+        'Zed',
+        'Client',
+        'Yves',
+        'Service',
+        'Shared',
+    ];
+
+    /**
      * @var array<string>
      */
     protected const INTERNAL_NAMESPACES_LIST = [
@@ -179,6 +190,19 @@ class DevelopmentConfig extends AbstractBundleConfig
     public function getApplicationNamespaces()
     {
         return static::APPLICATION_NAMESPACES;
+    }
+
+    /**
+     * Specification:
+     * - Gets Application layers.
+     *
+     * @api
+     *
+     * @return array<string>
+     */
+    public function getApplicationLayers(): array
+    {
+        return static::APPLICATION_LAYERS;
     }
 
     /**
@@ -817,6 +841,32 @@ class DevelopmentConfig extends AbstractBundleConfig
         return [
             static::GROUP_SPRYKER_TEST,
         ];
+    }
+
+    /**
+     * Specification:
+     * - Returns Spryker namespace.
+     *
+     * @api
+     *
+     * @return string
+     */
+    public function getNamespaceSpryker(): string
+    {
+        return static::NAMESPACE_SPRYKER;
+    }
+
+    /**
+     * Specification:
+     * - Returns Spryker Shop namespace.
+     *
+     * @api
+     *
+     * @return string
+     */
+    public function getNamespaceSprykerShop(): string
+    {
+        return static::NAMESPACE_SPRYKER_SHOP;
     }
 
     /**

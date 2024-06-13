@@ -63,24 +63,14 @@ class CodeArchitectureSnifferConsole extends Console
     protected const OPTION_VERBOSE = 'verbose';
 
     /**
-     * @var array
-     */
-    protected const APPLICATION_LAYERS = ['Zed', 'Client', 'Yves', 'Service', 'Shared'];
-
-    /**
-     * @var string
-     */
-    protected const NAMESPACE_SPRYKER_SHOP = 'SprykerShop';
-
-    /**
-     * @var string
-     */
-    protected const NAMESPACE_SPRYKER = 'Spryker';
-
-    /**
      * @var string
      */
     protected const SOURCE_FOLDER_NAME = 'src';
+
+    /**
+     * @var string
+     */
+    protected const RUN_IN_STANDALONE_MODE = 'Run Architecture Sniffer in Standalone Mode';
 
     /**
      * @return void
@@ -283,7 +273,7 @@ class CodeArchitectureSnifferConsole extends Console
 
             $paths = [];
             if ($module) {
-                foreach (static::APPLICATION_LAYERS as $layer) {
+                foreach ($this->getFactory()->getConfig()->getApplicationLayers() as $layer) {
                     $paths[] = $path . $layer . DIRECTORY_SEPARATOR . $module . DIRECTORY_SEPARATOR;
                 }
             } else {
@@ -495,18 +485,19 @@ class CodeArchitectureSnifferConsole extends Console
     protected function buildMessage(?string $module = null, ?string $path = null, bool $isCore = true): string
     {
         if ($this->getFactory()->getConfig()->isStandaloneMode()) {
-            return 'Run Architecture Sniffer in Standalone Mode';
+            return static::RUN_IN_STANDALONE_MODE;
         }
 
         $message = sprintf('Run Architecture Sniffer for %s', $isCore ? 'CORE' : 'PROJECT');
 
         if ($module !== null) {
             $module = $this->normalizeModuleName($module);
-            $message .= ' in ' . $module . ' module';
+
+            $message = sprintf('%s in %s module', $message, $module);
         }
 
         if ($path) {
-            $message .= ' (' . $path . ')';
+            $mesage = sprintf('%s (%s)', $message, $path);
         }
 
         return $message;

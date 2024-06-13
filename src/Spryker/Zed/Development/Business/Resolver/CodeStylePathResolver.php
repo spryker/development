@@ -10,6 +10,7 @@ namespace Spryker\Zed\Development\Business\Resolver;
 use Laminas\Filter\FilterChain;
 use Laminas\Filter\StringToLower;
 use Laminas\Filter\Word\CamelCaseToDash;
+use RuntimeException;
 use Spryker\Zed\Development\Business\CodeStyleSniffer\Config\CodeStyleSnifferConfigurationLoaderInterface;
 use Spryker\Zed\Development\Business\Exception\CodeStyleSniffer\PathDoesNotExistException;
 use Spryker\Zed\Development\DevelopmentConfig;
@@ -18,24 +19,19 @@ use Symfony\Component\Finder\Finder;
 class CodeStylePathResolver implements PathResolverInterface
 {
     /**
-     * @var array<string>
+     * @var string
      */
-    protected const APPLICATION_NAMESPACES = ['Orm'];
-
-    /**
-     * @var array<string>
-     */
-    protected const APPLICATION_LAYERS = ['Zed', 'Client', 'Yves', 'Service', 'Shared'];
+    protected const ERROR_NAMESPACE_INVALID = 'Namespace is invalid: %s';
 
     /**
      * @var string
      */
-    protected const NAMESPACE_SPRYKER_SHOP = 'SprykerShop';
+    protected const ERROR_NO_VALID_PATH = 'Could not find a valid path to your module "%s". Expected path "%s". Maybe there is a typo in the module name?';
 
     /**
      * @var string
      */
-    protected const NAMESPACE_SPRYKER = 'Spryker';
+    protected const ERROR_SUFFIX_ISNT_POSSIBLE = 'Path suffix option is not possible for "all".';
 
     /**
      * @var \Spryker\Zed\Development\DevelopmentConfig
@@ -96,9 +92,14 @@ class CodeStylePathResolver implements PathResolverInterface
      */
     protected function resolveCommonModulePath(?string $module, ?string $namespace, ?string $path, array $options): array
     {
-        $vendor = $this->normalizeName($namespace);
+        $moduleVendor = $this->normalizeName($namespace);
         $module = $this->normalizeName($module);
-        $path = APPLICATION_VENDOR_DIR . DIRECTORY_SEPARATOR. $vendor . DIRECTORY_SEPARATOR . $module . DIRECTORY_SEPARATOR;
+        $path = sprintf(
+            '%s/%s/%s/',
+            APPLICATION_VENDOR_DIR,
+            $moduleVendor,
+            $module,
+        );
 
         return $this->addPath([], $path, $options);
     }
@@ -129,15 +130,14 @@ class CodeStylePathResolver implements PathResolverInterface
      */
     protected function resolveProjectPath(string $module, ?string $pathSuffix, array $options): array
     {
-        $projectNamespaces = $this->config->getProjectNamespaces();
-        $namespaces = array_merge(static::APPLICATION_NAMESPACES, $projectNamespaces);
+        $namespaces = array_merge($this->config->getApplicationNamespaces() , $this->config->getProjectNamespaces());
         $pathToRoot = $this->config->getPathToRoot();
 
         $paths = [];
         foreach ($namespaces as $namespace) {
             $path = $pathToRoot . 'src' . DIRECTORY_SEPARATOR . $namespace . DIRECTORY_SEPARATOR;
 
-            foreach (static::APPLICATION_LAYERS as $layer) {
+            foreach ($this->config->getApplicationLayers() as $layer) {
                 $layerPath = $path . $layer . DIRECTORY_SEPARATOR . $module . DIRECTORY_SEPARATOR;
                 if ($pathSuffix) {
                     $layerPath .= $pathSuffix;
@@ -166,13 +166,13 @@ class CodeStylePathResolver implements PathResolverInterface
     protected function getPathsToAllCoreModules(string $namespace, ?string $pathSuffix, array $options): array
     {
         if ($pathSuffix) {
-            throw new RuntimeException('Path suffix option is not possible for "all".');
+            throw new RuntimeException(static::ERROR_SUFFIX_ISNT_POSSIBLE);
         }
 
         $pathToInternalNamespace = $this->config->getPathToInternalNamespace($namespace);
 
         if (!$pathToInternalNamespace) {
-            throw new RuntimeException('Namespace invalid: ' . $namespace);
+            throw new RuntimeException(sprintf(static::ERROR_NAMESPACE_INVALID, $namespace));
         }
 
         $paths = [];
@@ -204,7 +204,7 @@ class CodeStylePathResolver implements PathResolverInterface
         }
 
         $message = sprintf(
-            'Could not find a valid path to your module "%s". Expected path "%s". Maybe there is a typo in the module name?',
+            static::ERROR_NO_VALID_PATH,
             $module,
             $path,
         );
@@ -226,9 +226,14 @@ class CodeStylePathResolver implements PathResolverInterface
             return $this->buildPath($pathToInternalNamespace . $module . DIRECTORY_SEPARATOR, $pathSuffix);
         }
 
-        $vendor = $this->normalizeName($namespace);
+        $moduleVendor = $this->normalizeName($namespace);
         $module = $this->normalizeName($module);
-        $path = $this->config->getPathToRoot() . 'vendor' . DIRECTORY_SEPARATOR . $vendor . DIRECTORY_SEPARATOR . $module . DIRECTORY_SEPARATOR;
+        $path = sprintf(
+            '%s/vendor/%s/%s/',
+            $this->config->getPathToRoot(),
+            $moduleVendor,
+            $module,
+        );
 
         return $this->buildPath($path, $pathSuffix);
     }

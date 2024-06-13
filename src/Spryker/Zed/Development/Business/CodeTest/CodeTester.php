@@ -10,7 +10,6 @@ namespace Spryker\Zed\Development\Business\CodeTest;
 use Generated\Shared\Transfer\ModuleFilterTransfer;
 use Generated\Shared\Transfer\ModuleTransfer;
 use Generated\Shared\Transfer\OrganizationTransfer;
-use RuntimeException;
 use Spryker\Zed\Development\Business\Codeception\Argument\Builder\CodeceptionArgumentsBuilderInterface;
 use Spryker\Zed\Development\Dependency\Facade\DevelopmentToModuleFinderFacadeInterface;
 use Spryker\Zed\Development\DevelopmentConfig;
@@ -90,8 +89,6 @@ class CodeTester
      * @param string|null $moduleName
      * @param array<string, mixed> $options
      *
-     * @throws \RuntimeException
-     *
      * @return int
      */
     public function runTest(?string $moduleName, array $options = []): int
@@ -130,8 +127,6 @@ class CodeTester
      *
      * @param string|null $moduleName
      * @param array<string, mixed> $options
-     *
-     * @throws \RuntimeException
      *
      * @return int
      */

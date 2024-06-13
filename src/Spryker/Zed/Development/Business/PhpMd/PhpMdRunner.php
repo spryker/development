@@ -83,10 +83,9 @@ class PhpMdRunner
         return $this->runPhpMdCommand($path, $options);
     }
 
-
     /**
-     * @param string|null $namespace
-     * @param string|null $pathOption
+     * @param string|null $bundle
+     * @param string|null $bundle
      *
      * @return array<string, string|null>
      */
@@ -186,7 +185,6 @@ class PhpMdRunner
         return $this->config->getPathToRoot() . 'vendor' . DIRECTORY_SEPARATOR . $moduleVendor . DIRECTORY_SEPARATOR . $module . DIRECTORY_SEPARATOR;
     }
 
-
     /**
      * @param string $path
      * @param array<string, mixed> $options
@@ -228,7 +226,7 @@ class PhpMdRunner
     }
 
     /**
-     * @param strring $path
+     * @param string $path
      *
      * @return string
      */

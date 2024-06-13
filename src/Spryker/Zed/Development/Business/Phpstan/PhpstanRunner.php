@@ -31,11 +31,6 @@ class PhpstanRunner implements PhpstanRunnerInterface
     /**
      * @var string
      */
-    public const NAMESPACE_SPRYKER_SHOP = 'SprykerShop';
-
-    /**
-     * @var string
-     */
     public const NAMESPACE_SPRYKER = 'Spryker';
 
     /**
@@ -278,7 +273,7 @@ class PhpstanRunner implements PhpstanRunnerInterface
     protected function getLevel(InputInterface $input, string $path, string $configFilePath): int
     {
         $defaultLevel = $this->getDefaultLevel($path, $configFilePath);
-        /** @var string $level */
+        /** @var string|null $level */
         $level = $input->getOption(static::OPTION_LEVEL);
 
         if ($level === null) {
@@ -362,13 +357,7 @@ class PhpstanRunner implements PhpstanRunnerInterface
                 throw new RuntimeException('Namespace invalid: ' . $namespace);
             }
 
-            $modules = $this->getCoreModules($pathToInternalNamespace);
-            foreach ($modules as $module) {
-                $path = $pathToInternalNamespace . $module . DIRECTORY_SEPARATOR;
-                $paths = $this->addPath($paths, $path, $namespace);
-            }
-
-            return $paths;
+            return $this->resolveCoreModules($paths, $pathToInternalNamespace, $namespace);
         }
 
         if ($pathToInternalNamespace && is_dir($pathToInternalNamespace . $module)) {
@@ -376,6 +365,24 @@ class PhpstanRunner implements PhpstanRunnerInterface
         }
 
         return $this->resolveCommonModulePath($paths, $module, $namespace);
+    }
+
+    /**
+     * @param array $paths
+     * @param string $pathToInternalNamespace
+     * @param string $namespace
+     *
+     * @return array<string>
+     */
+    protected function resolveCoreModules(array $paths, string $pathToInternalNamespace, string $namespace): array
+    {
+        $modules = $this->getCoreModules($pathToInternalNamespace);
+        foreach ($modules as $module) {
+            $path = $pathToInternalNamespace . $module . DIRECTORY_SEPARATOR;
+            $paths = $this->addPath($paths, $path, $namespace);
+        }
+
+        return $paths;
     }
 
     /**
@@ -389,7 +396,12 @@ class PhpstanRunner implements PhpstanRunnerInterface
     {
         $moduleVendor = $this->dasherize($namespace);
         $module = $this->dasherize($module);
-        $path = $this->config->getPathToRoot() . 'vendor' . DIRECTORY_SEPARATOR . $moduleVendor . DIRECTORY_SEPARATOR . $module . DIRECTORY_SEPARATOR;
+        $path = sprintf(
+            '%s/vendor/%s/%s/',
+            $this->config->getPathToRoot(),
+            $moduleVendor,
+            $module,
+        );
 
         return $this->addPath($paths, $path, $namespace);
     }
@@ -403,7 +415,7 @@ class PhpstanRunner implements PhpstanRunnerInterface
     protected function resolveProjectPaths($module, $pathSuffix = null)
     {
         $projectNamespaces = $this->config->getProjectNamespaces();
-        $namespaces = array_merge(DevelopmentConfig::APPLICATION_NAMESPACES, $projectNamespaces);
+        $namespaces = array_merge($this->config->getApplicationNamespaces(), $projectNamespaces);
         $pathToRoot = $this->config->getPathToRoot();
 
         $paths = [];

@@ -84,19 +84,19 @@ class CodePhpMessDetectorConsole extends Console
      */
     protected function buildMessage(?string $module = null): string
     {
-        $message = 'Run PHPMD in ';
+        $message = 'Run PHPMD in';
         if ($this->getFactory()->getConfig()->isStandaloneMode()) {
-            return $message . 'Standalone Mode';
+            return sprintf('%s Standalone Mode', $message);
         }
 
         if ($module === null) {
-            return $message . 'PROJECT level';
+            return sprintf('%s PROJECT level', $message);
         }
 
         if ($module !== static::OPTION_MODULE_ALL) {
-            return $message . $module . ' CORE module';
+            return sprintf('%s %s CORE module', $message, $module);
         }
 
-        return $mesage . 'all CORE modules';
+        return sprintf('%s all CORE modules', $message);
     }
 }
