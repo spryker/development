@@ -130,7 +130,7 @@ class CodeStylePathResolver implements PathResolverInterface
      */
     protected function resolveProjectPath(string $module, ?string $pathSuffix, array $options): array
     {
-        $namespaces = array_merge($this->config->getApplicationNamespaces() , $this->config->getProjectNamespaces());
+        $namespaces = array_merge($this->config->getApplicationNamespaces(), $this->config->getProjectNamespaces());
         $pathToRoot = $this->config->getPathToRoot();
 
         $paths = [];

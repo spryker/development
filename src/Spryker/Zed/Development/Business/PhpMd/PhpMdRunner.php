@@ -85,7 +85,6 @@ class PhpMdRunner
 
     /**
      * @param string|null $bundle
-     * @param string|null $bundle
      *
      * @return array<string, string|null>
      */
