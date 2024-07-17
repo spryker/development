@@ -8,7 +8,7 @@
 namespace Spryker\Zed\Development\Business\PhpMd;
 
 use ErrorException;
-use Laminas\Filter\Word\UnderscoreToCamelCase;
+use Spryker\Zed\Development\Business\Normalizer\NameNormalizerInterface;
 use Spryker\Zed\Development\DevelopmentConfig;
 use Symfony\Component\Process\Process;
 
@@ -50,11 +50,20 @@ class PhpMdRunner
     protected $config;
 
     /**
-     * @param \Spryker\Zed\Development\DevelopmentConfig $config
+     * @var \Spryker\Zed\Development\Business\Normalizer\NameNormalizerInterface $nameNormalizer
      */
-    public function __construct(DevelopmentConfig $config)
-    {
+    protected NameNormalizerInterface $nameNormalizer;
+
+    /**
+     * @param \Spryker\Zed\Development\DevelopmentConfig $config
+     * @param \Spryker\Zed\Development\Business\Normalizer\NameNormalizerInterface $nameNormalizer
+     */
+    public function __construct(
+        DevelopmentConfig $config,
+        NameNormalizerInterface $nameNormalizer
+    ) {
         $this->config = $config;
+        $this->nameNormalizer = $nameNormalizer;
     }
 
     /**
@@ -98,20 +107,6 @@ class PhpMdRunner
     }
 
     /**
-     * @param string $value
-     *
-     * @return string
-     */
-    protected function convertToCamelCase(string $value): string
-    {
-        $filter = new UnderscoreToCamelCase();
-        /** @var string $camelCasedValue */
-        $camelCasedValue = $filter->filter($value);
-
-        return ucfirst($camelCasedValue);
-    }
-
-    /**
      * @param string $bundle
      *
      * @return string
@@ -123,7 +118,7 @@ class PhpMdRunner
                 return $this->config->getPathToCore();
             }
 
-            $bundle = $this->convertToCamelCase($bundle);
+            $bundle = $this->nameNormalizer->camelize($bundle);
 
             return $this->getPathToBundle($bundle);
         }
@@ -163,11 +158,10 @@ class PhpMdRunner
             return $pathToInternalNamespace . $module . DIRECTORY_SEPARATOR;
         }
 
-        $namespace = $this->convertToCamelCase($namespace);
-        $module = $this->convertToCamelCase($module);
-        $path = $this->config->getPathToRoot() . 'vendor' . DIRECTORY_SEPARATOR . $namespace . DIRECTORY_SEPARATOR . $module . DIRECTORY_SEPARATOR;
+        $namespace = $this->nameNormalizer->camelize($namespace);
+        $module = $this->nameNormalizer->camelize($module);
 
-        return $path;
+        return $this->getFullPathFromRoot($namespace, $module);
     }
 
     /**
@@ -178,10 +172,26 @@ class PhpMdRunner
      */
     protected function resolveCommonModulePath(string $module, string $namespace): string
     {
-        $moduleVendor = strtolower($namespace);
-        $module = strtolower($module);
+        $moduleVendor = $this->nameNormalizer->dasherize($namespace);
+        $module = $this->nameNormalizer->dasherize($module);
 
-        return $this->config->getPathToRoot() . 'vendor' . DIRECTORY_SEPARATOR . $moduleVendor . DIRECTORY_SEPARATOR . $module . DIRECTORY_SEPARATOR;
+        return $this->getFullPathFromRoot($moduleVendor, $module);
+    }
+
+    /**
+     * @param string $moduleVendor
+     * @param string $module
+     *
+     * @return string
+     */
+    protected function getFullPathFromRoot(string $moduleVendor, string $module): string
+    {
+        return sprintf(
+            '%s/vendor/%s/%s/',
+            $this->config->getPathToRoot(),
+            $moduleVendor,
+            $module
+        );
     }
 
     /**

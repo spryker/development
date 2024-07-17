@@ -7,12 +7,10 @@
 
 namespace Spryker\Zed\Development\Business\Resolver;
 
-use Laminas\Filter\FilterChain;
-use Laminas\Filter\StringToLower;
-use Laminas\Filter\Word\CamelCaseToDash;
 use RuntimeException;
 use Spryker\Zed\Development\Business\CodeStyleSniffer\Config\CodeStyleSnifferConfigurationLoaderInterface;
 use Spryker\Zed\Development\Business\Exception\CodeStyleSniffer\PathDoesNotExistException;
+use Spryker\Zed\Development\Business\Normalizer\NameNormalizerInterface;
 use Spryker\Zed\Development\DevelopmentConfig;
 use Symfony\Component\Finder\Finder;
 
@@ -44,14 +42,22 @@ class CodeStylePathResolver implements PathResolverInterface
     protected $codeStyleSnifferConfigurationLoader;
 
     /**
+     * @var \Spryker\Zed\Development\Business\Normalizer\NameNormalizerInterface $nameNormalizer
+     */
+    protected NameNormalizerInterface $nameNormalizer;
+
+    /**
      * @param \Spryker\Zed\Development\DevelopmentConfig $config
+     * @param \Spryker\Zed\Development\Business\Normalizer\NameNormalizerInterface $nameNormalizer
      * @param \Spryker\Zed\Development\Business\CodeStyleSniffer\Config\CodeStyleSnifferConfigurationLoaderInterface $codeStyleSnifferConfigurationLoader
      */
     public function __construct(
         DevelopmentConfig $config,
+        NameNormalizerInterface $nameNormalizer,
         CodeStyleSnifferConfigurationLoaderInterface $codeStyleSnifferConfigurationLoader
     ) {
         $this->config = $config;
+        $this->nameNormalizer = $nameNormalizer;
         $this->codeStyleSnifferConfigurationLoader = $codeStyleSnifferConfigurationLoader;
     }
 
@@ -92,8 +98,9 @@ class CodeStylePathResolver implements PathResolverInterface
      */
     protected function resolveCommonModulePath(?string $module, ?string $namespace, ?string $path, array $options): array
     {
-        $moduleVendor = $this->normalizeName($namespace);
-        $module = $this->normalizeName($module);
+        $moduleVendor = $this->nameNormalizer->dasherize($namespace);
+        $module = $this->nameNormalizer->dasherize($module);
+
         $path = sprintf(
             '%s/%s/%s/',
             APPLICATION_VENDOR_DIR,
@@ -226,8 +233,8 @@ class CodeStylePathResolver implements PathResolverInterface
             return $this->buildPath($pathToInternalNamespace . $module . DIRECTORY_SEPARATOR, $pathSuffix);
         }
 
-        $moduleVendor = $this->normalizeName($namespace);
-        $module = $this->normalizeName($module);
+        $moduleVendor = $this->nameNormalizer->dasherize($namespace);
+        $module = $this->nameNormalizer->dasherize($module);
         $path = sprintf(
             '%s/vendor/%s/%s/',
             $this->config->getPathToRoot(),
@@ -244,7 +251,7 @@ class CodeStylePathResolver implements PathResolverInterface
      *
      * @return string
      */
-    protected function buildPath($path, $suffix)
+    protected function buildPath(string $path, string $suffix)
     {
         if (!$suffix) {
             return $path;
@@ -254,26 +261,11 @@ class CodeStylePathResolver implements PathResolverInterface
     }
 
     /**
-     * @param string $name
-     *
-     * @return string
-     */
-    protected function normalizeName($name)
-    {
-        $filterChain = new FilterChain();
-        $filterChain
-            ->attach(new CamelCaseToDash())
-            ->attach(new StringToLower());
-
-        return $filterChain->filter($name);
-    }
-
-    /**
      * @param string $path
      *
      * @return bool
      */
-    protected function isPathValid($path)
+    protected function isPathValid(string $path)
     {
         return (is_file($path) || is_dir($path));
     }

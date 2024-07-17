@@ -87,6 +87,7 @@ class DevelopmentConfig extends AbstractBundleConfig
         'Zed',
         'Client',
         'Yves',
+        'Glue',
         'Service',
         'Shared',
     ];

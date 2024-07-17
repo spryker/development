@@ -7,15 +7,13 @@
 
 namespace Spryker\Zed\Development\Business\Phpstan;
 
-use Laminas\Filter\FilterChain;
-use Laminas\Filter\StringToLower;
-use Laminas\Filter\Word\CamelCaseToDash;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use RecursiveRegexIterator;
 use RegexIterator;
 use RuntimeException;
 use SplFileInfo;
+use Spryker\Zed\Development\Business\Normalizer\NameNormalizerInterface;
 use Spryker\Zed\Development\Business\Phpstan\Config\PhpstanConfigFileFinderInterface;
 use Spryker\Zed\Development\Business\Phpstan\Config\PhpstanConfigFileManagerInterface;
 use Spryker\Zed\Development\Business\Traits\PathTrait;
@@ -104,6 +102,11 @@ class PhpstanRunner implements PhpstanRunnerInterface
     protected $phpstanConfigFileManager;
 
     /**
+     * @var \Spryker\Zed\Development\Business\Normalizer\NameNormalizerInterface $nameNormalizer
+     */
+    protected NameNormalizerInterface $nameNormalizer;
+
+    /**
      * @var int
      */
     protected $errorCount = 0;
@@ -112,15 +115,18 @@ class PhpstanRunner implements PhpstanRunnerInterface
      * @param \Spryker\Zed\Development\DevelopmentConfig $config
      * @param \Spryker\Zed\Development\Business\Phpstan\Config\PhpstanConfigFileFinderInterface $phpstanConfigFileFinder
      * @param \Spryker\Zed\Development\Business\Phpstan\Config\PhpstanConfigFileManagerInterface $phpstanConfigFileManager
+     * @param \Spryker\Zed\Development\Business\Normalizer\NameNormalizerInterface $nameNormalizer
      */
     public function __construct(
         DevelopmentConfig $config,
         PhpstanConfigFileFinderInterface $phpstanConfigFileFinder,
-        PhpstanConfigFileManagerInterface $phpstanConfigFileManager
+        PhpstanConfigFileManagerInterface $phpstanConfigFileManager,
+        NameNormalizerInterface $nameNormalizer
     ) {
         $this->config = $config;
         $this->phpstanConfigFileFinder = $phpstanConfigFileFinder;
         $this->phpstanConfigFileManager = $phpstanConfigFileManager;
+        $this->nameNormalizer = $nameNormalizer;
     }
 
     /**
@@ -394,8 +400,8 @@ class PhpstanRunner implements PhpstanRunnerInterface
      */
     protected function resolveCommonModulePath(array $paths, ?string $module, ?string $namespace): array
     {
-        $moduleVendor = $this->dasherize($namespace);
-        $module = $this->dasherize($module);
+        $moduleVendor = $this->nameNormalizer->dasherize($namespace);
+        $module = $this->nameNormalizer->dasherize($module);
         $path = sprintf(
             '%s/vendor/%s/%s/',
             $this->config->getPathToRoot(),
@@ -523,21 +529,6 @@ class PhpstanRunner implements PhpstanRunnerInterface
         $pathToModules = $this->config->getPathToInternalNamespace($namespace);
 
         return dirname($pathToModules) . DIRECTORY_SEPARATOR;
-    }
-
-    /**
-     * @param string $name
-     *
-     * @return string
-     */
-    protected function dasherize($name)
-    {
-        $filterChain = new FilterChain();
-        $filterChain
-            ->attach(new CamelCaseToDash())
-            ->attach(new StringToLower());
-
-        return $filterChain->filter($name);
     }
 
     /**

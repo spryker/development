@@ -182,6 +182,8 @@ use Spryker\Zed\Development\Business\Module\PathBuilder\SprykerShopModulePathBui
 use Spryker\Zed\Development\Business\Module\PathBuilder\SprykerStandaloneModulePathBuilder;
 use Spryker\Zed\Development\Business\Module\ProjectModuleFinder\ProjectModuleFinder;
 use Spryker\Zed\Development\Business\Module\ProjectModuleFinder\ProjectModuleFinderInterface;
+use Spryker\Zed\Development\Business\Normalizer\NameNormalizer;
+use Spryker\Zed\Development\Business\Normalizer\NameNormalizerInterface;
 use Spryker\Zed\Development\Business\Package\PackageFinder\PackageFinder;
 use Spryker\Zed\Development\Business\Package\PackageFinder\PackageFinderInterface;
 use Spryker\Zed\Development\Business\PhpMd\PhpMdRunner;
@@ -263,6 +265,7 @@ class DevelopmentBusinessFactory extends AbstractBusinessFactory
     {
         return new PhpMdRunner(
             $this->getConfig(),
+            $this->createNameNormalizer(),
         );
     }
 
@@ -275,6 +278,7 @@ class DevelopmentBusinessFactory extends AbstractBusinessFactory
             $this->getConfig(),
             $this->createPhpstanConfigFileFinder(),
             $this->createPhpstanConfigFileManager(),
+            $this->createNameNormalizer(),
         );
     }
 
@@ -2211,7 +2215,16 @@ class DevelopmentBusinessFactory extends AbstractBusinessFactory
     {
         return new CodeStylePathResolver(
             $this->getConfig(),
+            $this->createNameNormalizer(),
             $this->createCodeStyleSnifferConfigurationLoader(),
         );
+    }
+
+    /**
+     * @return \Spryker\Zed\Development\Business\Normalizer\NameNormalizerInterface
+     */
+    public function createNameNormalizer(): NameNormalizerInterface
+    {
+        return new NameNormalizer();
     }
 }

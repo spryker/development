@@ -59,5 +59,5 @@ interface DevelopmentConstants
      *
      * @var string
      */
-    public const STANDALONE_COMMANDS = 'DEVELOPMENT:COMMANDS_STANDALONE';
+    public const STANDALONE_COMMANDS = 'DEVELOPMENT:STANDALONE_COMMANDS';
 }

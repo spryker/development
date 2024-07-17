@@ -107,14 +107,14 @@ class CodeStyleSniffer
     }
 
     /**
-     * @param string|null $namespace
+     * @param string|null $path
      * @param string|null $pathOption
      *
      * @return array<string, string|null>
      */
-    protected function getDefaultIgnoredPath(?string $namespace = null, ?string $pathOption = null): array
+    protected function getDefaultIgnoredPath(?string $path = null, ?string $pathOption = null): array
     {
-        $dontIgnoreVendor = $namespace || $pathOption || $this->config->isStandaloneMode();
+        $dontIgnoreVendor = $path || $pathOption || $this->config->isStandaloneMode();
 
         return [
             static::OPTION_IGNORE => $dontIgnoreVendor ? null : 'vendor/',

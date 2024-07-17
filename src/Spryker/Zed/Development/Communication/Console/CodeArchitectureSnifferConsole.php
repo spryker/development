@@ -10,11 +10,8 @@ namespace Spryker\Zed\Development\Communication\Console;
 use Generated\Shared\Transfer\ModuleFilterTransfer;
 use Generated\Shared\Transfer\ModuleTransfer;
 use Generated\Shared\Transfer\OrganizationTransfer;
-use Laminas\Filter\FilterChain;
-use Laminas\Filter\StringToLower;
-use Laminas\Filter\Word\CamelCaseToDash;
-use Laminas\Filter\Word\UnderscoreToCamelCase;
 use Spryker\Zed\Development\Business\ArchitectureSniffer\ArchitectureSniffer;
+use Spryker\Zed\Development\Business\Normalizer\NameNormalizerInterface;
 use Spryker\Zed\Kernel\Communication\Console\Console;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -73,6 +70,11 @@ class CodeArchitectureSnifferConsole extends Console
     protected const RUN_IN_STANDALONE_MODE = 'Run Architecture Sniffer in Standalone Mode';
 
     /**
+     * @var \Spryker\Zed\Development\Business\Normalizer\NameNormalizerInterface $nameNormalizer
+     */
+    protected NameNormalizerInterface $nameNormalizer;
+
+    /**
      * @return void
      */
     protected function configure(): void
@@ -109,6 +111,8 @@ class CodeArchitectureSnifferConsole extends Console
 
         $message = $this->buildMessage($module, $path, $isCore);
         $this->info($message);
+
+        $this->nameNormalizer = $this->getFactory()->createNameNormalizer();
 
         if ($isCore) {
             $success = $this->runForCore($output, $module, $path);
@@ -382,36 +386,6 @@ class CodeArchitectureSnifferConsole extends Console
     }
 
     /**
-     * @param string $module
-     *
-     * @return string
-     */
-    protected function normalizeModuleName($module)
-    {
-        $filter = new UnderscoreToCamelCase();
-        /** @var string $normalized */
-        $normalized = $filter->filter(str_replace('-', '_', $module));
-        $normalized = ucfirst($normalized);
-
-        return $normalized;
-    }
-
-    /**
-     * @param string $name
-     *
-     * @return string
-     */
-    protected function dasherize($name)
-    {
-        $filterChain = new FilterChain();
-        $filterChain
-            ->attach(new CamelCaseToDash())
-            ->attach(new StringToLower());
-
-        return $filterChain->filter($name);
-    }
-
-    /**
      * @param \Symfony\Component\Console\Output\OutputInterface $output
      * @param int $count
      * @param bool $isIgnored
@@ -463,8 +437,8 @@ class CodeArchitectureSnifferConsole extends Console
     {
         [$namespace, $module] = explode('.', $module);
 
-        $moduleVendor = $this->dasherize($namespace);
-        $module = $this->dasherize($module);
+        $moduleVendor = $this->nameNormalizer->dasherize($namespace);
+        $module = $this->nameNormalizer->dasherize($module);
 
         return sprintf(
             '%s/vendor/%s/%s/%s',
@@ -491,7 +465,7 @@ class CodeArchitectureSnifferConsole extends Console
         $message = sprintf('Run Architecture Sniffer for %s', $isCore ? 'CORE' : 'PROJECT');
 
         if ($module !== null) {
-            $module = $this->normalizeModuleName($module);
+            $module = $this->nameNormalizer->camelize($module);
 
             $message = sprintf('%s in %s module', $message, $module);
         }

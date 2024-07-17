@@ -93,7 +93,7 @@ class CodeTester
      */
     public function runTest(?string $moduleName, array $options = []): int
     {
-        if (!$moduleName) {
+        if ($moduleName === null || $moduleName === '') {
             if ($options[static::OPTION_INITIALIZE] && !$options[static::OPTION_DRY_RUN]) {
                 $this->runCodeceptionBuild($options);
             }
@@ -132,7 +132,7 @@ class CodeTester
      */
     public function runFixtures(?string $moduleName, array $options = []): int
     {
-        if (!$moduleName) {
+        if ($moduleName === null || $moduleName === '') {
             if ($options[static::OPTION_INITIALIZE] && !$options[static::OPTION_DRY_RUN]) {
                 $this->runCodeceptionBuild($options);
             }
@@ -322,11 +322,11 @@ class CodeTester
     }
 
     /**
-     * @param string|null $module
+     * @param string $module
      *
      * @return string
      */
-    protected function getCommonModulePath(?string $module = null): string
+    protected function getCommonModulePath(string $module): string
     {
         [$namespace, $module] = explode('.', $module);
 
