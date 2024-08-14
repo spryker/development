@@ -890,25 +890,6 @@ class DevelopmentConfig extends AbstractBundleConfig
      */
     public function isStandaloneMode(): bool
     {
-        return defined('DEVELOPMENT_STANDALONE_MODE') && DEVELOPMENT_STANDALONE_MODE;
-    }
-
-    /**
-     * Specification:
-     * - Gets list of console commands for the standalone mode e.g. without the project context.
-     *
-     * @api
-     *
-     * @return array
-     */
-    public function getStandaloneConsoleCommands(): array
-    {
-        if (!$this->isStandaloneMode()) {
-            return [];
-        }
-
-        include APPLICATION_ROOT_DIR . Config::CONFIG_FILE_PREFIX . 'development' . Config::CONFIG_FILE_SUFFIX;
-
-        return $config[DevelopmentConstants::STANDALONE_COMMANDS] ?? [];
+        return getenv('DEVELOPMENT_STANDALONE_MODE');
     }
 }

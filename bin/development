@@ -1,7 +1,9 @@
 #!/usr/bin/env php
 <?php
-
-define('DEVELOPMENT_STANDALONE_MODE', true);
+/**
+ * This binary file includes commands that were prepared to work in standalone mode
+ */
+putenv('DEVELOPMENT_STANDALONE_MODE=true');
 
 defined('APPLICATION_ENV') || define('APPLICATION_ENV', 'development');
 defined('APPLICATION_CODE_BUCKET') || define('APPLICATION_CODE_BUCKET', 'development');
@@ -18,13 +20,21 @@ defined('APPLICATION_VENDOR_DIR')
 
 require APPLICATION_ROOT_DIR . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
 
-use Spryker\Zed\Development\DevelopmentConfig;
+use Spryker\Zed\Development\Communication\Console\CodeArchitectureSnifferConsole;
+use Spryker\Zed\Development\Communication\Console\CodePhpMessDetectorConsole;
+use Spryker\Zed\Development\Communication\Console\CodePhpstanConsole;
+use Spryker\Zed\Development\Communication\Console\CodeStyleSnifferConsole;
 use Symfony\Component\Console\Application;
 
 $application = new Application();
 
 $application->addCommands(
-    (new DevelopmentConfig())->getStandaloneConsoleCommands(),
+    [
+        new CodeArchitectureSnifferConsole(),
+        new CodePhpMessDetectorConsole(),
+        new CodePhpstanConsole(),
+        new CodeStyleSnifferConsole(),
+    ],
 );
 
 $application->run();

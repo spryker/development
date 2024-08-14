@@ -255,6 +255,7 @@ class DevelopmentBusinessFactory extends AbstractBusinessFactory
             $this->getModuleFinderFacade(),
             $this->createConfigArgumentCollectionBuilder(),
             $this->getConfig(),
+            $this->createNameNormalizer(),
         );
     }
 

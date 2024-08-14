@@ -10,7 +10,9 @@ namespace Spryker\Zed\Development\Business\CodeTest;
 use Generated\Shared\Transfer\ModuleFilterTransfer;
 use Generated\Shared\Transfer\ModuleTransfer;
 use Generated\Shared\Transfer\OrganizationTransfer;
+use RuntimeException;
 use Spryker\Zed\Development\Business\Codeception\Argument\Builder\CodeceptionArgumentsBuilderInterface;
+use Spryker\Zed\Development\Business\Normalizer\NameNormalizerInterface;
 use Spryker\Zed\Development\Dependency\Facade\DevelopmentToModuleFinderFacadeInterface;
 use Spryker\Zed\Development\DevelopmentConfig;
 use Symfony\Component\Process\Process;
@@ -68,6 +70,11 @@ class CodeTester
     protected $config;
 
     /**
+     * @var \Spryker\Zed\Development\Business\Normalizer\NameNormalizerInterface
+     */
+    protected NameNormalizerInterface $nameNormalizer;
+
+    /**
      * @param \Spryker\Zed\Development\Dependency\Facade\DevelopmentToModuleFinderFacadeInterface $developmentToModuleFinderFacade
      * @param \Spryker\Zed\Development\Business\Codeception\Argument\Builder\CodeceptionArgumentsBuilderInterface $argumentBuilder
      * @param \Spryker\Zed\Development\DevelopmentConfig $config
@@ -75,11 +82,13 @@ class CodeTester
     public function __construct(
         DevelopmentToModuleFinderFacadeInterface $developmentToModuleFinderFacade,
         CodeceptionArgumentsBuilderInterface $argumentBuilder,
-        DevelopmentConfig $config
+        DevelopmentConfig $config,
+        NameNormalizerInterface $nameNormalizer,
     ) {
         $this->developmentToModuleFinderFacade = $developmentToModuleFinderFacade;
         $this->argumentBuilder = $argumentBuilder;
         $this->config = $config;
+        $this->nameNormalizer = $nameNormalizer;
     }
 
     /**
@@ -88,6 +97,8 @@ class CodeTester
      *
      * @param string|null $moduleName
      * @param array<string, mixed> $options
+     *
+     * @throws \RuntimeException
      *
      * @return int
      */
@@ -104,9 +115,13 @@ class CodeTester
         $moduleFilterTransfer = $this->buildModuleFilterTransfer($moduleName);
         $modules = $this->developmentToModuleFinderFacade->getModules($moduleFilterTransfer);
         if (!$modules) {
-            $path = $this->getCommonModulePath($moduleName);
+            if ($this->config->isStandaloneMode()) {
+                $path = $this->getCommonModulePath($moduleName);
 
-            return $this->runTestCommand($path, $options) ? static::CODE_SUCCESS : static::CODE_ERROR;
+                return $this->runTestCommand($path, $options) ? static::CODE_SUCCESS : static::CODE_ERROR;
+            }
+
+            throw new RuntimeException('No matching core modules found.');
         }
 
         $result = static::CODE_SUCCESS;
@@ -128,6 +143,8 @@ class CodeTester
      * @param string|null $moduleName
      * @param array<string, mixed> $options
      *
+     * @throws \RuntimeException
+     *
      * @return int
      */
     public function runFixtures(?string $moduleName, array $options = []): int
@@ -143,9 +160,13 @@ class CodeTester
         $moduleFilterTransfer = $this->buildModuleFilterTransfer($moduleName);
         $modules = $this->developmentToModuleFinderFacade->getModules($moduleFilterTransfer);
         if (!$modules) {
-            $path = $this->getCommonModulePath($moduleName);
+            if ($this->config->isStandaloneMode()) {
+                $path = $this->getCommonModulePath($moduleName);
 
-            return $this->runFixturesCommand($path, $options) ? static::CODE_SUCCESS : static::CODE_ERROR;
+                return $this->runFixturesCommand($path, $options) ? static::CODE_SUCCESS : static::CODE_ERROR;
+            }
+
+            throw new RuntimeException('No matching core modules found.');
         }
 
         $result = static::CODE_SUCCESS;
@@ -330,8 +351,8 @@ class CodeTester
     {
         [$namespace, $module] = explode('.', $module);
 
-        $moduleVendor = strtolower($namespace);
-        $module = strtolower($module);
+        $moduleVendor = $this->nameNormalizer->dasherize($namespace);
+        $module = $this->nameNormalizer->dasherize($module);
 
         return sprintf(
             '%s/vendor/%s/%s/',
