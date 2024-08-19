@@ -9,9 +9,9 @@ namespace SprykerTest\Zed\Development\Business\PhpMd;
 
 use Codeception\Test\Unit;
 use ErrorException;
+use Spryker\Zed\Development\Business\Normalizer\NameNormalizerInterface;
 use Spryker\Zed\Development\Business\PhpMd\PhpMdRunner;
 use Spryker\Zed\Development\DevelopmentConfig;
-use Spryker\Zed\Development\Business\Normalizer\NameNormalizerInterface;
 use Symfony\Component\Process\Process;
 
 /**
@@ -88,14 +88,14 @@ class PhpMdRunnerTest extends Unit
     public function shouldUseCustomConfigForStandaloneMode(): void
     {
         // Arrange
-        $phpMdRunner = $this->createPhpMdRunner($standaloneMode = true);
+        $standaloneMode = true;
+        $phpMdRunner = $this->createPhpMdRunner($standaloneMode);
 
         // Assuming the mock setup and expectations here
         $exitCode = $phpMdRunner->run('Development');
 
         // Assert
         $this->assertEquals(static::EXIT_CODE_SUCCESS, $exitCode);
-
     }
 
     /**

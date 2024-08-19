@@ -7,7 +7,6 @@
 
 namespace Spryker\Zed\Development;
 
-use Spryker\Shared\Config\Config;
 use Spryker\Shared\Development\DevelopmentConstants;
 use Spryker\Shared\Kernel\KernelConstants;
 use Spryker\Zed\Development\Business\IdeAutoCompletion\IdeAutoCompletionConstants;

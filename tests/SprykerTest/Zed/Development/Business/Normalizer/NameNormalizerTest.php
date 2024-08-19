@@ -10,6 +10,17 @@ namespace SprykerTest\Zed\Development\Business\Normalizer;
 use Codeception\Test\Unit;
 use Spryker\Zed\Development\Business\Normalizer\NameNormalizer;
 
+/**
+ * Auto-generated group annotations
+ *
+ * @group SprykerTest
+ * @group Zed
+ * @group Development
+ * @group Business
+ * @group Normalizer
+ * @group NameNormalizerTest
+ * Add your own group annotations below this line
+ */
 class NameNormalizerTest extends Unit
 {
     /**
@@ -46,6 +57,9 @@ class NameNormalizerTest extends Unit
     /**
      * @dataProvider dasherizeDataProvider
      *
+     * @param string $input
+     * @param string $expected
+     *
      * @return void
      */
     public function shouldDasherizeCamelCaseToDash($input, $expected): void
@@ -62,6 +76,9 @@ class NameNormalizerTest extends Unit
 
     /**
      * @dataProvider camelizeDataProvider
+     *
+     * @param string $input
+     * @param string $expected
      *
      * @return void
      */

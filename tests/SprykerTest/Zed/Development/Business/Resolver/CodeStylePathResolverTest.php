@@ -1,15 +1,30 @@
 <?php
 
+/**
+ * Copyright © 2016-present Spryker Systems GmbH. All rights reserved.
+ * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
+ */
+
 namespace SprykerTest\Zed\Development\Business\Resolver;
 
 use Codeception\Test\Unit;
 use Spryker\Zed\Development\Business\Resolver\CodeStylePathResolver;
-use Spryker\Zed\Development\DevelopmentConfig;
 use Spryker\Zed\Development\Business\CodeStyleSniffer\Config\CodeStyleSnifferConfigurationLoaderInterface;
 use Spryker\Zed\Development\Business\Normalizer\NameNormalizerInterface;
-use Spryker\Zed\Development\Business\Exception\CodeStyleSniffer\PathDoesNotExistException;
+use Spryker\Zed\Development\DevelopmentConfig;
 use RuntimeException;
 
+/**
+ * Auto-generated group annotations
+ *
+ * @group SprykerTest
+ * @group Zed
+ * @group Development
+ * @group Business
+ * @group Resolver
+ * @group CodeStylePathResolverTest
+ * Add your own group annotations below this line
+ */
 class CodeStylePathResolverTest extends Unit
 {
     /**

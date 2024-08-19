@@ -12,7 +12,6 @@ use Exception;
 use Laminas\Config\Reader\ReaderInterface;
 use Spryker\Zed\Development\Business\ArchitectureSniffer\ArchitectureSniffer;
 use Spryker\Zed\Development\Business\SnifferConfiguration\Builder\SnifferConfigurationBuilderInterface;
-use Symfony\Component\Process\Process;
 
 /**
  * Auto-generated group annotations

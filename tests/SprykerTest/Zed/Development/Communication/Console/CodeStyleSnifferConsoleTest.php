@@ -11,8 +11,6 @@ use Codeception\Test\Unit;
 use Spryker\Zed\Development\Communication\Console\CodeStyleSnifferConsole;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * Auto-generated group annotations
