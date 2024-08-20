@@ -190,7 +190,7 @@ class PhpMdRunner
             '%s/vendor/%s/%s/',
             $this->config->getPathToRoot(),
             $moduleVendor,
-            $module
+            $module,
         );
     }
 

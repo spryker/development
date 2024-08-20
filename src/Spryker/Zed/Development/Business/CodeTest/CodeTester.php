@@ -84,7 +84,7 @@ class CodeTester
         DevelopmentToModuleFinderFacadeInterface $developmentToModuleFinderFacade,
         CodeceptionArgumentsBuilderInterface $argumentBuilder,
         DevelopmentConfig $config,
-        NameNormalizerInterface $nameNormalizer,
+        NameNormalizerInterface $nameNormalizer
     ) {
         $this->developmentToModuleFinderFacade = $developmentToModuleFinderFacade;
         $this->argumentBuilder = $argumentBuilder;
