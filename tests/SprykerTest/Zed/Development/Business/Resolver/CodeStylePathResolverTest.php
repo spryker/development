@@ -8,11 +8,11 @@
 namespace SprykerTest\Zed\Development\Business\Resolver;
 
 use Codeception\Test\Unit;
+use RuntimeException;
 use Spryker\Zed\Development\Business\CodeStyleSniffer\Config\CodeStyleSnifferConfigurationLoaderInterface;
 use Spryker\Zed\Development\Business\Normalizer\NameNormalizerInterface;
 use Spryker\Zed\Development\Business\Resolver\CodeStylePathResolver;
 use Spryker\Zed\Development\DevelopmentConfig;
-use RuntimeException;
 
 /**
  * Auto-generated group annotations
