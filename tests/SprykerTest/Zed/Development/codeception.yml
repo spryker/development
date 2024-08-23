@@ -27,7 +27,7 @@ suites:
                 - \SprykerTest\Zed\Development\Helper\SnifferConfigurationHelper
     Communication:
         path: Communication
-        actor: DevelopmentCommmunicationTester
+        actor: DevelopmentCommunicationTester
         modules:
             enabled:
                 - Asserts
