@@ -1,0 +1,37 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "title": "Spryker Module Dependency",
+    "description": "This schema defines the structure of the dependency.json files in Spryker modules.",
+    "properties": {
+        "include": {
+            "type": "object",
+            "description": "Composer packages to include in the module",
+            "additionalProperties": {
+                "type": "string"
+            }
+        },
+        "include-dev": {
+            "type": "object",
+            "description": "Composer dev packages to include in the module",
+            "additionalProperties": {
+                "type": "string"
+            }
+        },
+        "exclude": {
+            "type": "object",
+            "description": "Composer packages to exclude from the module",
+            "additionalProperties": {
+                "type": "string"
+            }
+        },
+        "exclude-dev": {
+            "type": "object",
+            "description": "Composer dev packages to exclude from the module",
+            "additionalProperties": {
+                "type": "string"
+            }
+        }
+    },
+    "additionalProperties": false
+}
