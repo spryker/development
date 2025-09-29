@@ -20,10 +20,6 @@ defined('APPLICATION_VENDOR_DIR')
 
 require APPLICATION_ROOT_DIR . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
 
-use Spryker\Zed\Development\Communication\Console\CodeArchitectureSnifferConsole;
-use Spryker\Zed\Development\Communication\Console\CodePhpMessDetectorConsole;
-use Spryker\Zed\Development\Communication\Console\CodePhpstanConsole;
-use Spryker\Zed\Development\Communication\Console\CodeStyleSnifferConsole;
 use Symfony\Component\Console\Application;
 
 $configWasAdded = false;
@@ -35,14 +31,11 @@ if (!file_exists(getcwd() . '/config/Shared/config_default.php')) {
 
 $application = new Application();
 
-$application->addCommands(
-    [
-        new CodeArchitectureSnifferConsole(),
-        new CodePhpMessDetectorConsole(),
-        new CodePhpstanConsole(),
-        new CodeStyleSnifferConsole(),
-    ],
-);
+// Load commands from configuration file
+$configPath = APPLICATION_ROOT_DIR . '/config/Shared/console-commands.php';
+$commands = file_exists($configPath) ? require $configPath : [];
+
+$application->addCommands($commands);
 
 $application->run();
 
