@@ -95,7 +95,7 @@ class ArchitectureSnifferTest extends Unit
         $architectureSniffer = new ArchitectureSniffer($xmlReaderMock, 'command', $configurationBuilderMock);
 
         // Act
-        $result = $architectureSniffer->run('vendor/spryker/spryker/Bundles/Development', []);
+        $result = $architectureSniffer->run('src/Spryker/Development', []);
 
         // Assert
         $this->assertNotEmpty($result);

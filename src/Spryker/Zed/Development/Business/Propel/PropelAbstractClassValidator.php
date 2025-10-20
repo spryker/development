@@ -60,6 +60,8 @@ class PropelAbstractClassValidator implements PropelAbstractClassValidatorInterf
         $finder->directories()->in([
             APPLICATION_VENDOR_DIR . '/spryker/spryker/Bundles/',
             APPLICATION_VENDOR_DIR . '/spryker/spryker/Features/',
+            APPLICATION_ROOT_DIR . '/src/Spryker/',
+            APPLICATION_ROOT_DIR . '/src/SprykerFeature/',
         ])->depth('< 1');
 
         $modules = [];

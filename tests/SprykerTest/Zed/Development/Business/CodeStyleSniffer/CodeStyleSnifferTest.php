@@ -40,7 +40,7 @@ class CodeStyleSnifferTest extends Unit
     /**
      * @var string
      */
-    protected $pathToCore = 'vendor/spryker/spryker/Bundles/';
+    protected $pathToCore = 'src/Spryker/';
 
     /**
      * @var string
