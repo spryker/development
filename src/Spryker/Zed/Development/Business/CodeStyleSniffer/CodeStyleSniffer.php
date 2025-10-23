@@ -211,7 +211,7 @@ class CodeStyleSniffer
         }
 
         $process->run(function ($type, $buffer) {
-            echo $buffer;
+            echo str_replace('/data/', '', preg_replace('/FILE: \.\.\.[A-z0-9]*\//m', 'FILE: ... ', $buffer));
         });
 
         return $process->getExitCode();
