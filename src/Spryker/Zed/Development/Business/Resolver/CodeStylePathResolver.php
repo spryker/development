@@ -145,6 +145,18 @@ class CodeStylePathResolver implements PathResolverInterface
             $path = $pathToRoot . 'src' . DIRECTORY_SEPARATOR . $namespace . DIRECTORY_SEPARATOR;
 
             foreach ($this->config->getApplicationLayers() as $layer) {
+                $modulePath = $path . $module . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR
+                    . $namespace . DIRECTORY_SEPARATOR . $layer . DIRECTORY_SEPARATOR . $module . DIRECTORY_SEPARATOR;
+                if ($pathSuffix) {
+                    $modulePath .= $pathSuffix;
+                }
+
+                if (is_dir($modulePath)) {
+                    $paths[] = $modulePath;
+
+                    continue;
+                }
+
                 $layerPath = $path . $layer . DIRECTORY_SEPARATOR . $module . DIRECTORY_SEPARATOR;
                 if ($pathSuffix) {
                     $layerPath .= $pathSuffix;

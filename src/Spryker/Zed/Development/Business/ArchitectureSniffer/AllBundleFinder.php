@@ -119,7 +119,7 @@ class AllBundleFinder implements AllBundleFinderInterface
      */
     protected function loadCoreDevelopmentBundles(array $allBundles)
     {
-        $path = APPLICATION_VENDOR_DIR . '/spryker/spryker/Bundles/*/src/Spryker/*';
+        $path = rtrim(APPLICATION_SOURCE_DIR, '/') . '/Spryker/*/src/Spryker/*';
         $namespace = 'Spryker';
         $allBundles = $this->findBundles($path, $namespace, $allBundles);
 

@@ -178,7 +178,7 @@ class CodeStyleSnifferConfiguration implements CodeStyleSnifferConfigurationInte
         }
 
         $vendorDir = APPLICATION_VENDOR_DIR . DIRECTORY_SEPARATOR;
-        $monorepoVendorDir = APPLICATION_SOURCE_DIR . DIRECTORY_SEPARATOR . 'Spryker';
+        $monorepoVendorDir = rtrim(APPLICATION_SOURCE_DIR, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . 'Spryker';
 
         $localConfigPath = '';
         if ((strpos($path, $vendorDir) === false && strpos($path, $monorepoVendorDir) === false) && !$this->developmentConfig->isStandaloneMode()) {

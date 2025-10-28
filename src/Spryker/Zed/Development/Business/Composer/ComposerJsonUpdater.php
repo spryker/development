@@ -7,6 +7,8 @@
 
 namespace Spryker\Zed\Development\Business\Composer;
 
+use Laminas\Filter\FilterChain;
+use Laminas\Filter\StringToLower;
 use Laminas\Filter\Word\CamelCaseToDash;
 use RuntimeException;
 use Spryker\Zed\Development\Business\Composer\Updater\UpdaterInterface;
@@ -211,6 +213,15 @@ class ComposerJsonUpdater implements ComposerJsonUpdaterInterface
 
         if (preg_match('/vendor\/spryker\/spryker\/Features\/\w+\/composer.json$/', $realPath, $matches)) {
             return 'spryker-feature';
+        }
+
+        if (preg_match('/src\/([A-Za-z]+)\/\w+\/composer.json$/', $realPath, $matches)) {
+            $filterChain = new FilterChain();
+            $filterChain
+                ->attach(new CamelCaseToDash())
+                ->attach(new StringToLower());
+
+            return $filterChain->filter($matches[1]);
         }
 
         if (preg_match('/vendor\/([a-z_-]+)\/[a-z_-]+\/composer.json$/', $realPath, $matches)) {

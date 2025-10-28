@@ -58,8 +58,6 @@ class PropelAbstractClassValidator implements PropelAbstractClassValidatorInterf
     {
         $finder = new Finder();
         $finder->directories()->in([
-            APPLICATION_VENDOR_DIR . '/spryker/spryker/Bundles/',
-            APPLICATION_VENDOR_DIR . '/spryker/spryker/Features/',
             APPLICATION_ROOT_DIR . '/src/Spryker/',
             APPLICATION_ROOT_DIR . '/src/SprykerFeature/',
         ])->depth('< 1');
@@ -142,8 +140,8 @@ class PropelAbstractClassValidator implements PropelAbstractClassValidatorInterf
      */
     protected function getPathToModuleSchemas(string $module): string
     {
-        $bundlePath = sprintf('%1$s/spryker/spryker/Bundles/%2$s/src/Spryker/Zed/%2$s/Persistence/Propel/Schema/', APPLICATION_VENDOR_DIR, $module);
-        $featurePath = sprintf('%1$s/spryker/spryker/Features/%2$s/src/SprykerFeature/Zed/%2$s/Persistence/Propel/Schema/', APPLICATION_VENDOR_DIR, $module);
+        $bundlePath = sprintf('%1$s/Spyker/%2$s/src/Spryker/Zed/%2$s/Persistence/Propel/Schema/', rtrim(APPLICATION_SOURCE_DIR, '/'), $module);
+        $featurePath = sprintf('%1$s/SpykerFeature/%2$s/src/SprykerFeature/Zed/%2$s/Persistence/Propel/Schema/', rtrim(APPLICATION_SOURCE_DIR, '/'), $module);
 
         return is_dir($featurePath) ? $featurePath : $bundlePath;
     }

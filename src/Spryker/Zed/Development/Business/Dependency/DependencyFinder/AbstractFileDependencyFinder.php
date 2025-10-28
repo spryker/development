@@ -45,6 +45,10 @@ abstract class AbstractFileDependencyFinder implements DependencyFinderInterface
      */
     protected function isTestFile(string $filePath)
     {
+        if (str_starts_with($filePath, APPLICATION_SOURCE_DIR)) {
+            $filePath = str_replace(APPLICATION_SOURCE_DIR, '', $filePath);
+        }
+
         return !strpos($filePath, '/src/');
     }
 
