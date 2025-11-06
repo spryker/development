@@ -33,13 +33,16 @@
         <exclude name="Spryker.Commenting.DocBlockReturnVoid.ReturnVoidMissing"/>
         <exclude name="Spryker.Commenting.DocBlockReturnVoid.ReturnMissingInInterface"/>
         <exclude name="Spryker.Commenting.DocBlock.ReturnVoidMissing"/>
-        <!-- Ignore when a constant does not have a doc-block. CAN ONLY BE APPLIED WHEN WE ARE ON PHP 8.3 -->
-<!--        <exclude name="Spryker.Commenting.DocBlockConst.VarDocBlockMissing"/>-->
+        <!-- Ignore when a constant does not have a doc-block. -->
+        <exclude name="Spryker.Commenting.DocBlockConst.VarDocBlockMissing"/>
 
         <!-- Ignore when there is no doc-block. -->
         <exclude name="Spryker.Commenting.DocBlock.DocBlockMissing"/>
         <!-- Ignore when there is no doc-block on the __construct or __destruct method. -->
         <exclude name="Spryker.Commenting.DocBlock.ConstructDesctructMissingDocBlock"/>
+
+        <!-- [ACCEPTED] RFC: Stop adding Bridges in Spryker Core. -->
+        <exclude name="Spryker.DependencyProvider.FacadeNotInBridgeReturned"/>
     </rule>
 
 </ruleset>
