@@ -33,7 +33,9 @@
         <exclude name="Spryker.Commenting.DocBlockReturnVoid.ReturnVoidMissing"/>
         <exclude name="Spryker.Commenting.DocBlockReturnVoid.ReturnMissingInInterface"/>
         <exclude name="Spryker.Commenting.DocBlock.ReturnVoidMissing"/>
-        <!-- Ignore when a constant does not have a doc-block. -->
+        <exclude name="Spryker.Commenting.InlineDocBlock.DocBlockInvalid"/>
+        <exclude name="Spryker.Commenting.Attributes.ExpectedFQCN"/>
+        <!-- Ignore when a constant does not have a doc-block. CAN ONLY BE APPLIED WHEN WE ARE ON PHP 8.3 -->
         <exclude name="Spryker.Commenting.DocBlockConst.VarDocBlockMissing"/>
 
         <!-- Ignore when there is no doc-block. -->

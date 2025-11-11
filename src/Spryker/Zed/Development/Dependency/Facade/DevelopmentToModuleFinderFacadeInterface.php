@@ -8,25 +8,13 @@
 namespace Spryker\Zed\Development\Dependency\Facade;
 
 use Generated\Shared\Transfer\ModuleFilterTransfer;
+use Spryker\Shared\ModuleFinder\Transfer\ModuleFilter;
 
 interface DevelopmentToModuleFinderFacadeInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\ModuleFilterTransfer|null $moduleFilterTransfer
-     *
-     * @return array<\Generated\Shared\Transfer\ModuleTransfer>
-     */
-    public function getProjectModules(?ModuleFilterTransfer $moduleFilterTransfer = null): array;
+    public function getProjectModules(ModuleFilterTransfer|ModuleFilter|null $moduleFilterTransfer = null): array;
 
-    /**
-     * @param \Generated\Shared\Transfer\ModuleFilterTransfer|null $moduleFilterTransfer
-     *
-     * @return array<\Generated\Shared\Transfer\ModuleTransfer>
-     */
     public function getModules(?ModuleFilterTransfer $moduleFilterTransfer = null): array;
 
-    /**
-     * @return array<\Generated\Shared\Transfer\PackageTransfer>
-     */
     public function getPackages(): array;
 }
