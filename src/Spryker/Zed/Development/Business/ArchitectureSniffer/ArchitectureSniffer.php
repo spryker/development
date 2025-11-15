@@ -234,7 +234,7 @@ class ArchitectureSniffer implements ArchitectureSnifferInterface
         $result = $this->formatViolations($fileViolations);
         $reportResult = $reportFileExists ? $this->getReportResult($reportPath) : [];
 
-        if ($options[static::OPTION_UPDATE] || !$reportFileExists) {
+        if (!empty($options[static::OPTION_UPDATE]) || !$reportFileExists) {
             $this->saveBaseline($result, $reportPath);
         }
 

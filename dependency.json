@@ -1,4 +1,7 @@
 {
+    "include": {
+        "spryker/gui": "Needed for page layout."
+    },
     "include-dev": {
         "spryker-sdk/phpstan-spryker": "Provides a PHPStan command",
         "spryker/architecture-sniffer": "Provides Architecture Sniffer commands"

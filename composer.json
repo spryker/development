@@ -9,6 +9,7 @@
         "phpmd/phpmd": "^2.0.0",
         "spryker/config": "^3.0.0",
         "spryker/graph": "^3.0.0",
+        "spryker/gui": "^3.0.0 || ^4.0.0",
         "spryker/kernel": "^3.52.0",
         "spryker/laminas": "^1.0.0",
         "spryker/module-finder": "^1.0.0",

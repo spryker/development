@@ -1,4 +1,4 @@
-{% extends '@Application/Layout/layout.twig' %}
+{% extends '@Gui/Layout/layout.twig' %}
 {% block content %}
     <div class="spy-layout sparse">
 
@@ -31,9 +31,9 @@
                 {% set t = 0 %}
 
                 <div class="panel panel-success">
-                    <div class="panel-heading">
+                    <div class="panel-heading clearfix">
                         <strong>{{ violation.ruleset | trans }} &gt; {{ violation.rule }}</strong>
-                        <div class="pull-right">
+                        <div class="float-end">
                             <small>Priority: {{ violation.priority }}</small>
                         </div>
                     </div>
