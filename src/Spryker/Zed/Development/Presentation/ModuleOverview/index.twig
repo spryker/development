@@ -1,7 +1,6 @@
 {% extends '@Gui/Layout/layout.twig' %}
 
 {% block content %}
-
     {% embed '@Gui/Partials/widget.twig' with { widget_title: 'Module overview' } %}
         {% block widget_content %}
             <div class="spy-layout sparse" xmlns="http://www.w3.org/1999/html">
@@ -12,11 +11,11 @@
                         <th>{{ 'Project module' | trans }}</th>
                     </tr>
                     {% for moduleName, moduleOverviewTransfer in moduleOverviewTransferCollection %}
-                    <tr>
-                        <td>{{ moduleName }}</td>
-                        <td><span class="glyphicon glyphicon-{% if moduleOverviewTransfer.existsCoreModule %}ok{% else %}remove{% endif %}"></span></td>
-                        <td><span class="glyphicon glyphicon-{% if moduleOverviewTransfer.existsProjectModule %}ok{% else %}remove{% endif %}"></span></td>
-                    </tr>
+                        <tr>
+                            <td>{{ moduleName }}</td>
+                            <td><span class="fa fa-{% if moduleOverviewTransfer.existsCoreModule %}check{% else %}times{% endif %}"></span></td>
+                            <td><span class="fa fa-{% if moduleOverviewTransfer.existsProjectModule %}check{% else %}times{% endif %}"></span></td>
+                        </tr>
                     {% endfor %}
                 </table>
             </div>
