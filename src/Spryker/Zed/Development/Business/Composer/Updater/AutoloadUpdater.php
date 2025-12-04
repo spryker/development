@@ -218,7 +218,10 @@ class AutoloadUpdater implements UpdaterInterface
      */
     public function update(array $composerJson, SplFileInfo $composerJsonFile): array
     {
-        $composerJson = $this->updateAutoload($composerJson, $composerJsonFile);
+        $originalAutoload = $composerJson[static::AUTOLOAD_KEY] ?? [];
+        $originalAutoloadDev = $composerJson[static::AUTOLOAD_DEV_KEY] ?? [];
+
+        $composerJson = $this->updateAutoload($composerJson, $composerJsonFile, $originalAutoload, $originalAutoloadDev);
 
         return $composerJson;
     }
@@ -226,10 +229,12 @@ class AutoloadUpdater implements UpdaterInterface
     /**
      * @param array $composerJson
      * @param \Symfony\Component\Finder\SplFileInfo $composerJsonFile
+     * @param array $originalAutoload
+     * @param array $originalAutoloadDev
      *
      * @return array
      */
-    protected function updateAutoload(array $composerJson, SplFileInfo $composerJsonFile)
+    protected function updateAutoload(array $composerJson, SplFileInfo $composerJsonFile, array $originalAutoload = [], array $originalAutoloadDev = [])
     {
         $modulePath = dirname($composerJsonFile->getPathname());
 
@@ -240,11 +245,12 @@ class AutoloadUpdater implements UpdaterInterface
         $composerJson = $this->updateAutoloadDevWithDefaultTestDirectory($composerJson, $modulePath);
 
         $testDirectoryKeys = $this->buildTestDirectoryKeys();
+
         foreach ($testDirectoryKeys as $testDirectoryKey) {
             $composerJson = $this->updateAutoloadDevForDeprecatedTestKeys($composerJson, $testDirectoryKey, $modulePath);
         }
 
-        $composerJson = $this->cleanupAutoload($composerJson, $modulePath);
+        $composerJson = $this->cleanupAutoload($composerJson, $modulePath, $originalAutoload, $originalAutoloadDev);
 
         return $composerJson;
     }
@@ -267,7 +273,16 @@ class AutoloadUpdater implements UpdaterInterface
 
             if ($this->pathExists($directoryPath)) {
                 $composerJson = $this->addAutoloadPsr4($composerJson);
-                $composerJson[static::AUTOLOAD_KEY][static::PSR_4][$sprykerCodeNamespace . '\\'] = $this->getPath($pathParts);
+
+                $namespaceWithBackslash = $sprykerCodeNamespace . '\\';
+                $namespaceWithoutBackslash = $sprykerCodeNamespace;
+
+                if (
+                    !isset($composerJson[static::AUTOLOAD_KEY][static::PSR_4][$namespaceWithBackslash])
+                    && !isset($composerJson[static::AUTOLOAD_KEY][static::PSR_4][$namespaceWithoutBackslash])
+                ) {
+                    $composerJson[static::AUTOLOAD_KEY][static::PSR_4][$namespaceWithBackslash] = $this->getPath($pathParts);
+                }
             }
         }
 
@@ -500,16 +515,22 @@ class AutoloadUpdater implements UpdaterInterface
     /**
      * @param array $composerJson
      * @param string $modulePath
+     * @param array $originalAutoload
+     * @param array $originalAutoloadDev
      *
      * @return array
      */
-    protected function cleanupAutoload(array $composerJson, $modulePath)
+    protected function cleanupAutoload(array $composerJson, $modulePath, array $originalAutoload = [], array $originalAutoloadDev = [])
     {
         $composerJson = $this->removeInvalidAutoloadEntries(
             $composerJson,
             [
-                static::AUTOLOAD_KEY => [$this, 'removeInvalidAutoloadPaths'],
-                static::AUTOLOAD_DEV_KEY => [$this, 'removeInvalidAutoloadNamespaces'],
+                static::AUTOLOAD_KEY => function ($autoload, $modulePath) use ($originalAutoload) {
+                    return $this->removeInvalidAutoloadPaths($autoload, $modulePath, $originalAutoload[static::PSR_4] ?? []);
+                },
+                static::AUTOLOAD_DEV_KEY => function ($autoload, $modulePath) use ($originalAutoloadDev) {
+                    return $this->removeInvalidAutoloadNamespaces($autoload, $modulePath, $originalAutoloadDev[static::PSR_4] ?? []);
+                },
             ],
             $modulePath,
         );
@@ -549,10 +570,11 @@ class AutoloadUpdater implements UpdaterInterface
     /**
      * @param array $autoload
      * @param string $modulePath
+     * @param array $originalPsr4Autoload
      *
      * @return array
      */
-    protected function removeInvalidAutoloadPaths(array $autoload, $modulePath)
+    protected function removeInvalidAutoloadPaths(array $autoload, $modulePath, array $originalPsr4Autoload = [])
     {
         foreach ($autoload as $namespace => $relativeDirectory) {
             $path = $this->getPath([
@@ -560,6 +582,19 @@ class AutoloadUpdater implements UpdaterInterface
                 $relativeDirectory,
             ]);
 
+            $isOriginalEntry = isset($originalPsr4Autoload[$namespace])
+                && $originalPsr4Autoload[$namespace] === $relativeDirectory;
+
+            // For original entries: only check if path exists
+            if ($isOriginalEntry) {
+                if (!$this->pathExists($path)) {
+                    unset($autoload[$namespace]);
+                }
+
+                continue;
+            }
+
+            // For auto-added entries: apply both checks (existing behavior)
             if (!$this->pathExists($path) || !in_array($this->getLastPartOfPath($relativeDirectory), $this->autoloadPSR4Whitelist, true)) {
                 if ($this->isFile($path)) {
                     continue;
@@ -575,16 +610,35 @@ class AutoloadUpdater implements UpdaterInterface
     /**
      * @param array $autoload
      * @param string $modulePath
+     * @param array $originalPsr4AutoloadDev
      *
      * @return array
      */
-    protected function removeInvalidAutoloadNamespaces(array $autoload, $modulePath)
+    protected function removeInvalidAutoloadNamespaces(array $autoload, $modulePath, array $originalPsr4AutoloadDev = [])
     {
         foreach ($autoload as $namespace => $relativeDirectory) {
             if ($this->isReservedNamespace($relativeDirectory)) {
                 continue;
             }
 
+            $isOriginalEntry = isset($originalPsr4AutoloadDev[$namespace])
+                && $originalPsr4AutoloadDev[$namespace] === $relativeDirectory;
+
+            // For original entries: only check if path exists
+            if ($isOriginalEntry) {
+                $pathParts = [
+                    rtrim($modulePath, DIRECTORY_SEPARATOR),
+                    $relativeDirectory,
+                ];
+
+                if (!$this->pathExists($this->getPath($pathParts))) {
+                    unset($autoload[$namespace]);
+                }
+
+                continue;
+            }
+
+            // For auto-added entries: apply existing logic
             $pathParts = [
                 rtrim($modulePath, DIRECTORY_SEPARATOR),
                 static::BASE_TESTS_DIRECTORY,

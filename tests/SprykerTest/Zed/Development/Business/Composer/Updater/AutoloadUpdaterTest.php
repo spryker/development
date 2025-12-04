@@ -31,6 +31,8 @@ class AutoloadUpdaterTest extends Unit
     public function testWhenTestsFolderExistsDefaultAutoloadDevIsAddedToComposer(): void
     {
         $updatedJson = $this->updateJsonForTests($this->getComposerJson());
+
+        $this->assertArrayHasKey('autoload-dev', $updatedJson);
         $this->assertSame($this->getComposerJson()['autoload-dev'], $updatedJson['autoload-dev']);
     }
 
@@ -78,6 +80,7 @@ class AutoloadUpdaterTest extends Unit
 
         $updatedJson = $this->updateJsonForTests($composerJson);
 
+        $this->assertArrayHasKey('autoload-dev', $updatedJson);
         $this->assertSame($this->getComposerJson()['autoload-dev'], $updatedJson['autoload-dev']);
     }
 
@@ -91,6 +94,7 @@ class AutoloadUpdaterTest extends Unit
 
         $updatedJson = $this->updateJsonForTests($composerJson);
 
+        $this->assertArrayHasKey('autoload-dev', $updatedJson);
         $this->assertSame($this->getComposerJson()['autoload-dev'], $updatedJson['autoload-dev']);
     }
 
@@ -157,25 +161,63 @@ class AutoloadUpdaterTest extends Unit
     protected function getJsonAfterUpdate(array $pathParts, array $composerJson, array $dirMapAdditions = []): array
     {
         $splFileInfo = $this->getSplFile();
-
-        $pathExistsMap = [
-            ['pass', true],
-        ];
-
-        $dirMap = [
-            [
-                array_merge([dirname($splFileInfo->getPathname())], $pathParts),
-                'pass',
-            ],
-        ];
-
-        if ($dirMapAdditions) {
-            $dirMap = array_merge($dirMap, $dirMapAdditions);
-        }
+        $modulePath = dirname($splFileInfo->getPathname());
 
         $autoloadUpdaterMock = $this->getAutoloadUpdaterMock();
-        $autoloadUpdaterMock->method('pathExists')->will($this->returnValueMap($pathExistsMap));
-        $autoloadUpdaterMock->method('getPath')->will($this->returnValueMap($dirMap));
+
+        $autoloadUpdaterMock->method('getPath')->willReturnCallback(
+            function (array $parts) {
+                return implode(DIRECTORY_SEPARATOR, $parts) . DIRECTORY_SEPARATOR;
+            },
+        );
+
+        $validPaths = [];
+
+        $expectedPath = implode(DIRECTORY_SEPARATOR, array_merge([$modulePath], $pathParts)) . DIRECTORY_SEPARATOR;
+        $validPaths[] = $expectedPath;
+
+        foreach ($dirMapAdditions as $addition) {
+            if (is_array($addition) && isset($addition[0])) {
+                $additionPathParts = $addition[0];
+                $validPaths[] = $modulePath . DIRECTORY_SEPARATOR . implode(DIRECTORY_SEPARATOR, $additionPathParts) . DIRECTORY_SEPARATOR;
+            }
+        }
+
+        if (isset($composerJson['autoload-dev']['psr-4'])) {
+            foreach ($composerJson['autoload-dev']['psr-4'] as $namespace => $relativeDirectory) {
+                if (strpos($namespace, 'Test') !== false && strpos($relativeDirectory, 'tests/') === 0) {
+                    $normalizedRelDir = str_replace('/', DIRECTORY_SEPARATOR, rtrim($relativeDirectory, '/'));
+                    $validPaths[] = $modulePath . DIRECTORY_SEPARATOR . $normalizedRelDir . DIRECTORY_SEPARATOR;
+                }
+            }
+        }
+
+        if (isset($composerJson['autoload']['psr-4'])) {
+            foreach ($composerJson['autoload']['psr-4'] as $namespace => $relativeDirectory) {
+                if (strpos($namespace, 'Spryker') !== false && strpos($relativeDirectory, 'src/') === 0) {
+                    $normalizedRelDir = str_replace('/', DIRECTORY_SEPARATOR, rtrim($relativeDirectory, '/'));
+                    $validPaths[] = $modulePath . DIRECTORY_SEPARATOR . $normalizedRelDir . DIRECTORY_SEPARATOR;
+                }
+            }
+        }
+
+        $autoloadUpdaterMock->method('pathExists')->willReturnCallback(
+            function ($path) use ($validPaths, $modulePath) {
+                $pathNormalized = rtrim($path, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
+
+                foreach ($validPaths as $validPath) {
+                    $validPathNormalized = rtrim($validPath, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
+
+                    if ($pathNormalized === $validPathNormalized) {
+                        return true;
+                    }
+                }
+
+                return false;
+            },
+        );
+
+        $autoloadUpdaterMock->method('getNonEmptyDirectoriesWithHelpers')->willReturn([]);
 
         return $autoloadUpdaterMock->update($composerJson, $splFileInfo);
     }
@@ -199,7 +241,7 @@ class AutoloadUpdaterTest extends Unit
     protected function getAutoloadUpdaterMock(): AutoloadUpdater
     {
         $autoloadUpdaterMock = $this->getMockBuilder(AutoloadUpdater::class)
-            ->onlyMethods(['pathExists', 'getPath'])
+            ->onlyMethods(['pathExists', 'getPath', 'getNonEmptyDirectoriesWithHelpers'])
             ->getMock();
 
         return $autoloadUpdaterMock;
