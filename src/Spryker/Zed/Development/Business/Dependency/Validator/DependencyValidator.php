@@ -95,10 +95,12 @@ class DependencyValidator implements DependencyValidatorInterface
             $dependencyValidationRequestTransfer->getModule(),
             $dependencyValidationRequestTransfer->getDependencyType(),
         );
+
         foreach ($dependencyCollectionTransfer->getDependencyModules() as $dependencyModuleTransfer) {
             $composerName = $dependencyModuleTransfer->getComposerName() ?? $this->composerNameFinder->findComposerNameByModuleName($dependencyModuleTransfer->getModule());
             $dependencyModuleTransfer->setComposerName($composerName);
         }
+
         $composerDependencies = $this->composerDependencyParser->getComposerDependencyComparison($dependencyCollectionTransfer);
 
         return $composerDependencies;

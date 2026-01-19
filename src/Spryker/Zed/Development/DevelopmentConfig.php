@@ -85,6 +85,13 @@ class DevelopmentConfig extends AbstractBundleConfig
     ];
 
     /**
+     * @var array<string>
+     */
+    public const array TEST_APPLICATION_NAMESPACES = [
+        'AsyncApi',
+    ];
+
+    /**
      * @var array
      */
     protected const APPLICATION_LAYERS = [
@@ -402,6 +409,7 @@ class DevelopmentConfig extends AbstractBundleConfig
     public function getExternalToInternalNamespaceMap()
     {
         return [
+            'ApiPlatform\\' => 'spryker/api-platform',
             'Codeception\\' => 'spryker/testify',
             'Doctrine\\Common\\Inflector' => 'spryker/doctrine-inflector',
             'Doctrine\\Inflector\\InflectorFactory' => 'spryker/doctrine-inflector',
@@ -451,6 +459,22 @@ class DevelopmentConfig extends AbstractBundleConfig
     public function getExternalToInternalMap()
     {
         return [
+            'api-platform/api-pack' => 'spryker/api-platform',
+            'api-platform/doctrine-common' => 'spryker/api-platform',
+            'api-platform/doctrine-orm' => 'spryker/api-platform',
+            'api-platform/documentation' => 'spryker/api-platform',
+            'api-platform/hal' => 'spryker/api-platform',
+            'api-platform/http-cache' => 'spryker/api-platform',
+            'api-platform/hydra' => 'spryker/api-platform',
+            'api-platform/json-api' => 'spryker/api-platform',
+            'api-platform/json-schema' => 'spryker/api-platform',
+            'api-platform/jsonld' => 'spryker/api-platform',
+            'api-platform/metadata' => 'spryker/api-platform',
+            'api-platform/openapi' => 'spryker/api-platform',
+            'api-platform/serializer' => 'spryker/api-platform',
+            'api-platform/state' => 'spryker/api-platform',
+            'api-platform/symfony' => 'spryker/api-platform',
+            'api-platform/validator' => 'spryker/api-platform',
             'codeception/codeception' => 'spryker/testify',
             'doctrine/inflector' => 'spryker/doctrine-inflector',
             'egulias/email-validator' => 'spryker/egulias',
