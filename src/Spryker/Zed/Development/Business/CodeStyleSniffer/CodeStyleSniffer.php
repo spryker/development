@@ -165,6 +165,9 @@ class CodeStyleSniffer
             if (is_dir($path . 'tests')) {
                 $customPaths[] = $path . 'tests/';
             }
+            if (is_dir($path . 'resources')) {
+                $customPaths[] = $path . 'resources/';
+            }
             $optionIgnore .= ($optionIgnore ? ',' : '') . '/src/Generated/';
         }
 
