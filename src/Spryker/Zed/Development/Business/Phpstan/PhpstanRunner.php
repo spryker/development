@@ -362,6 +362,8 @@ class PhpstanRunner implements PhpstanRunnerInterface
         [$namespace, $module] = explode('.', $module, 2);
 
         $pathToInternalNamespace = $this->config->getPathToInternalNamespace($namespace);
+
+        /** @phpstan-ignore notIdentical.alwaysTrue */
         if ($namespace !== null && $pathToInternalNamespace === null) {
             return $this->resolveCommonModulePath([], $module, $namespace, $input);
         }
@@ -552,7 +554,6 @@ class PhpstanRunner implements PhpstanRunnerInterface
      */
     protected function getCoreModules($path)
     {
-        /** @var array<\Symfony\Component\Finder\SplFileInfo> $directories */
         $directories = (new Finder())
             ->directories()
             ->in($path)

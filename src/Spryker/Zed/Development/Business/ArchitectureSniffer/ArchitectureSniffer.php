@@ -167,9 +167,8 @@ class ArchitectureSniffer implements ArchitectureSnifferInterface
             }
         }
 
-        /** @var callable $sortAlphabetically */
         $sortAlphabetically = function ($first, $second) {
-            return strcasecmp($first['name'], $second['name']) < 0;
+            return strcasecmp($first['name'], $second['name']);
         };
         usort($rules, $sortAlphabetically);
 

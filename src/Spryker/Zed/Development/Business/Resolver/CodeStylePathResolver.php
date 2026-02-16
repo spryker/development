@@ -293,7 +293,6 @@ class CodeStylePathResolver implements PathResolverInterface
      */
     protected function getCoreModules(string $path): array
     {
-        /** @var array<\Symfony\Component\Finder\SplFileInfo> $directories */
         $directories = (new Finder())
             ->directories()
             ->in($path)

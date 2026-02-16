@@ -156,7 +156,6 @@ class ComposerJsonUpdater implements ComposerJsonUpdaterInterface
             'config',
         ];
 
-        /** @phpstan-var callable((int|string), (int|string)): int */
         $callable = function ($a, $b) use ($map) {
             $keyA = in_array($a, $map) ? array_search($a, $map) : 999;
             $keyB = in_array($b, $map) ? array_search($b, $map) : 999;
@@ -165,7 +164,7 @@ class ComposerJsonUpdater implements ComposerJsonUpdaterInterface
                 return 0;
             }
 
-            return $keyA > $keyB;
+            return $keyA > $keyB ? 1 : -1;
         };
 
         uksort($composerJson, $callable);

@@ -170,7 +170,6 @@ class ExternalDependency extends AbstractDependencyFinder
      */
     private function cleanAutoloader()
     {
-        /** @var iterable $autoloadFunctions */
         $autoloadFunctions = spl_autoload_functions();
         $codeSnifferAutoloadFunction = false;
 
@@ -181,6 +180,7 @@ class ExternalDependency extends AbstractDependencyFinder
         }
 
         if ($codeSnifferAutoloadFunction) {
+            /** @phpstan-ignore argument.type */
             spl_autoload_unregister($codeSnifferAutoloadFunction);
         }
     }

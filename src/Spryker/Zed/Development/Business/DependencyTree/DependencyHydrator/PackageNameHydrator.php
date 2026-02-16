@@ -68,7 +68,6 @@ class PackageNameHydrator implements DependencyHydratorInterface
      */
     private function cleanAutoloader()
     {
-        /** @var iterable $autoloadFunctions */
         $autoloadFunctions = spl_autoload_functions();
         $codeSnifferAutoloadFunction = false;
 
@@ -79,6 +78,7 @@ class PackageNameHydrator implements DependencyHydratorInterface
         }
 
         if ($codeSnifferAutoloadFunction) {
+            /** @phpstan-ignore argument.type */
             spl_autoload_unregister($codeSnifferAutoloadFunction);
         }
     }

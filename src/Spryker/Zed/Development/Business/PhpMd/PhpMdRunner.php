@@ -155,6 +155,8 @@ class PhpMdRunner
         [$namespace, $module] = explode('.', $module, 2);
 
         $pathToInternalNamespace = $this->config->getPathToInternalNamespace($namespace);
+
+        /** @phpstan-ignore notIdentical.alwaysTrue */
         if ($namespace !== null && $pathToInternalNamespace === null) {
             return $this->resolveCommonModulePath($module, $namespace);
         }
