@@ -160,7 +160,7 @@ class PhpMdRunner
             return $this->resolveCommonModulePath($module, $namespace);
         }
 
-        if ($pathToInternalNamespace !== null && is_dir($pathToInternalNamespace . $module)) {
+        if ($pathToInternalNamespace !== null && is_dir($pathToInternalNamespace . $module)) { // @phpstan-ignore notIdentical.alwaysTrue
             return $pathToInternalNamespace . $module . DIRECTORY_SEPARATOR;
         }
 

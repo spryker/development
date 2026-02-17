@@ -368,7 +368,7 @@ class PhpstanRunner implements PhpstanRunnerInterface
         }
 
         if ($module === 'all') {
-            if ($pathToInternalNamespace === null) {
+            if ($pathToInternalNamespace === null) { // @phpstan-ignore identical.alwaysFalse
                 throw new RuntimeException('Namespace invalid: ' . $namespace);
             }
 
