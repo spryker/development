@@ -102,12 +102,7 @@ class CouplingBetweenObjectsTest extends Unit
      */
     protected function getNodeMock(string $fullyQualifiedClassName, string $nodeName): AbstractNode
     {
-        $mockBuilder = $this->getMockBuilder(AbstractNode::class);
-        $mockBuilder->addMethods(['getNamespace'])
-            ->onlyMethods(['getMetric', 'getName', 'getNamespaceName', 'hasSuppressWarningsAnnotationFor', 'getFullQualifiedName', 'getParentName'])
-            ->disableOriginalConstructor();
-
-        $nodeMock = $mockBuilder->getMock();
+        $nodeMock = $this->createMock(AbstractNode::class);
         $nodeMock->expects($this->once())->method('getMetric')->willReturn(static::NUMBER_OF_COUPLING_BETWEEN_OBJECTS);
 
         $nodeMock->method('getFullQualifiedName')->willReturn($fullyQualifiedClassName);
