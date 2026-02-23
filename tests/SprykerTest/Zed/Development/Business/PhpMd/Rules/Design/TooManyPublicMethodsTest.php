@@ -122,12 +122,7 @@ class TooManyPublicMethodsTest extends Unit
      */
     protected function getNodeMock(string $fullyQualifiedClassName, string $nodeName): AbstractNode
     {
-        $mockBuilder = $this->getMockBuilder(AbstractTypeNode::class);
-        $mockBuilder->addMethods(['getNamespace'])
-            ->onlyMethods(['getMetric', 'getName', 'getNamespaceName', 'hasSuppressWarningsAnnotationFor', 'getFullQualifiedName', 'getParentName', 'getMethods'])
-            ->disableOriginalConstructor();
-
-        $nodeMock = $mockBuilder->getMock();
+        $nodeMock = $this->createMock(AbstractTypeNode::class);
         $nodeMock->expects($this->once())->method('getMetric')->willReturn(static::NUMBER_OF_METHODS);
 
         $nodeMock->method('getFullQualifiedName')->willReturn($fullyQualifiedClassName);

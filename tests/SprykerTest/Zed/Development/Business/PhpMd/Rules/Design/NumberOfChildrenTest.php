@@ -96,12 +96,7 @@ class NumberOfChildrenTest extends Unit
      */
     protected function getNodeMock(string $fullyQualifiedClassName): AbstractNode
     {
-        $mockBuilder = $this->getMockBuilder(AbstractNode::class);
-        $mockBuilder->addMethods(['getNamespace'])
-            ->onlyMethods(['getMetric', 'getName', 'getNamespaceName', 'hasSuppressWarningsAnnotationFor', 'getFullQualifiedName', 'getParentName'])
-            ->disableOriginalConstructor();
-
-        $nodeMock = $mockBuilder->getMock();
+        $nodeMock = $this->createMock(AbstractNode::class);
         $nodeMock->expects($this->once())->method('getMetric')->willReturn(static::NUMBER_OF_CHILDREN);
 
         $nodeMock->method('getFullQualifiedName')->willReturn($fullyQualifiedClassName);
