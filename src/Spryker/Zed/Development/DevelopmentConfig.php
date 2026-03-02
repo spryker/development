@@ -667,12 +667,17 @@ class DevelopmentConfig extends AbstractBundleConfig
      *
      * @return array<string, string>
      */
-    public function getIdeAutoCompletionSourceDirectoryGlobPatterns()
+    public function getIdeAutoCompletionSourceDirectoryGlobPatterns(): array
     {
-        return [
+        $patterns = [
             APPLICATION_VENDOR_DIR . '/*/*/src/' => '*/*/',
-            APPLICATION_SOURCE_DIR . '/' => $this->get(KernelConstants::PROJECT_NAMESPACE) . '/*/',
         ];
+
+        foreach ($this->get(KernelConstants::PROJECT_NAMESPACES, []) as $projectNamespace) {
+            $patterns[APPLICATION_SOURCE_DIR . '/' . $projectNamespace . '/'] = '*/';
+        }
+
+        return $patterns;
     }
 
     /**
