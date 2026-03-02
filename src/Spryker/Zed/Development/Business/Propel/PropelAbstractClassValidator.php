@@ -17,12 +17,6 @@ use Symfony\Component\Finder\SplFileInfo;
 
 class PropelAbstractClassValidator implements PropelAbstractClassValidatorInterface
 {
-    /**
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
-     * @param string|null $module
-     *
-     * @return bool
-     */
     public function validate(OutputInterface $output, ?string $module): bool
     {
         if ($module === null) {
@@ -32,11 +26,6 @@ class PropelAbstractClassValidator implements PropelAbstractClassValidatorInterf
         return $this->validateModule($output, $module);
     }
 
-    /**
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
-     *
-     * @return bool
-     */
     protected function validateModules(OutputInterface $output): bool
     {
         $modules = $this->getModuleNames();
@@ -51,9 +40,6 @@ class PropelAbstractClassValidator implements PropelAbstractClassValidatorInterf
         return $isValid;
     }
 
-    /**
-     * @return array
-     */
     protected function getModuleNames(): array
     {
         $finder = new Finder();
@@ -73,12 +59,6 @@ class PropelAbstractClassValidator implements PropelAbstractClassValidatorInterf
         return $modules;
     }
 
-    /**
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
-     * @param string $module
-     *
-     * @return bool
-     */
     protected function validateModule(OutputInterface $output, string $module): bool
     {
         if (!$this->hasSchemaDirectory($module)) {
@@ -108,11 +88,6 @@ class PropelAbstractClassValidator implements PropelAbstractClassValidatorInterf
         return true;
     }
 
-    /**
-     * @param string $module
-     *
-     * @return bool
-     */
     protected function hasSchemaDirectory(string $module): bool
     {
         $pathToModuleSchema = $this->getPathToModuleSchemas($module);
@@ -133,11 +108,6 @@ class PropelAbstractClassValidator implements PropelAbstractClassValidatorInterf
         return $finder;
     }
 
-    /**
-     * @param string $module
-     *
-     * @return string
-     */
     protected function getPathToModuleSchemas(string $module): string
     {
         $bundlePath = sprintf('%1$s/Spyker/%2$s/src/Spryker/Zed/%2$s/Persistence/Propel/Schema/', rtrim(APPLICATION_SOURCE_DIR, '/'), $module);
@@ -181,11 +151,6 @@ class PropelAbstractClassValidator implements PropelAbstractClassValidatorInterf
         return $this->abstractClassesForTableExists($simpleXmlTableElements, $module, $output);
     }
 
-    /**
-     * @param \SimpleXMLElement $simpleXmlElement
-     *
-     * @return bool
-     */
     protected function hasNamespaceInSchema(SimpleXMLElement $simpleXmlElement): bool
     {
         if (in_array('spryker:schema-01', $simpleXmlElement->getNamespaces(), true)) {
@@ -230,11 +195,6 @@ class PropelAbstractClassValidator implements PropelAbstractClassValidatorInterf
         return $isValid;
     }
 
-    /**
-     * @param \SimpleXMLElement $simpleXmlTableElement
-     *
-     * @return string
-     */
     protected function getPhpNameFromSimpleXmlTableElement(SimpleXMLElement $simpleXmlTableElement): string
     {
         $phpName = (string)$simpleXmlTableElement['phpName'];
@@ -246,21 +206,11 @@ class PropelAbstractClassValidator implements PropelAbstractClassValidatorInterf
         return $phpName;
     }
 
-    /**
-     * @param \SimpleXMLElement $simpleXmlTableElement
-     *
-     * @return string
-     */
     protected function getTableNameFromSimpleXmlTableElement(SimpleXMLElement $simpleXmlTableElement): string
     {
         return (string)$simpleXmlTableElement['name'];
     }
 
-    /**
-     * @param string $tableName
-     *
-     * @return string
-     */
     protected function normalizeTableName(string $tableName): string
     {
         $filter = new FilterChain();
@@ -269,11 +219,6 @@ class PropelAbstractClassValidator implements PropelAbstractClassValidatorInterf
         return $filter->filter($tableName);
     }
 
-    /**
-     * @param \SimpleXMLElement $simpleXmlElement
-     *
-     * @return string
-     */
     protected function getModuleFromSchemaNamespace(SimpleXMLElement $simpleXmlElement): string
     {
         $namespace = (string)$simpleXmlElement['namespace'];

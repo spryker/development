@@ -17,9 +17,6 @@ class TwigFileFinder implements TwigFileFinderInterface
      */
     protected $config;
 
-    /**
-     * @param \Spryker\Zed\Development\DevelopmentConfig $config
-     */
     public function __construct(DevelopmentConfig $config)
     {
         $this->config = $config;
@@ -38,11 +35,6 @@ class TwigFileFinder implements TwigFileFinderInterface
         return $finder;
     }
 
-    /**
-     * @param string $module
-     *
-     * @return bool
-     */
     public function hasModuleTwigFiles(string $module): bool
     {
         $twigFilePaths = $this->buildTwigFilePaths($module);
@@ -50,11 +42,6 @@ class TwigFileFinder implements TwigFileFinderInterface
         return (count($twigFilePaths) > 0);
     }
 
-    /**
-     * @param string $module
-     *
-     * @return array
-     */
     protected function buildTwigFilePaths(string $module): array
     {
         $twigFilePaths = [];

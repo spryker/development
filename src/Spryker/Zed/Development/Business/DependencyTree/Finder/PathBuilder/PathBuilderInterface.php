@@ -9,10 +9,5 @@ namespace Spryker\Zed\Development\Business\DependencyTree\Finder\PathBuilder;
 
 interface PathBuilderInterface
 {
-    /**
-     * @param string $module
-     *
-     * @return array
-     */
     public function buildPaths(string $module): array;
 }

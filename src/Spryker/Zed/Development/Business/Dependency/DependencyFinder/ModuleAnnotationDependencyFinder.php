@@ -29,19 +29,11 @@ class ModuleAnnotationDependencyFinder implements DependencyFinderInterface
         'EntityManagerInterface.php',
     ];
 
-    /**
-     * @return string
-     */
     public function getType(): string
     {
         return static::TYPE;
     }
 
-    /**
-     * @param \Spryker\Zed\Development\Business\Dependency\DependencyFinder\Context\DependencyFinderContextInterface $context
-     *
-     * @return bool
-     */
     public function accept(DependencyFinderContextInterface $context): bool
     {
         if ($context->getDependencyType() !== null && $context->getDependencyType() !== $this->getType()) {
@@ -59,11 +51,6 @@ class ModuleAnnotationDependencyFinder implements DependencyFinderInterface
         return true;
     }
 
-    /**
-     * @param \Spryker\Zed\Development\Business\Dependency\DependencyFinder\Context\DependencyFinderContextInterface $context
-     *
-     * @return bool
-     */
     protected function isAcceptedFile(DependencyFinderContextInterface $context): bool
     {
         foreach ($this->acceptedFileNames as $fileName) {
@@ -75,12 +62,6 @@ class ModuleAnnotationDependencyFinder implements DependencyFinderInterface
         return false;
     }
 
-    /**
-     * @param \Spryker\Zed\Development\Business\Dependency\DependencyFinder\Context\DependencyFinderContextInterface $context
-     * @param \Spryker\Zed\Development\Business\Dependency\DependencyContainer\DependencyContainerInterface $dependencyContainer
-     *
-     * @return \Spryker\Zed\Development\Business\Dependency\DependencyContainer\DependencyContainerInterface
-     */
     public function findDependencies(DependencyFinderContextInterface $context, DependencyContainerInterface $dependencyContainer): DependencyContainerInterface
     {
         if (preg_match_all('/@module\s([a-zA-Z]+)/', $context->getFileInfo()->getContents(), $matches, PREG_SET_ORDER) !== false) {

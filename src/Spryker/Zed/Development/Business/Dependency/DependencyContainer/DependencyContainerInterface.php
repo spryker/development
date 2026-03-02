@@ -29,8 +29,5 @@ interface DependencyContainerInterface
      */
     public function addDependency(string $moduleOrComposerName, string $type, bool $isOptional = false, bool $isTest = false);
 
-    /**
-     * @return \Generated\Shared\Transfer\DependencyCollectionTransfer
-     */
     public function getDependencyCollection(): DependencyCollectionTransfer;
 }

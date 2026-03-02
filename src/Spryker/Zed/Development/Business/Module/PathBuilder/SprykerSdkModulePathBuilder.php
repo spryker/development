@@ -16,11 +16,6 @@ class SprykerSdkModulePathBuilder extends AbstractPathBuilder
      */
     protected const ORGANIZATION = 'SprykerSdk';
 
-    /**
-     * @param \Generated\Shared\Transfer\ModuleTransfer $moduleTransfer
-     *
-     * @return string
-     */
     protected function getModuleName(ModuleTransfer $moduleTransfer): string
     {
         return $moduleTransfer->getNameDashed();

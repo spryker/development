@@ -34,12 +34,6 @@ class StabilityUpdater implements UpdaterInterface
         $this->stability = $stability;
     }
 
-    /**
-     * @param array $composerJson
-     * @param \Symfony\Component\Finder\SplFileInfo $composerJsonFile
-     *
-     * @return array
-     */
     public function update(array $composerJson, SplFileInfo $composerJsonFile): array
     {
         $composerJson = $this->updateMinimumStability($composerJson);

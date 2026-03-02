@@ -24,11 +24,6 @@ class PathBuilderComposite implements PathBuilderInterface
         $this->pathBuilders = $pathBuilders;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\ModuleTransfer $moduleTransfer
-     *
-     * @return array
-     */
     public function buildPaths(ModuleTransfer $moduleTransfer): array
     {
         $moduleFilePaths = [];
@@ -42,11 +37,6 @@ class PathBuilderComposite implements PathBuilderInterface
         return $moduleFilePaths;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\ModuleTransfer $moduleTransfer
-     *
-     * @return bool
-     */
     public function accept(ModuleTransfer $moduleTransfer): bool
     {
         return true;

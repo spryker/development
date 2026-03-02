@@ -33,12 +33,6 @@ class PhpstanConfigFileManager implements PhpstanConfigFileManagerInterface
      */
     protected PhpstanConfigFileSaverInterface $phpstanConfigFileSaver;
 
-    /**
-     * @param \Symfony\Component\Filesystem\Filesystem $filesystem
-     * @param \Spryker\Zed\Development\DevelopmentConfig $config
-     * @param \Nette\DI\Config\Loader $configLoader
-     * @param \Spryker\Zed\Development\Business\Phpstan\Config\PhpstanConfigFileSaverInterface $phpstanConfigFileSaver
-     */
     public function __construct(
         Filesystem $filesystem,
         DevelopmentConfig $config,
@@ -62,21 +56,11 @@ class PhpstanConfigFileManager implements PhpstanConfigFileManagerInterface
         return $this->saveConfig($newConfigFileName, $this->mergeConfigs($configFiles));
     }
 
-    /**
-     * @param string $configFilePath
-     *
-     * @return bool
-     */
     public function isMergedConfigFile(string $configFilePath): bool
     {
         return strpos($configFilePath, $this->config->getPathToPhpstanModuleTemporaryConfigFolder()) === 0;
     }
 
-    /**
-     * @param string $configFilePath
-     *
-     * @return void
-     */
     public function deleteConfigFile(string $configFilePath): void
     {
         $this->filesystem->remove($configFilePath);
@@ -98,23 +82,11 @@ class PhpstanConfigFileManager implements PhpstanConfigFileManagerInterface
         return $mergedConfig;
     }
 
-    /**
-     * @param array $replacementsConfig
-     * @param array $baseConfig
-     *
-     * @return array
-     */
     protected function addConfig(array $replacementsConfig, array $baseConfig): array
     {
         return array_replace_recursive($baseConfig, $replacementsConfig);
     }
 
-    /**
-     * @param string $newConfigFileName
-     * @param array $mergedConfig
-     *
-     * @return string
-     */
     protected function saveConfig(string $newConfigFileName, array $mergedConfig): string
     {
         $directory = $this->config->getPathToPhpstanModuleTemporaryConfigFolder();

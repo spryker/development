@@ -31,9 +31,6 @@ class ComposerJsonValidatorConsole extends AbstractCoreModuleAwareConsole
      */
     protected $composerJsonErrorCount = 0;
 
-    /**
-     * @return void
-     */
     protected function configure(): void
     {
         parent::configure();
@@ -43,12 +40,6 @@ class ComposerJsonValidatorConsole extends AbstractCoreModuleAwareConsole
             ->setDescription('Validates composer.json files from core modules.');
     }
 
-    /**
-     * @param \Symfony\Component\Console\Input\InputInterface $input
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
-     *
-     * @return int
-     */
     public function execute(InputInterface $input, OutputInterface $output): int
     {
         $modulesToValidate = $this->getModulesToExecute($input);
@@ -86,11 +77,6 @@ class ComposerJsonValidatorConsole extends AbstractCoreModuleAwareConsole
         }
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\ModuleTransfer $moduleTransfer
-     *
-     * @return void
-     */
     protected function validateModuleComposerJson(ModuleTransfer $moduleTransfer): void
     {
         $composerJsonValidationRequestTransfer = new ComposerJsonValidationRequestTransfer();

@@ -18,12 +18,6 @@ class OrganismFunctionDependencyFinder implements TwigDependencyFinderInterface
      */
     protected const TEMPLATE_FUNCTION_PATTERN = '/organism\(\'(.*?),\s\'(.*?)\'/';
 
-    /**
-     * @param \Spryker\Zed\Development\Business\Dependency\DependencyFinder\Context\DependencyFinderContextInterface $context
-     * @param \Spryker\Zed\Development\Business\Dependency\DependencyContainer\DependencyContainerInterface $dependencyContainer
-     *
-     * @return \Spryker\Zed\Development\Business\Dependency\DependencyContainer\DependencyContainerInterface
-     */
     public function checkDependencyInFile(
         DependencyFinderContextInterface $context,
         DependencyContainerInterface $dependencyContainer
@@ -39,21 +33,11 @@ class OrganismFunctionDependencyFinder implements TwigDependencyFinderInterface
         return $this->addFindings($context->getModule()->getName(), $matches, $dependencyContainer);
     }
 
-    /**
-     * @return string
-     */
     public function getType(): string
     {
         return TwigDependencyFinder::TYPE_TWIG;
     }
 
-    /**
-     * @param string $module
-     * @param array $matches
-     * @param \Spryker\Zed\Development\Business\Dependency\DependencyContainer\DependencyContainerInterface $dependencyContainer
-     *
-     * @return \Spryker\Zed\Development\Business\Dependency\DependencyContainer\DependencyContainerInterface
-     */
     protected function addFindings(string $module, array $matches, DependencyContainerInterface $dependencyContainer): DependencyContainerInterface
     {
         foreach ($matches as $match) {

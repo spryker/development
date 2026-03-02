@@ -28,12 +28,6 @@ class BranchAliasUpdater implements UpdaterInterface
      */
     public const KEY_MASTER_BRANCH = 'dev-master';
 
-    /**
-     * @param array $composerJson
-     * @param \Symfony\Component\Finder\SplFileInfo $composerJsonFile
-     *
-     * @return array
-     */
     public function update(array $composerJson, SplFileInfo $composerJsonFile): array
     {
         if (!Config::hasValue(DevelopmentConstants::COMPOSER_BRANCH_ALIAS)) {

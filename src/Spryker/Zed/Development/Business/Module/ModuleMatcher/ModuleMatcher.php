@@ -16,12 +16,6 @@ use Generated\Shared\Transfer\OrganizationTransfer;
  */
 class ModuleMatcher implements ModuleMatcherInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\ModuleTransfer $moduleTransfer
-     * @param \Generated\Shared\Transfer\ModuleFilterTransfer $moduleFilterTransfer
-     *
-     * @return bool
-     */
     public function matches(ModuleTransfer $moduleTransfer, ModuleFilterTransfer $moduleFilterTransfer): bool
     {
         $accepted = true;
@@ -39,12 +33,6 @@ class ModuleMatcher implements ModuleMatcherInterface
         return $accepted;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\ModuleFilterTransfer $moduleFilterTransfer
-     * @param \Generated\Shared\Transfer\OrganizationTransfer $organizationTransfer
-     *
-     * @return bool
-     */
     protected function matchesOrganization(ModuleFilterTransfer $moduleFilterTransfer, OrganizationTransfer $organizationTransfer): bool
     {
         if ($moduleFilterTransfer->getOrganization() === null) {
@@ -79,12 +67,6 @@ class ModuleMatcher implements ModuleMatcherInterface
         return $applicationMatches;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\ModuleFilterTransfer $moduleFilterTransfer
-     * @param \Generated\Shared\Transfer\ModuleTransfer $moduleTransfer
-     *
-     * @return bool
-     */
     protected function matchesModule(ModuleFilterTransfer $moduleFilterTransfer, ModuleTransfer $moduleTransfer): bool
     {
         if ($moduleFilterTransfer->getModule() === null) {
@@ -94,12 +76,6 @@ class ModuleMatcher implements ModuleMatcherInterface
         return $this->match($moduleFilterTransfer->getModule()->getName(), $moduleTransfer->getName());
     }
 
-    /**
-     * @param string $search
-     * @param string $given
-     *
-     * @return bool
-     */
     protected function match(string $search, string $given): bool
     {
         if ($search === $given) {

@@ -40,11 +40,6 @@ class BundlesFormType extends AbstractType
      */
     public const SHOW_INCOMING = 'showIncoming';
 
-    /**
-     * @param \Symfony\Component\OptionsResolver\OptionsResolver $resolver
-     *
-     * @return void
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setRequired(static::BUNDLE_NAME_CHOICES);

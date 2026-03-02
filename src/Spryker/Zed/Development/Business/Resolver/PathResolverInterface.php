@@ -9,13 +9,5 @@ namespace Spryker\Zed\Development\Business\Resolver;
 
 interface PathResolverInterface
 {
-    /**
-     * @param string|null $module
-     * @param string|null $namespace
-     * @param string|null $path
-     * @param array $options
-     *
-     * @return array
-     */
     public function resolvePaths(?string $module, ?string $namespace, ?string $path, array $options): array;
 }

@@ -27,11 +27,6 @@ class DependencyFinderContext implements DependencyFinderContextInterface
      */
     protected $dependencyType;
 
-    /**
-     * @param \Generated\Shared\Transfer\ModuleTransfer $moduleTransfer
-     * @param \Symfony\Component\Finder\SplFileInfo $fileInfo
-     * @param string|null $dependencyType
-     */
     public function __construct(ModuleTransfer $moduleTransfer, SplFileInfo $fileInfo, ?string $dependencyType = null)
     {
         $this->moduleTransfer = $moduleTransfer;
@@ -39,25 +34,16 @@ class DependencyFinderContext implements DependencyFinderContextInterface
         $this->dependencyType = $dependencyType;
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\ModuleTransfer
-     */
     public function getModule(): ModuleTransfer
     {
         return $this->moduleTransfer;
     }
 
-    /**
-     * @return \Symfony\Component\Finder\SplFileInfo
-     */
     public function getFileInfo(): SplFileInfo
     {
         return $this->fileInfo;
     }
 
-    /**
-     * @return string|null
-     */
     public function getDependencyType(): ?string
     {
         return $this->dependencyType;

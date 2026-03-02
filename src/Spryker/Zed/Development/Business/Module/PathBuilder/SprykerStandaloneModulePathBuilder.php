@@ -16,11 +16,6 @@ class SprykerStandaloneModulePathBuilder extends AbstractPathBuilder
      */
     protected const ORGANIZATION = 'Spryker';
 
-    /**
-     * @param \Generated\Shared\Transfer\ModuleTransfer $moduleTransfer
-     *
-     * @return array
-     */
     public function buildPaths(ModuleTransfer $moduleTransfer): array
     {
         $paths = [
@@ -34,11 +29,6 @@ class SprykerStandaloneModulePathBuilder extends AbstractPathBuilder
         return $paths;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\ModuleTransfer $moduleTransfer
-     *
-     * @return string
-     */
     protected function getModuleName(ModuleTransfer $moduleTransfer): string
     {
         return $moduleTransfer->getNameDashed();

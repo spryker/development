@@ -19,19 +19,11 @@ class TargetDirectoryResolver
      */
     protected $config;
 
-    /**
-     * @param \Spryker\Zed\Development\DevelopmentConfig $config
-     */
     public function __construct(DevelopmentConfig $config)
     {
         $this->config = $config;
     }
 
-    /**
-     * @param string $application
-     *
-     * @return string
-     */
     public function resolveTargetDirectory(string $application): string
     {
         $options = $this->getOptions($application);

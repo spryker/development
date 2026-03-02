@@ -39,9 +39,6 @@ class DependencyViolationFixConsole extends AbstractCoreModuleAwareConsole
      */
     protected const OPTION_DRY_RUN_SHORT = 'd';
 
-    /**
-     * @return void
-     */
     protected function configure(): void
     {
         parent::configure();
@@ -76,11 +73,6 @@ class DependencyViolationFixConsole extends AbstractCoreModuleAwareConsole
         return static::CODE_SUCCESS;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\ModuleTransfer $moduleTransfer
-     *
-     * @return void
-     */
     protected function executeModuleTransfer(ModuleTransfer $moduleTransfer): void
     {
         $moduleDependencyTransferCollection = $this->getModuleDependencies($moduleTransfer);
@@ -95,11 +87,6 @@ class DependencyViolationFixConsole extends AbstractCoreModuleAwareConsole
         $this->fixModuleDependencies($moduleTransfer);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\ModuleTransfer $moduleTransfer
-     *
-     * @return void
-     */
     protected function fixModuleDependencies(ModuleTransfer $moduleTransfer): void
     {
         $composerJsonArray = $this->getComposerJsonAsArray($moduleTransfer);
@@ -122,11 +109,6 @@ class DependencyViolationFixConsole extends AbstractCoreModuleAwareConsole
         $this->saveComposerJsonArray($moduleTransfer, $composerJsonArray);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\ModuleDependencyTransfer $moduleDependencyTransfer
-     *
-     * @return string|null
-     */
     protected function getMissingComposerName(ModuleDependencyTransfer $moduleDependencyTransfer): ?string
     {
         if ($moduleDependencyTransfer->getComposerName() !== null) {
@@ -140,11 +122,6 @@ class DependencyViolationFixConsole extends AbstractCoreModuleAwareConsole
         return null;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\ModuleTransfer $moduleTransfer
-     *
-     * @return array
-     */
     protected function getComposerJsonAsArray(ModuleTransfer $moduleTransfer): array
     {
         $composerJsonFile = $moduleTransfer->getPath() . '/composer.json';
@@ -153,12 +130,6 @@ class DependencyViolationFixConsole extends AbstractCoreModuleAwareConsole
         return $composerJsonArray;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\ModuleTransfer $moduleTransfer
-     * @param array $composerJsonArray
-     *
-     * @return void
-     */
     protected function saveComposerJsonArray(ModuleTransfer $moduleTransfer, array $composerJsonArray): void
     {
         if ($this->input->getOption(static::OPTION_DRY_RUN)) {
@@ -172,13 +143,6 @@ class DependencyViolationFixConsole extends AbstractCoreModuleAwareConsole
         ComposerJson::toFile($composerJsonFile, $composerJsonArray);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\ModuleDependencyTransfer $moduleDependencyTransfer
-     * @param array $composerJsonArray
-     * @param string $composerName
-     *
-     * @return array
-     */
     protected function fixDependencyViolations(ModuleDependencyTransfer $moduleDependencyTransfer, array $composerJsonArray, string $composerName): array
     {
         foreach ($moduleDependencyTransfer->getValidationMessages() as $validationMessageTransfer) {
@@ -190,13 +154,6 @@ class DependencyViolationFixConsole extends AbstractCoreModuleAwareConsole
         return $composerJsonArray;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\ValidationMessageTransfer $validationMessageTransfer
-     * @param array $composerJsonArray
-     * @param string $composerName
-     *
-     * @return array
-     */
     protected function fixDependencyViolationsInRequire(
         ValidationMessageTransfer $validationMessageTransfer,
         array $composerJsonArray,
@@ -214,13 +171,6 @@ class DependencyViolationFixConsole extends AbstractCoreModuleAwareConsole
         return $composerJsonArray;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\ValidationMessageTransfer $validationMessageTransfer
-     * @param array $composerJsonArray
-     * @param string $composerName
-     *
-     * @return array
-     */
     protected function fixDependencyViolationsInRequireDev(
         ValidationMessageTransfer $validationMessageTransfer,
         array $composerJsonArray,
@@ -238,13 +188,6 @@ class DependencyViolationFixConsole extends AbstractCoreModuleAwareConsole
         return $composerJsonArray;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\ValidationMessageTransfer $validationMessageTransfer
-     * @param array $composerJsonArray
-     * @param string $composerName
-     *
-     * @return array
-     */
     protected function fixDependencyViolationsInSuggest(
         ValidationMessageTransfer $validationMessageTransfer,
         array $composerJsonArray,
@@ -262,11 +205,6 @@ class DependencyViolationFixConsole extends AbstractCoreModuleAwareConsole
         return $composerJsonArray;
     }
 
-    /**
-     * @param string $message
-     *
-     * @return void
-     */
     protected function writeIfVerbose(string $message): void
     {
         if ($this->output->isVerbose()) {
@@ -274,11 +212,6 @@ class DependencyViolationFixConsole extends AbstractCoreModuleAwareConsole
         }
     }
 
-    /**
-     * @param array $composerJsonArray
-     *
-     * @return array
-     */
     protected function orderEntriesInComposerJsonArray(array $composerJsonArray): array
     {
         $keys = ['require', 'require-dev', 'suggest'];
@@ -295,11 +228,6 @@ class DependencyViolationFixConsole extends AbstractCoreModuleAwareConsole
         return $composerJsonArray;
     }
 
-    /**
-     * @param array $composerJsonArray
-     *
-     * @return array
-     */
     protected function removeEmptyEntriesInComposerJsonArray(array $composerJsonArray): array
     {
         $keys = ['require', 'require-dev', 'suggest'];

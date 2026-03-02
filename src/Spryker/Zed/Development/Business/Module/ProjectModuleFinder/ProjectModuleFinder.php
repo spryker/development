@@ -31,21 +31,12 @@ class ProjectModuleFinder implements ProjectModuleFinderInterface
      */
     protected $moduleMatcher;
 
-    /**
-     * @param \Spryker\Zed\Development\DevelopmentConfig $config
-     * @param \Spryker\Zed\Development\Business\Module\ModuleMatcher\ModuleMatcherInterface $moduleMatcher
-     */
     public function __construct(DevelopmentConfig $config, ModuleMatcherInterface $moduleMatcher)
     {
         $this->config = $config;
         $this->moduleMatcher = $moduleMatcher;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\ModuleFilterTransfer|null $moduleFilterTransfer
-     *
-     * @return array
-     */
     public function getProjectModules(?ModuleFilterTransfer $moduleFilterTransfer = null): array
     {
         $moduleCollection = [];
@@ -126,11 +117,6 @@ class ProjectModuleFinder implements ProjectModuleFinderInterface
         };
     }
 
-    /**
-     * @param \Symfony\Component\Finder\SplFileInfo $directoryInfo
-     *
-     * @return \Generated\Shared\Transfer\ModuleTransfer
-     */
     protected function getModuleTransfer(SplFileInfo $directoryInfo): ModuleTransfer
     {
         $moduleTransfer = $this->buildModuleTransferFromDirectoryInformation($directoryInfo);
@@ -139,11 +125,6 @@ class ProjectModuleFinder implements ProjectModuleFinderInterface
         return $moduleTransfer;
     }
 
-    /**
-     * @param \Symfony\Component\Finder\SplFileInfo $directoryInfo
-     *
-     * @return \Generated\Shared\Transfer\ModuleTransfer
-     */
     protected function buildModuleTransferFromDirectoryInformation(SplFileInfo $directoryInfo): ModuleTransfer
     {
         $moduleName = $this->getModuleNameFromDirectory($directoryInfo);
@@ -155,11 +136,6 @@ class ProjectModuleFinder implements ProjectModuleFinderInterface
         return $moduleTransfer;
     }
 
-    /**
-     * @param \Symfony\Component\Finder\SplFileInfo $directoryInfo
-     *
-     * @return \Generated\Shared\Transfer\OrganizationTransfer
-     */
     protected function buildOrganizationTransferFromDirectoryInformation(SplFileInfo $directoryInfo): OrganizationTransfer
     {
         $organizationName = $this->getOrganizationNameFromDirectory($directoryInfo);
@@ -171,11 +147,6 @@ class ProjectModuleFinder implements ProjectModuleFinderInterface
         return $organizationTransfer;
     }
 
-    /**
-     * @param \Symfony\Component\Finder\SplFileInfo $directoryInfo
-     *
-     * @return \Generated\Shared\Transfer\ApplicationTransfer
-     */
     protected function buildApplicationTransferFromDirectoryInformation(SplFileInfo $directoryInfo): ApplicationTransfer
     {
         $applicationName = $this->getApplicationNameFromDirectory($directoryInfo);
@@ -185,11 +156,6 @@ class ProjectModuleFinder implements ProjectModuleFinderInterface
         return $applicationTransfer;
     }
 
-    /**
-     * @param \Symfony\Component\Finder\SplFileInfo $directoryInfo
-     *
-     * @return string
-     */
     protected function getOrganizationNameFromDirectory(SplFileInfo $directoryInfo): string
     {
         /** @var string $realPath */
@@ -202,11 +168,6 @@ class ProjectModuleFinder implements ProjectModuleFinderInterface
         return $organizationName;
     }
 
-    /**
-     * @param \Symfony\Component\Finder\SplFileInfo $directoryInfo
-     *
-     * @return string
-     */
     protected function getApplicationNameFromDirectory(SplFileInfo $directoryInfo): string
     {
         /** @var string $realPath */
@@ -219,21 +180,11 @@ class ProjectModuleFinder implements ProjectModuleFinderInterface
         return $organizationName;
     }
 
-    /**
-     * @param \Symfony\Component\Finder\SplFileInfo $directoryInfo
-     *
-     * @return string
-     */
     protected function getModuleNameFromDirectory(SplFileInfo $directoryInfo): string
     {
         return $directoryInfo->getRelativePathname();
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\ModuleTransfer $moduleTransfer
-     *
-     * @return string
-     */
     protected function buildOrganizationModuleKey(ModuleTransfer $moduleTransfer): string
     {
         return sprintf('%s.%s', $moduleTransfer->getOrganization()->getName(), $moduleTransfer->getName());

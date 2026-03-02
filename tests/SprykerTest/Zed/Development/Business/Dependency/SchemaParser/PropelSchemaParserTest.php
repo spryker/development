@@ -44,9 +44,6 @@ class PropelSchemaParserTest extends Unit
      */
     protected $tester;
 
-    /**
-     * @return void
-     */
     public function testGetForeignColumnNamesForSchemaWithNamespaceReturnsForeignReferenceColumnNames(): void
     {
         // Arrange
@@ -64,9 +61,6 @@ class PropelSchemaParserTest extends Unit
         $this->assertEquals($expectedResult, $foreignColumnNames);
     }
 
-    /**
-     * @return void
-     */
     public function testGetForeignColumnNamesForStaleSchemaReturnsForeignReferenceColumnNames(): void
     {
         // Arrange
@@ -84,9 +78,6 @@ class PropelSchemaParserTest extends Unit
         $this->assertEquals($expectedResult, $foreignColumnNames);
     }
 
-    /**
-     * @return void
-     */
     public function testGetModuleNameByForeignReferenceReturnsAllDependentModulesBothStaleAnsNamespacedOnes(): void
     {
         // Arrange
@@ -111,9 +102,6 @@ class PropelSchemaParserTest extends Unit
         $this->assertEquals($expectedResult, $dependentModules);
     }
 
-    /**
-     * @return void
-     */
     public function testGetModuleNameByForeignReferenceForUnexistingReferencesThrowsPropelSchemaParserException(): void
     {
         // Arrange
@@ -132,9 +120,6 @@ class PropelSchemaParserTest extends Unit
         }
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\Dependency\SchemaParser\PropelSchemaParser
-     */
     protected function getPropelSchemaParser(): PropelSchemaParser
     {
         /** @var \Spryker\Zed\Development\DevelopmentConfig $developmentConfigMock */

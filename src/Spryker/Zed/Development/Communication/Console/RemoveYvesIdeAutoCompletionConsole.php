@@ -22,9 +22,6 @@ class RemoveYvesIdeAutoCompletionConsole extends Console
      */
     public const COMMAND_NAME = 'dev:ide-auto-completion:yves:remove';
 
-    /**
-     * @return void
-     */
     protected function configure(): void
     {
         parent::configure();
@@ -33,12 +30,6 @@ class RemoveYvesIdeAutoCompletionConsole extends Console
         $this->setDescription('Removes IDE auto completion files for Yves.');
     }
 
-    /**
-     * @param \Symfony\Component\Console\Input\InputInterface $input
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
-     *
-     * @return int
-     */
     public function execute(InputInterface $input, OutputInterface $output): int
     {
         $this->getFacade()->removeYvesIdeAutoCompletion();

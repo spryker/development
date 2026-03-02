@@ -26,11 +26,6 @@ class FinderComposite implements FinderCompositeInterface
         return $this;
     }
 
-    /**
-     * @param string $module
-     *
-     * @return array
-     */
     public function find(string $module): array
     {
         $files = [];

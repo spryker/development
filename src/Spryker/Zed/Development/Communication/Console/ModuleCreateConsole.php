@@ -41,9 +41,6 @@ class ModuleCreateConsole extends Console
      */
     public const OPTION_FORCE = 'force';
 
-    /**
-     * @return void
-     */
     protected function configure(): void
     {
         parent::configure();

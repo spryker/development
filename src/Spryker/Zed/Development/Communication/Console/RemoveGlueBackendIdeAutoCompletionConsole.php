@@ -22,9 +22,6 @@ class RemoveGlueBackendIdeAutoCompletionConsole extends Console
      */
     public const COMMAND_NAME = 'dev:ide-auto-completion:glue-backend:remove';
 
-    /**
-     * @return void
-     */
     protected function configure(): void
     {
         parent::configure();
@@ -33,12 +30,6 @@ class RemoveGlueBackendIdeAutoCompletionConsole extends Console
         $this->setDescription('Removes IDE auto completion files for Glue Backend.');
     }
 
-    /**
-     * @param \Symfony\Component\Console\Input\InputInterface $input
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
-     *
-     * @return int
-     */
     public function execute(InputInterface $input, OutputInterface $output): int
     {
         $this->getFacade()->removeGlueIdeAutoCompletion();

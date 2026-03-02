@@ -26,10 +26,6 @@ class CodeStyleSnifferConfigurationLoader implements CodeStyleSnifferConfigurati
      */
     protected $codeStyleSnifferConfiguration;
 
-    /**
-     * @param \Spryker\Zed\Development\Business\SnifferConfiguration\ConfigurationReader\ConfigurationReaderInterface $configurationReader
-     * @param \Spryker\Zed\Development\Business\CodeStyleSniffer\Config\CodeStyleSnifferConfigurationInterface $codeStyleSnifferConfiguration
-     */
     public function __construct(
         ConfigurationReaderInterface $configurationReader,
         CodeStyleSnifferConfigurationInterface $codeStyleSnifferConfiguration

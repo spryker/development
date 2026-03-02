@@ -264,12 +264,6 @@ class ArchitectureSniffer implements ArchitectureSnifferInterface
         file_put_contents($reportPath, $content);
     }
 
-    /**
-     * @param array $result
-     * @param array $reportResult
-     *
-     * @return array
-     */
     protected function sortViolations(array $result, array $reportResult): array
     {
         $sortedViolations = [
@@ -340,11 +334,6 @@ class ArchitectureSniffer implements ArchitectureSnifferInterface
         return $output;
     }
 
-    /**
-     * @param string $directory
-     *
-     * @return string
-     */
     protected function resolveRulesetPath(string $directory): string
     {
         $architecturalRulesetFilepath = dirname($directory) . DIRECTORY_SEPARATOR . static::CUSTOM_RULESET;
@@ -362,11 +351,6 @@ class ArchitectureSniffer implements ArchitectureSnifferInterface
         return $this->command;
     }
 
-    /**
-     * @param string $architecturalRulesetFilepath
-     *
-     * @return string
-     */
     protected function createCommand(string $architecturalRulesetFilepath): string
     {
         $command = $this->command;
@@ -402,11 +386,6 @@ class ArchitectureSniffer implements ArchitectureSnifferInterface
         return $result;
     }
 
-    /**
-     * @param string $path
-     *
-     * @return string
-     */
     protected function normalizeProjectPath(string $path): string
     {
         $basePath = rtrim(APPLICATION_ROOT_DIR, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
@@ -420,11 +399,6 @@ class ArchitectureSniffer implements ArchitectureSnifferInterface
         return $path;
     }
 
-    /**
-     * @param string $description
-     *
-     * @return string
-     */
     protected function cleanDescription(string $description): string
     {
         return trim($description);
@@ -536,11 +510,6 @@ class ArchitectureSniffer implements ArchitectureSnifferInterface
         return $fileViolations;
     }
 
-    /**
-     * @param string $directory
-     *
-     * @return string
-     */
     protected function addSourcePathForCoreModulePath(string $directory): string
     {
         return $directory . static::SOURCE_FOLDER_NAME . DIRECTORY_SEPARATOR;

@@ -51,9 +51,6 @@ class ModuleBridgeCreateConsole extends Console
      */
     public const OPTION_METHODS_SHORT = 'm';
 
-    /**
-     * @return void
-     */
     protected function configure(): void
     {
         parent::configure();

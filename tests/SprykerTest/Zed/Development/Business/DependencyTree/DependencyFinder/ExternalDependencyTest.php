@@ -47,9 +47,6 @@ class ExternalDependencyTest extends Unit
         throw new RuntimeException('Not Found');
     }
 
-    /**
-     * @return void
-     */
     public function testAddDependency(): void
     {
         $developmentConfig = new DevelopmentConfig();

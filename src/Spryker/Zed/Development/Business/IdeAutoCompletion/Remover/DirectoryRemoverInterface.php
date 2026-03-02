@@ -9,10 +9,5 @@ namespace Spryker\Zed\Development\Business\IdeAutoCompletion\Remover;
 
 interface DirectoryRemoverInterface
 {
-    /**
-     * @param string $application
-     *
-     * @return void
-     */
     public function remove(string $application): void;
 }

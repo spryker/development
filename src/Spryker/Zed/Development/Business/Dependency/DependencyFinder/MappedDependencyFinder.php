@@ -24,27 +24,16 @@ class MappedDependencyFinder extends AbstractFileDependencyFinder
      */
     protected $config;
 
-    /**
-     * @param \Spryker\Zed\Development\DevelopmentConfig $config
-     */
     public function __construct(DevelopmentConfig $config)
     {
         $this->config = $config;
     }
 
-    /**
-     * @return string
-     */
     public function getType(): string
     {
         return static::TYPE_MAPPED;
     }
 
-    /**
-     * @param \Spryker\Zed\Development\Business\Dependency\DependencyFinder\Context\DependencyFinderContextInterface $context
-     *
-     * @return bool
-     */
     public function accept(DependencyFinderContextInterface $context): bool
     {
         if ($context->getDependencyType() !== null && $context->getDependencyType() !== $this->getType()) {

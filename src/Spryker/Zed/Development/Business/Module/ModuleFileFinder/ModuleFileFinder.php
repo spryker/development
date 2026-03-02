@@ -18,19 +18,11 @@ class ModuleFileFinder implements ModuleFileFinderInterface
      */
     protected $pathBuilder;
 
-    /**
-     * @param \Spryker\Zed\Development\Business\Module\PathBuilder\PathBuilderInterface $pathBuilder
-     */
     public function __construct(PathBuilderInterface $pathBuilder)
     {
         $this->pathBuilder = $pathBuilder;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\ModuleTransfer $moduleTransfer
-     *
-     * @return bool
-     */
     public function hasFiles(ModuleTransfer $moduleTransfer): bool
     {
         $directories = $this->getModuleDirectories($moduleTransfer);
@@ -42,11 +34,6 @@ class ModuleFileFinder implements ModuleFileFinderInterface
         return true;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\ModuleTransfer $moduleTransfer
-     *
-     * @return \Symfony\Component\Finder\Finder
-     */
     public function find(ModuleTransfer $moduleTransfer): Finder
     {
         $directories = $this->getModuleDirectories($moduleTransfer);
@@ -57,11 +44,6 @@ class ModuleFileFinder implements ModuleFileFinderInterface
         return $finder;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\ModuleTransfer $moduleTransfer
-     *
-     * @return array
-     */
     protected function getModuleDirectories(ModuleTransfer $moduleTransfer): array
     {
         $directories = $this->pathBuilder->buildPaths($moduleTransfer);

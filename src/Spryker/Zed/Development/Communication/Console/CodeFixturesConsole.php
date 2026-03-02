@@ -43,9 +43,6 @@ class CodeFixturesConsole extends Console
      */
     public const OPTION_TYPE_EXCLUDE = 'exclude';
 
-    /**
-     * @return void
-     */
     protected function configure(): void
     {
         parent::configure();
@@ -61,12 +58,6 @@ class CodeFixturesConsole extends Console
         $this->addOption(static::OPTION_INITIALIZE, 'i', InputOption::VALUE_NONE, 'Initialize actors by (re)generating required classes');
     }
 
-    /**
-     * @param \Symfony\Component\Console\Input\InputInterface $input
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
-     *
-     * @return int
-     */
     public function execute(InputInterface $input, OutputInterface $output): int
     {
         /** @var string|null $module */
@@ -81,11 +72,6 @@ class CodeFixturesConsole extends Console
         return $this->getFacade()->runFixtures($module, $this->input->getOptions());
     }
 
-    /**
-     * @param string|null $module
-     *
-     * @return void
-     */
     protected function displayRunInfo(?string $module): void
     {
         $message = 'Build fixtures for codeception tests for project level';

@@ -9,9 +9,6 @@ namespace Spryker\Zed\Development\Business\IdeAutoCompletion\Generator;
 
 class BundleGenerator extends AbstractGenerator
 {
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return 'AutoCompletion';

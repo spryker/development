@@ -23,21 +23,12 @@ class PhpstanConfigFileFinder implements PhpstanConfigFileFinderInterface
      */
     protected $config;
 
-    /**
-     * @param \Symfony\Component\Finder\Finder $finder
-     * @param \Spryker\Zed\Development\DevelopmentConfig $config
-     */
     public function __construct(Finder $finder, DevelopmentConfig $config)
     {
         $this->finder = $finder;
         $this->config = $config;
     }
 
-    /**
-     * @param string $directoryPath
-     *
-     * @return \SplFileInfo|null
-     */
     public function searchIn(string $directoryPath): ?SplFileInfo
     {
         $this->clearFinder();
@@ -46,9 +37,6 @@ class PhpstanConfigFileFinder implements PhpstanConfigFileFinderInterface
         return $this->getConfigFile();
     }
 
-    /**
-     * @return \SplFileInfo|null
-     */
     protected function getConfigFile(): ?SplFileInfo
     {
         if (!$this->finder->hasResults()) {
@@ -61,19 +49,11 @@ class PhpstanConfigFileFinder implements PhpstanConfigFileFinderInterface
         return reset($finderAsArray);
     }
 
-    /**
-     * @param string $directoryPath
-     *
-     * @return void
-     */
     protected function addDirectoryToFinder(string $directoryPath): void
     {
         $this->finder->in($directoryPath);
     }
 
-    /**
-     * @return void
-     */
     protected function clearFinder(): void
     {
         $this->finder = $this->finder::create()

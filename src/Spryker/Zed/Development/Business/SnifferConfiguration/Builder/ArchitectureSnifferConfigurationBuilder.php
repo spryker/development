@@ -43,10 +43,6 @@ class ArchitectureSnifferConfigurationBuilder implements SnifferConfigurationBui
      */
     protected $defaultPriorityLevel;
 
-    /**
-     * @param \Spryker\Zed\Development\Business\SnifferConfiguration\ConfigurationReader\ConfigurationReaderInterface $configurationReader
-     * @param int $defaultPriorityLevel
-     */
     public function __construct(ConfigurationReaderInterface $configurationReader, int $defaultPriorityLevel)
     {
         $this->configurationReader = $configurationReader;

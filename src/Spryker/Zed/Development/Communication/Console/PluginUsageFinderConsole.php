@@ -34,9 +34,6 @@ class PluginUsageFinderConsole extends Console
      */
     protected const ARGUMENT_MODULE = 'module';
 
-    /**
-     * @return void
-     */
     protected function configure(): void
     {
         parent::configure();
@@ -64,11 +61,6 @@ class PluginUsageFinderConsole extends Console
         return static::CODE_SUCCESS;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\DependencyProviderCollectionTransfer $dependencyProviderCollectionTransfer
-     *
-     * @return void
-     */
     protected function printDependencyProviderPluginUsageList(DependencyProviderCollectionTransfer $dependencyProviderCollectionTransfer): void
     {
         foreach ($dependencyProviderCollectionTransfer->getDependencyProvider() as $dependencyProviderTransfer) {
@@ -86,9 +78,6 @@ class PluginUsageFinderConsole extends Console
         }
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\ModuleFilterTransfer|null
-     */
     protected function buildModuleFilterTransfer(): ?ModuleFilterTransfer
     {
         if (!$this->input->getArgument(static::ARGUMENT_MODULE)) {
@@ -112,12 +101,6 @@ class PluginUsageFinderConsole extends Console
         return $moduleFilterTransfer;
     }
 
-    /**
-     * @param string $moduleArgument
-     * @param \Generated\Shared\Transfer\ModuleFilterTransfer $moduleFilterTransfer
-     *
-     * @return \Generated\Shared\Transfer\ModuleFilterTransfer
-     */
     protected function addFilterDetails(string $moduleArgument, ModuleFilterTransfer $moduleFilterTransfer): ModuleFilterTransfer
     {
         $moduleFragments = explode('.', $moduleArgument);
@@ -138,12 +121,6 @@ class PluginUsageFinderConsole extends Console
         return $moduleFilterTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\ModuleFilterTransfer $moduleFilterTransfer
-     * @param string $module
-     *
-     * @return \Generated\Shared\Transfer\ModuleFilterTransfer
-     */
     protected function addModuleTransfer(ModuleFilterTransfer $moduleFilterTransfer, string $module): ModuleFilterTransfer
     {
         if ($module !== '*' && $module !== 'all') {
@@ -155,12 +132,6 @@ class PluginUsageFinderConsole extends Console
         return $moduleFilterTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\ModuleFilterTransfer $moduleFilterTransfer
-     * @param string $organization
-     *
-     * @return \Generated\Shared\Transfer\ModuleFilterTransfer
-     */
     protected function addOrganizationTransfer(ModuleFilterTransfer $moduleFilterTransfer, string $organization): ModuleFilterTransfer
     {
         $organizationTransfer = new OrganizationTransfer();
@@ -171,12 +142,6 @@ class PluginUsageFinderConsole extends Console
         return $moduleFilterTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\ModuleFilterTransfer $moduleFilterTransfer
-     * @param string|null $application
-     *
-     * @return \Generated\Shared\Transfer\ModuleFilterTransfer
-     */
     protected function addApplicationTransfer(ModuleFilterTransfer $moduleFilterTransfer, ?string $application = null): ModuleFilterTransfer
     {
         if ($application === null) {

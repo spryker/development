@@ -22,11 +22,6 @@ class SprykerEcoPathBuilder extends AbstractPathBuilder implements PathBuilderIn
         'tests' => 'SprykerEcoTest',
     ];
 
-    /**
-     * @param string $module
-     *
-     * @return array
-     */
     public function buildPaths(string $module): array
     {
         $filteredModule = $this->filterModule($module);

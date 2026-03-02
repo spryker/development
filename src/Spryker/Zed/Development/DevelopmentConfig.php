@@ -857,11 +857,6 @@ class DevelopmentConfig extends AbstractBundleConfig
         return $sprykerNamespacePath + static::INTERNAL_NAMESPACES_TO_PATH_MAPPING;
     }
 
-    /**
-     * @param string $namespace
-     *
-     * @return string|null
-     */
     protected function checkPathToSprykerRoot(string $namespace): ?string
     {
         if ($namespace === static::NAMESPACE_SPRYKER) {

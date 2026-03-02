@@ -28,9 +28,6 @@ use Twig\Environment;
  */
 class BundleGeneratorTest extends Unit
 {
-    /**
-     * @return void
-     */
     public function testTemplateNameIsDerivedFromGeneratorName(): void
     {
         $twigEnvironmentMock = $this->createTwigEnvironmentMock();
@@ -44,9 +41,6 @@ class BundleGeneratorTest extends Unit
         $generator->generate([]);
     }
 
-    /**
-     * @return void
-     */
     public function testNamespacePatternIsFilledWithApplicationName(): void
     {
         $twigEnvironmentMock = $this->createTwigEnvironmentMock();
@@ -64,9 +58,6 @@ class BundleGeneratorTest extends Unit
         $generator->generate([]);
     }
 
-    /**
-     * @return array
-     */
     protected function getGeneratorOptions(): array
     {
         return [

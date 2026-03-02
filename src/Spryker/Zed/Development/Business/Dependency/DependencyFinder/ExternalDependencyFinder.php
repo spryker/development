@@ -42,11 +42,6 @@ class ExternalDependencyFinder extends AbstractFileDependencyFinder
      */
     protected $foundPackagesByUseStatement = [];
 
-    /**
-     * @param \Spryker\Zed\Development\Business\Dependency\ModuleParser\UseStatementParserInterface $useStatementParser
-     * @param \Spryker\Zed\Development\Business\Dependency\ComposerParser\ExternalDependencyParserInterface $externalDependencyParser
-     * @param \Spryker\Zed\Development\DevelopmentConfig $config
-     */
     public function __construct(
         UseStatementParserInterface $useStatementParser,
         ExternalDependencyParserInterface $externalDependencyParser,
@@ -57,19 +52,11 @@ class ExternalDependencyFinder extends AbstractFileDependencyFinder
         $this->config = $config;
     }
 
-    /**
-     * @return string
-     */
     public function getType(): string
     {
         return static::TYPE_EXTERNAL;
     }
 
-    /**
-     * @param \Spryker\Zed\Development\Business\Dependency\DependencyFinder\Context\DependencyFinderContextInterface $context
-     *
-     * @return bool
-     */
     public function accept(DependencyFinderContextInterface $context): bool
     {
         if ($context->getDependencyType() !== null && $context->getDependencyType() !== $this->getType()) {
@@ -83,12 +70,6 @@ class ExternalDependencyFinder extends AbstractFileDependencyFinder
         return true;
     }
 
-    /**
-     * @param \Spryker\Zed\Development\Business\Dependency\DependencyFinder\Context\DependencyFinderContextInterface $context
-     * @param \Spryker\Zed\Development\Business\Dependency\DependencyContainer\DependencyContainerInterface $dependencyContainer
-     *
-     * @return \Spryker\Zed\Development\Business\Dependency\DependencyContainer\DependencyContainerInterface
-     */
     public function findDependencies(DependencyFinderContextInterface $context, DependencyContainerInterface $dependencyContainer): DependencyContainerInterface
     {
         $dependencyModules = $this->getDependencyModules($context);
@@ -107,11 +88,6 @@ class ExternalDependencyFinder extends AbstractFileDependencyFinder
         return $dependencyContainer;
     }
 
-    /**
-     * @param \Spryker\Zed\Development\Business\Dependency\DependencyFinder\Context\DependencyFinderContextInterface $context
-     *
-     * @return array
-     */
     protected function getDependencyModules(DependencyFinderContextInterface $context): array
     {
         $dependencyModules = [];
@@ -153,11 +129,6 @@ class ExternalDependencyFinder extends AbstractFileDependencyFinder
         return $dependentModules;
     }
 
-    /**
-     * @param string $useStatement
-     *
-     * @return bool
-     */
     protected function isInternalNamespace(string $useStatement): bool
     {
         if (strpos($useStatement, '\\') === false) {
@@ -173,11 +144,6 @@ class ExternalDependencyFinder extends AbstractFileDependencyFinder
         return false;
     }
 
-    /**
-     * @param string $useStatement
-     *
-     * @return bool
-     */
     protected function isMappedExternalDependency(string $useStatement): bool
     {
         foreach ($this->config->getExternalToInternalNamespaceMap() as $namespace => $package) {
@@ -189,11 +155,6 @@ class ExternalDependencyFinder extends AbstractFileDependencyFinder
         return false;
     }
 
-    /**
-     * @param string $useStatement
-     *
-     * @return bool
-     */
     protected function isUnMappedExternalDependency(string $useStatement): bool
     {
         $packageName = $this->externalDependencyParser->findPackageNameByNamespace($useStatement);
@@ -227,11 +188,6 @@ class ExternalDependencyFinder extends AbstractFileDependencyFinder
         ));
     }
 
-    /**
-     * @param string $package
-     *
-     * @return string
-     */
     protected function getDependentModuleNameFromPackage(string $package): string
     {
         $dependentModule = substr($package, 8);

@@ -25,9 +25,6 @@ use Symfony\Component\Finder\SplFileInfo;
  */
 class NamespaceExtractorTest extends Unit
 {
-    /**
-     * @return void
-     */
     public function testReplacementOfRegularBaseDirectory(): void
     {
         $baseDirectory = '/foo/bar/baz/Bundle/src/';
@@ -38,9 +35,6 @@ class NamespaceExtractorTest extends Unit
         $this->assertSame('Spryker\Application\Bundle', $namespace);
     }
 
-    /**
-     * @return void
-     */
     public function testReplacementOfAsteriskGlobPatternBaseDirectory(): void
     {
         $baseDirectory = '/foo/bar/baz/*/src/';
@@ -51,9 +45,6 @@ class NamespaceExtractorTest extends Unit
         $this->assertSame('Spryker\Application\Bundle', $namespace);
     }
 
-    /**
-     * @return void
-     */
     public function testReplacementOfQuestionMarkGlobPatternBaseDirectory(): void
     {
         $baseDirectory = '/foo/bar/?az/Bundle/src/';
@@ -64,9 +55,6 @@ class NamespaceExtractorTest extends Unit
         $this->assertSame('Spryker\Application\Bundle', $namespace);
     }
 
-    /**
-     * @return void
-     */
     public function testReplacementOfBraceGlobPatternBaseDirectory(): void
     {
         $baseDirectory = '/foo/bar/{baz,spryker}/Bundle/src/';
@@ -81,9 +69,6 @@ class NamespaceExtractorTest extends Unit
         $this->assertSame('Spryker\Application\Bundle', $namespace);
     }
 
-    /**
-     * @return void
-     */
     public function testReplacementOfCharacterClassGlobPatternBasePath(): void
     {
         $baseDirectory = '/foo/bar/[bf]az/Bundle/src/';

@@ -22,9 +22,6 @@ class RemoveIdeAutoCompletionConsole extends Console
      */
     public const COMMAND_NAME = 'dev:ide-auto-completion:remove';
 
-    /**
-     * @return void
-     */
     protected function configure(): void
     {
         parent::configure();
@@ -33,12 +30,6 @@ class RemoveIdeAutoCompletionConsole extends Console
         $this->setDescription('Removes IDE auto completion files.');
     }
 
-    /**
-     * @param \Symfony\Component\Console\Input\InputInterface $input
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
-     *
-     * @return int
-     */
     public function execute(InputInterface $input, OutputInterface $output): int
     {
         $dependingCommands = [
@@ -66,11 +57,6 @@ class RemoveIdeAutoCompletionConsole extends Console
         return $this->getLastExitCode();
     }
 
-    /**
-     * @param string $commandName
-     *
-     * @return void
-     */
     protected function showCommandNotFoundMessage(string $commandName): void
     {
         $this->output->writeln(sprintf('<comment>Can not find %s in your project.</comment>', $commandName));

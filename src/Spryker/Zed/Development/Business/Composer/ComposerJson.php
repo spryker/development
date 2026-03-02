@@ -19,19 +19,11 @@ class ComposerJson implements ComposerJsonInterface
      */
     protected $composerJsonValidator;
 
-    /**
-     * @param \Spryker\Zed\Development\Business\Composer\Validator\ComposerJsonValidatorInterface $composerJsonValidator
-     */
     public function __construct(ComposerJsonValidatorInterface $composerJsonValidator)
     {
         $this->composerJsonValidator = $composerJsonValidator;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\ComposerJsonValidationRequestTransfer $composerJsonValidationRequestTransfer
-     *
-     * @return \Generated\Shared\Transfer\ComposerJsonValidationResponseTransfer
-     */
     public function validate(ComposerJsonValidationRequestTransfer $composerJsonValidationRequestTransfer): ComposerJsonValidationResponseTransfer
     {
         $composerJsonValidationResponseTransfer = new ComposerJsonValidationResponseTransfer();
@@ -43,11 +35,6 @@ class ComposerJson implements ComposerJsonInterface
         return $this->composerJsonValidator->validate($this->getComposerJsonAsArray($moduleTransfer), $composerJsonValidationResponseTransfer);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\ModuleTransfer $moduleTransfer
-     *
-     * @return bool
-     */
     protected function hasComposerJson(ModuleTransfer $moduleTransfer): bool
     {
         $composerJsonFilePath = $this->getComposerJsonFilePath($moduleTransfer);
@@ -55,11 +42,6 @@ class ComposerJson implements ComposerJsonInterface
         return file_exists($composerJsonFilePath);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\ModuleTransfer $moduleTransfer
-     *
-     * @return array
-     */
     protected function getComposerJsonAsArray(ModuleTransfer $moduleTransfer): array
     {
         $composerJsonFilePath = $this->getComposerJsonFilePath($moduleTransfer);
@@ -69,11 +51,6 @@ class ComposerJson implements ComposerJsonInterface
         return json_decode($fileContent, true);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\ModuleTransfer $moduleTransfer
-     *
-     * @return string
-     */
     protected function getComposerJsonFilePath(ModuleTransfer $moduleTransfer): string
     {
         $composerJsonFilePath = sprintf('%s/composer.json', $moduleTransfer->getPath());

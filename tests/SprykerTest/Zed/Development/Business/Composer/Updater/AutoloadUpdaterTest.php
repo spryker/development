@@ -25,9 +25,6 @@ use Symfony\Component\Finder\SplFileInfo;
  */
 class AutoloadUpdaterTest extends Unit
 {
-    /**
-     * @return void
-     */
     public function testWhenTestsFolderExistsDefaultAutoloadDevIsAddedToComposer(): void
     {
         $updatedJson = $this->updateJsonForTests($this->getComposerJson());
@@ -55,9 +52,6 @@ class AutoloadUpdaterTest extends Unit
         $this->assertSame($this->getComposerJson($autoloadKey)['autoload-dev'], $updatedJson['autoload-dev']);
     }
 
-    /**
-     * @return void
-     */
     public function testWhenTestFolderDoesNotExistNothingAddedToComposer(): void
     {
         $splFileInfo = $this->getSplFile();
@@ -70,9 +64,6 @@ class AutoloadUpdaterTest extends Unit
         $this->assertArrayNotHasKey('autoload-dev', $updatedComposerJson, 'autoload-dev empty and thus removed.');
     }
 
-    /**
-     * @return void
-     */
     public function testWhenAutoloadDevNamespaceIsInvalidGetsRemoved(): void
     {
         $composerJson = $this->getComposerJson();
@@ -84,9 +75,6 @@ class AutoloadUpdaterTest extends Unit
         $this->assertSame($this->getComposerJson()['autoload-dev'], $updatedJson['autoload-dev']);
     }
 
-    /**
-     * @return void
-     */
     public function testWhenAutoloadPathIsInvalidGetsRemoved(): void
     {
         $composerJson = $this->getComposerJson();
@@ -98,9 +86,6 @@ class AutoloadUpdaterTest extends Unit
         $this->assertSame($this->getComposerJson()['autoload-dev'], $updatedJson['autoload-dev']);
     }
 
-    /**
-     * @return void
-     */
     public function testWhenSupportFolderExistsWithHelpersItGetsAddedToAutoload(): void
     {
         $pathParts = [
@@ -124,11 +109,6 @@ class AutoloadUpdaterTest extends Unit
         $this->assertSame($this->getComposerJson()['autoload'], $updatedJson['autoload']);
     }
 
-    /**
-     * @param array $composerJson
-     *
-     * @return array
-     */
     protected function updateJsonForTests(array $composerJson): array
     {
         $pathParts = [
@@ -151,13 +131,6 @@ class AutoloadUpdaterTest extends Unit
         );
     }
 
-    /**
-     * @param array $pathParts
-     * @param array $composerJson
-     * @param array $dirMapAdditions
-     *
-     * @return array
-     */
     protected function getJsonAfterUpdate(array $pathParts, array $composerJson, array $dirMapAdditions = []): array
     {
         $splFileInfo = $this->getSplFile();
@@ -222,9 +195,6 @@ class AutoloadUpdaterTest extends Unit
         return $autoloadUpdaterMock->update($composerJson, $splFileInfo);
     }
 
-    /**
-     * @return array
-     */
     public function autoloadKeys(): array
     {
         return [
@@ -247,11 +217,6 @@ class AutoloadUpdaterTest extends Unit
         return $autoloadUpdaterMock;
     }
 
-    /**
-     * @param string $autoloadKey
-     *
-     * @return array
-     */
     protected function getComposerJson(string $autoloadKey = ''): array
     {
         $composerArray = [
@@ -275,9 +240,6 @@ class AutoloadUpdaterTest extends Unit
         return $composerArray;
     }
 
-    /**
-     * @return \Symfony\Component\Finder\SplFileInfo
-     */
     protected function getSplFile(): SplFileInfo
     {
         return new SplFileInfo(__FILE__, __DIR__, __DIR__);

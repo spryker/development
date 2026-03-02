@@ -32,9 +32,6 @@ class CodeStylePathResolverTest extends Unit
      */
     protected $tester;
 
-    /**
-     * @return void
-     */
     public function shouldResolveProjectPathsWithValidModule(): void
     {
         // Arrange
@@ -47,9 +44,6 @@ class CodeStylePathResolverTest extends Unit
         $this->assertNotEmpty($resolvedPaths);
     }
 
-    /**
-     * @return void
-     */
     public function shouldThrowExceptionForInvalidNamespace(): void
     {
         // Assert
@@ -62,9 +56,6 @@ class CodeStylePathResolverTest extends Unit
         $pathResolver->resolvePaths(null, 'InvalidNamespace', null, []);
     }
 
-    /**
-     * @return void
-     */
     public function shouldHandleAllModulesForCoreNamespace(): void
     {
         // Arrange
@@ -92,9 +83,6 @@ class CodeStylePathResolverTest extends Unit
         $pathResolver->resolvePaths('all', 'Spryker', null, ['pathSuffix' => 'someSuffix']);
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\Resolver\CodeStylePathResolver
-     */
     protected function createPathResolver(): CodeStylePathResolver
     {
         $configMock = $this->createMock(DevelopmentConfig::class);

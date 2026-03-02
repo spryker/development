@@ -29,29 +29,17 @@ class InternalDependencyFinder extends AbstractFileDependencyFinder
      */
     protected $config;
 
-    /**
-     * @param \Spryker\Zed\Development\Business\Dependency\ModuleParser\UseStatementParserInterface $useStatementParser
-     * @param \Spryker\Zed\Development\DevelopmentConfig $config
-     */
     public function __construct(UseStatementParserInterface $useStatementParser, DevelopmentConfig $config)
     {
         $this->useStatementParser = $useStatementParser;
         $this->config = $config;
     }
 
-    /**
-     * @return string
-     */
     public function getType(): string
     {
         return static::TYPE_INTERNAL;
     }
 
-    /**
-     * @param \Spryker\Zed\Development\Business\Dependency\DependencyFinder\Context\DependencyFinderContextInterface $context
-     *
-     * @return bool
-     */
     public function accept(DependencyFinderContextInterface $context): bool
     {
         if ($context->getDependencyType() !== null && $context->getDependencyType() !== $this->getType()) {
@@ -65,12 +53,6 @@ class InternalDependencyFinder extends AbstractFileDependencyFinder
         return true;
     }
 
-    /**
-     * @param \Spryker\Zed\Development\Business\Dependency\DependencyFinder\Context\DependencyFinderContextInterface $context
-     * @param \Spryker\Zed\Development\Business\Dependency\DependencyContainer\DependencyContainerInterface $dependencyContainer
-     *
-     * @return \Spryker\Zed\Development\Business\Dependency\DependencyContainer\DependencyContainerInterface
-     */
     public function findDependencies(DependencyFinderContextInterface $context, DependencyContainerInterface $dependencyContainer): DependencyContainerInterface
     {
         $dependencyModules = $this->getDependencyModules($context);
@@ -89,22 +71,11 @@ class InternalDependencyFinder extends AbstractFileDependencyFinder
         return $dependencyContainer;
     }
 
-    /**
-     * @param string $filePath
-     * @param string $module
-     *
-     * @return bool
-     */
     protected function isOptional(string $filePath, string $module): bool
     {
         return ($this->isPluginFile($filePath) && !$this->isExtensionModule($module) && !$this->isTestFile($filePath));
     }
 
-    /**
-     * @param \Spryker\Zed\Development\Business\Dependency\DependencyFinder\Context\DependencyFinderContextInterface $context
-     *
-     * @return array
-     */
     protected function getDependencyModules(DependencyFinderContextInterface $context): array
     {
         $dependencyModules = [];

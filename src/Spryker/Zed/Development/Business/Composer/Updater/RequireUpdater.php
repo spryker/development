@@ -26,12 +26,6 @@ class RequireUpdater implements UpdaterInterface
      */
     public const PHP_MINIMUM = '>=8.0';
 
-    /**
-     * @param array $composerJson
-     * @param \Symfony\Component\Finder\SplFileInfo $composerJsonFile
-     *
-     * @return array
-     */
     public function update(array $composerJson, SplFileInfo $composerJsonFile): array
     {
         $composerJson = $this->requirePhpVersion($composerJson);

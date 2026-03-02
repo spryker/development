@@ -30,9 +30,6 @@ class CodeStyleSnifferConsoleTest extends Unit
      */
     protected $tester;
 
-    /**
-     * @return void
-     */
     public function executesSuccessfullyWithModuleName(): void
     {
         // Arrange
@@ -48,9 +45,6 @@ class CodeStyleSnifferConsoleTest extends Unit
         $this->assertStringContainsString('Run Code Style Sniffer for PROJECT in Development', $commandTester->getDisplay());
     }
 
-    /**
-     * @return void
-     */
     public function executesSuccessfullyWithCoreModule(): void
     {
         // Arrange
@@ -66,9 +60,6 @@ class CodeStyleSnifferConsoleTest extends Unit
         $this->assertStringContainsString('Run Code Style Sniffer for CORE in Spryker.Development', $commandTester->getDisplay());
     }
 
-    /**
-     * @return void
-     */
     public function executesWithDryRunOption(): void
     {
         // Arrange
@@ -84,9 +75,6 @@ class CodeStyleSnifferConsoleTest extends Unit
         $this->assertStringContainsString('Dry-Run the command, display it only', $commandTester->getDisplay());
     }
 
-    /**
-     * @return void
-     */
     public function failsWithInvalidModule(): void
     {
         // Arrange
@@ -101,9 +89,6 @@ class CodeStyleSnifferConsoleTest extends Unit
         $this->assertNotSame(0, $exitCode);
     }
 
-    /**
-     * @return void
-     */
     public function executesWithFixOption(): void
     {
         // Arrange
@@ -119,9 +104,6 @@ class CodeStyleSnifferConsoleTest extends Unit
         $this->assertStringContainsString('Automatically fix errors that can be fixed', $commandTester->getDisplay());
     }
 
-    /**
-     * @return \Symfony\Component\Console\Tester\CommandTester
-     */
     protected function createCommandTester(): CommandTester
     {
         $application = new Application();

@@ -48,9 +48,6 @@ class DevelopmentCommunicationFactory extends AbstractCommunicationFactory
         return $bundleFormDataProvider;
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\Normalizer\NameNormalizerInterface
-     */
     public function createNameNormalizer(): NameNormalizerInterface
     {
         return new NameNormalizer();

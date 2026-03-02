@@ -21,11 +21,6 @@ class UseStatementParser implements UseStatementParserInterface
         return $this->getUseStatementsInFile($fileInfo);
     }
 
-    /**
-     * @param \Symfony\Component\Finder\SplFileInfo $fileInfo
-     *
-     * @return array
-     */
     protected function getUseStatementsInFile(SplFileInfo $fileInfo): array
     {
         preg_match_all('/^(use\s([^\s|;]+))/m', $fileInfo->getContents(), $matches);

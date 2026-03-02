@@ -14,10 +14,5 @@ use Generated\Shared\Transfer\ModuleFilterTransfer;
  */
 interface ProjectModuleFinderInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\ModuleFilterTransfer|null $moduleFilterTransfer
-     *
-     * @return array
-     */
     public function getProjectModules(?ModuleFilterTransfer $moduleFilterTransfer = null): array;
 }

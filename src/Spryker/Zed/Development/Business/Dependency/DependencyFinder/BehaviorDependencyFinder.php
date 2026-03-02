@@ -30,27 +30,16 @@ class BehaviorDependencyFinder implements DependencyFinderInterface
      */
     protected $moduleFinderFacade;
 
-    /**
-     * @param \Spryker\Zed\Development\Dependency\Facade\DevelopmentToModuleFinderFacadeInterface $moduleFinderFacade
-     */
     public function __construct(DevelopmentToModuleFinderFacadeInterface $moduleFinderFacade)
     {
         $this->moduleFinderFacade = $moduleFinderFacade;
     }
 
-    /**
-     * @return string
-     */
     public function getType(): string
     {
         return static::TYPE_PERSISTENCE;
     }
 
-    /**
-     * @param \Spryker\Zed\Development\Business\Dependency\DependencyFinder\Context\DependencyFinderContextInterface $context
-     *
-     * @return bool
-     */
     public function accept(DependencyFinderContextInterface $context): bool
     {
         if ($context->getDependencyType() !== null && $context->getDependencyType() !== $this->getType()) {
@@ -64,12 +53,6 @@ class BehaviorDependencyFinder implements DependencyFinderInterface
         return true;
     }
 
-    /**
-     * @param \Spryker\Zed\Development\Business\Dependency\DependencyFinder\Context\DependencyFinderContextInterface $context
-     * @param \Spryker\Zed\Development\Business\Dependency\DependencyContainer\DependencyContainerInterface $dependencyContainer
-     *
-     * @return \Spryker\Zed\Development\Business\Dependency\DependencyContainer\DependencyContainerInterface
-     */
     public function findDependencies(DependencyFinderContextInterface $context, DependencyContainerInterface $dependencyContainer): DependencyContainerInterface
     {
         if (preg_match_all('/<behavior name="(.*?)">/', $context->getFileInfo()->getContents(), $matches, PREG_SET_ORDER)) {
@@ -86,19 +69,11 @@ class BehaviorDependencyFinder implements DependencyFinderInterface
         return $dependencyContainer;
     }
 
-    /**
-     * @param array $match
-     *
-     * @return string
-     */
     protected function getModuleNameFromMatch(array $match): string
     {
         return ucfirst($this->getFilter()->filter($match[1])) . 'Behavior';
     }
 
-    /**
-     * @return \Laminas\Filter\FilterChain
-     */
     protected function getFilter(): FilterChain
     {
         if ($this->filter === null) {
@@ -109,11 +84,6 @@ class BehaviorDependencyFinder implements DependencyFinderInterface
         return $this->filter;
     }
 
-    /**
-     * @param string $moduleName
-     *
-     * @return bool
-     */
     protected function isModule(string $moduleName): bool
     {
         $moduleTransferCollection = $this->moduleFinderFacade->getModules();
@@ -121,12 +91,6 @@ class BehaviorDependencyFinder implements DependencyFinderInterface
         return isset($moduleTransferCollection['Spryker.' . $moduleName]);
     }
 
-    /**
-     * @param \Spryker\Zed\Development\Business\Dependency\DependencyContainer\DependencyContainerInterface $dependencyContainer
-     * @param string $moduleName
-     *
-     * @return \Spryker\Zed\Development\Business\Dependency\DependencyContainer\DependencyContainerInterface
-     */
     protected function addModuleDependency(DependencyContainerInterface $dependencyContainer, string $moduleName): DependencyContainerInterface
     {
         $dependencyContainer->addDependency(

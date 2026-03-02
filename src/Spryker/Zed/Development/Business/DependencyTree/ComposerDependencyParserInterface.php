@@ -11,10 +11,5 @@ use Generated\Shared\Transfer\DependencyCollectionTransfer;
 
 interface ComposerDependencyParserInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\DependencyCollectionTransfer $dependencyCollectionTransfer
-     *
-     * @return array
-     */
     public function getComposerDependencyComparison(DependencyCollectionTransfer $dependencyCollectionTransfer): array;
 }

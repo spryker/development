@@ -37,9 +37,6 @@ class PhpMdRunnerTest extends Unit
      */
     protected const EXIT_CODE_SUCCESS = 0;
 
-    /**
-     * @return void
-     */
     public function shouldRunSuccessfullyWithValidBundle(): void
     {
         // Arrange
@@ -52,9 +49,6 @@ class PhpMdRunnerTest extends Unit
         $this->assertEquals(static::EXIT_CODE_SUCCESS, $exitCode);
     }
 
-    /**
-     * @return void
-     */
     public function shouldIgnoreVendorDirectoryByDefault(): void
     {
         // Arrange
@@ -67,9 +61,6 @@ class PhpMdRunnerTest extends Unit
         $this->assertEquals(static::EXIT_CODE_SUCCESS, $exitCode);
     }
 
-    /**
-     * @return void
-     */
     public function shouldThrowExceptionForInvalidBundlePath(): void
     {
         // Assert
@@ -82,9 +73,6 @@ class PhpMdRunnerTest extends Unit
         $phpMdRunner->run('InvalidModuleName', []);
     }
 
-    /**
-     * @return void
-     */
     public function shouldUseCustomConfigForStandaloneMode(): void
     {
         // Arrange
@@ -98,11 +86,6 @@ class PhpMdRunnerTest extends Unit
         $this->assertEquals(static::EXIT_CODE_SUCCESS, $exitCode);
     }
 
-    /**
-     * @param bool $standaloneMode
-     *
-     * @return \Spryker\Zed\Development\Business\PhpMd\PhpMdRunner
-     */
     protected function createPhpMdRunner(bool $standaloneMode = false): PhpMdRunner
     {
         $configMock = $this

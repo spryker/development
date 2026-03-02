@@ -17,11 +17,6 @@ class IdeAutoCompletion extends Module
      */
     public const TEST_TARGET_DIRECTORY = '/tmp/development-ide-auto-completion-test/';
 
-    /**
-     * @param \Codeception\TestInterface $test
-     *
-     * @return void
-     */
     public function _before(TestInterface $test): void
     {
         parent::_before($test);
@@ -30,9 +25,6 @@ class IdeAutoCompletion extends Module
         $this->createTestTargetDirectory();
     }
 
-    /**
-     * @return void
-     */
     protected function removeTestTargetDirectory(): void
     {
         if (!is_dir(static::TEST_TARGET_DIRECTORY)) {
@@ -50,19 +42,11 @@ class IdeAutoCompletion extends Module
         return $this->getModule('Filesystem');
     }
 
-    /**
-     * @return void
-     */
     protected function createTestTargetDirectory(): void
     {
         mkdir(static::TEST_TARGET_DIRECTORY, 0777, true);
     }
 
-    /**
-     * @param \Codeception\TestInterface $test
-     *
-     * @return void
-     */
     public function _after(TestInterface $test): void
     {
         parent::_after($test);

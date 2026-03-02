@@ -23,19 +23,11 @@ class ExternalDependencyParser implements ExternalDependencyParserInterface
      */
     protected $resolvedComposerNameByClassNameMap = [];
 
-    /**
-     * @param \Spryker\Zed\Development\DevelopmentConfig $config
-     */
     public function __construct(DevelopmentConfig $config)
     {
         $this->config = $config;
     }
 
-    /**
-     * @param string $className
-     *
-     * @return string|null
-     */
     public function findPackageNameByNamespace(string $className): ?string
     {
         if (isset($this->resolvedComposerNameByClassNameMap[$className])) {
@@ -72,11 +64,6 @@ class ExternalDependencyParser implements ExternalDependencyParserInterface
         return $composerName;
     }
 
-    /**
-     * @param string $className
-     *
-     * @return bool
-     */
     protected function isPhpInternalClass(string $className): bool
     {
         if (strpos($className, '\\') === false) {
@@ -86,11 +73,6 @@ class ExternalDependencyParser implements ExternalDependencyParserInterface
         return false;
     }
 
-    /**
-     * @param string $composerName
-     *
-     * @return string
-     */
     protected function mapExternalToInternalPackageName(string $composerName): string
     {
         $map = $this->config->getExternalToInternalMap();

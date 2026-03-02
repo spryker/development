@@ -19,10 +19,5 @@ interface ModuleFileFinderInterface
      */
     public function find(ModuleTransfer $moduleTransfer): Finder;
 
-    /**
-     * @param \Generated\Shared\Transfer\ModuleTransfer $moduleTransfer
-     *
-     * @return bool
-     */
     public function hasFiles(ModuleTransfer $moduleTransfer): bool;
 }

@@ -18,12 +18,6 @@ class ScriptsUpdater implements UpdaterInterface
      */
     public const KEY_SCRIPTS = 'scripts';
 
-    /**
-     * @param array $composerJson
-     * @param \Symfony\Component\Finder\SplFileInfo $composerJsonFile
-     *
-     * @return array
-     */
     public function update(array $composerJson, SplFileInfo $composerJsonFile): array
     {
         $path = pathinfo($composerJsonFile, PATHINFO_DIRNAME) . DIRECTORY_SEPARATOR;
@@ -36,12 +30,6 @@ class ScriptsUpdater implements UpdaterInterface
         return $composerJson;
     }
 
-    /**
-     * @param string $path
-     * @param array $jsonArray
-     *
-     * @return array
-     */
     protected function assertCsScripts(string $path, array $jsonArray): array
     {
         $requiresCodeSniffer = is_dir($path . 'src');
@@ -78,11 +66,6 @@ class ScriptsUpdater implements UpdaterInterface
         return $jsonArray;
     }
 
-    /**
-     * @param string $path
-     *
-     * @return string
-     */
     protected function extractStandard(string $path): string
     {
         $standard = 'Spryker';

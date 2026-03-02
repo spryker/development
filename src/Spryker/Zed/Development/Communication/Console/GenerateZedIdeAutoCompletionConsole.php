@@ -27,9 +27,6 @@ class GenerateZedIdeAutoCompletionConsole extends Console
      */
     public const COMMAND_NAME = 'dev:ide-auto-completion:zed:generate';
 
-    /**
-     * @return void
-     */
     protected function configure(): void
     {
         parent::configure();

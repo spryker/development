@@ -68,11 +68,6 @@ class DependencyContainer implements DependencyContainerInterface
         return $this;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\DependencyTransfer $dependencyTransfer
-     *
-     * @return \Generated\Shared\Transfer\DependencyModuleTransfer
-     */
     protected function getDependencyModuleTransfer(DependencyTransfer $dependencyTransfer): DependencyModuleTransfer
     {
         foreach ($this->dependencyCollectionTransfer->getDependencyModules() as $dependencyModuleTransfer) {
@@ -94,19 +89,11 @@ class DependencyContainer implements DependencyContainerInterface
         return $dependencyModuleTransfer;
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\DependencyCollectionTransfer
-     */
     public function getDependencyCollection(): DependencyCollectionTransfer
     {
         return $this->sortDependencies($this->dependencyCollectionTransfer);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\DependencyCollectionTransfer $dependencyCollectionTransfer
-     *
-     * @return \Generated\Shared\Transfer\DependencyCollectionTransfer
-     */
     protected function sortDependencies(DependencyCollectionTransfer $dependencyCollectionTransfer): DependencyCollectionTransfer
     {
         $callback = function (DependencyModuleTransfer $dependencyBundleTransferA, DependencyModuleTransfer $dependencyBundleTransferB) {
@@ -126,11 +113,6 @@ class DependencyContainer implements DependencyContainerInterface
         return $dependencyCollectionTransfer;
     }
 
-    /**
-     * @param string $composerName
-     *
-     * @return string
-     */
     protected function getModuleNameFromComposerName(string $composerName): string
     {
         [$organizationName, $moduleName] = explode('/', $composerName);

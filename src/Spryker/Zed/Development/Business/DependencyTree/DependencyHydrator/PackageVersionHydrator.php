@@ -26,9 +26,6 @@ class PackageVersionHydrator implements DependencyHydratorInterface
      */
     protected $installedPackages;
 
-    /**
-     * @param array $installedPackages
-     */
     public function __construct(array $installedPackages)
     {
         $this->installedPackages = $installedPackages;

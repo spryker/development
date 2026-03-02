@@ -18,21 +18,11 @@ abstract class AbstractFileDependencyFinder implements DependencyFinderInterface
      */
     protected $filter;
 
-    /**
-     * @param string $moduleOrComposerName
-     *
-     * @return bool
-     */
     protected function isExtensionModule(string $moduleOrComposerName): bool
     {
         return (bool)preg_match('/Extension$|-extension$/', $moduleOrComposerName);
     }
 
-    /**
-     * @param string $filePath
-     *
-     * @return bool
-     */
     protected function isPluginFile(string $filePath): bool
     {
         return (strpos($filePath, '/Plugin/') !== false);
@@ -52,12 +42,6 @@ abstract class AbstractFileDependencyFinder implements DependencyFinderInterface
         return !strpos($filePath, '/src/');
     }
 
-    /**
-     * @param string $organizationName
-     * @param string $moduleName
-     *
-     * @return string
-     */
     protected function buildComposerName(string $organizationName, string $moduleName): string
     {
         $filter = $this->getFilter();
@@ -66,9 +50,6 @@ abstract class AbstractFileDependencyFinder implements DependencyFinderInterface
         return $composerName;
     }
 
-    /**
-     * @return \Laminas\Filter\FilterChain
-     */
     protected function getFilter(): FilterChain
     {
         if (!$this->filter) {

@@ -22,11 +22,6 @@ class SprykerSdkPathBuilder extends AbstractPathBuilder implements PathBuilderIn
         'tests' => 'SprykerSdkTest',
     ];
 
-    /**
-     * @param string $module
-     *
-     * @return array
-     */
     public function buildPaths(string $module): array
     {
         $filteredModule = $this->filterModule($module);

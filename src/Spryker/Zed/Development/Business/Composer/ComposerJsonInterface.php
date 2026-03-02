@@ -12,10 +12,5 @@ use Generated\Shared\Transfer\ComposerJsonValidationResponseTransfer;
 
 interface ComposerJsonInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\ComposerJsonValidationRequestTransfer $composerJsonValidationRequestTransfer
-     *
-     * @return \Generated\Shared\Transfer\ComposerJsonValidationResponseTransfer
-     */
     public function validate(ComposerJsonValidationRequestTransfer $composerJsonValidationRequestTransfer): ComposerJsonValidationResponseTransfer;
 }

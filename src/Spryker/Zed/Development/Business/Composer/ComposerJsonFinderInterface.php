@@ -12,10 +12,5 @@ use Symfony\Component\Finder\SplFileInfo;
 
 interface ComposerJsonFinderInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\ModuleTransfer $module
-     *
-     * @return \Symfony\Component\Finder\SplFileInfo|null
-     */
     public function findByModule(ModuleTransfer $module): ?SplFileInfo;
 }

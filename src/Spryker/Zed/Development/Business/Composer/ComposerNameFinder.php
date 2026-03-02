@@ -32,19 +32,11 @@ class ComposerNameFinder implements ComposerNameFinderInterface
      */
     protected $packageTransferCollectionGroupedByPackageName;
 
-    /**
-     * @param \Spryker\Zed\Development\Dependency\Facade\DevelopmentToModuleFinderFacadeInterface $moduleFinderFacade
-     */
     public function __construct(DevelopmentToModuleFinderFacadeInterface $moduleFinderFacade)
     {
         $this->moduleFinderFacade = $moduleFinderFacade;
     }
 
-    /**
-     * @param string $moduleName
-     *
-     * @return string|null
-     */
     public function findComposerNameByModuleName(string $moduleName): ?string
     {
         $composerName = $this->getComposerNameFromModuleCollection($moduleName);
@@ -60,11 +52,6 @@ class ComposerNameFinder implements ComposerNameFinderInterface
         return null;
     }
 
-    /**
-     * @param string $moduleName
-     *
-     * @return string|null
-     */
     protected function getComposerNameFromModuleCollection(string $moduleName): ?string
     {
         /** @deprecated This is to make spryker/silex optional. */
@@ -105,21 +92,11 @@ class ComposerNameFinder implements ComposerNameFinderInterface
         return $this->moduleTransferCollection;
     }
 
-    /**
-     * @param string $module
-     *
-     * @return bool
-     */
     protected function isNamespacedModuleName(string $module): bool
     {
         return (strpos($module, '.') !== false);
     }
 
-    /**
-     * @param string $moduleName
-     *
-     * @return string|null
-     */
     protected function getComposerNameFromPackageCollection(string $moduleName): ?string
     {
         $packageTransferCollection = $this->getPackageTransferCollectionGroupedByPackageName();

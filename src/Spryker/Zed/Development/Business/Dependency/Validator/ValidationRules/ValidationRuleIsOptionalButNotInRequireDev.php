@@ -12,11 +12,6 @@ use Generated\Shared\Transfer\ValidationMessageTransfer;
 
 class ValidationRuleIsOptionalButNotInRequireDev implements ValidationRuleInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\ModuleDependencyTransfer $moduleDependencyTransfer
-     *
-     * @return \Generated\Shared\Transfer\ModuleDependencyTransfer
-     */
     public function validateModuleDependency(ModuleDependencyTransfer $moduleDependencyTransfer): ModuleDependencyTransfer
     {
         if ($moduleDependencyTransfer->getIsOptionalDependency() && !$moduleDependencyTransfer->getIsInComposerRequireDev() && !$moduleDependencyTransfer->getIsOwnExtensionModule()) {

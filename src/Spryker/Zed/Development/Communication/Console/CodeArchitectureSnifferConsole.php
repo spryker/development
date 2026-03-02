@@ -74,9 +74,6 @@ class CodeArchitectureSnifferConsole extends Console
      */
     protected ?NameNormalizerInterface $nameNormalizer = null;
 
-    /**
-     * @return void
-     */
     protected function configure(): void
     {
         parent::configure();
@@ -182,11 +179,6 @@ class CodeArchitectureSnifferConsole extends Console
         return $this->getFacade()->getModules($this->buildModuleFilterTransfer($moduleArgument));
     }
 
-    /**
-     * @param string $moduleArgument
-     *
-     * @return \Generated\Shared\Transfer\ModuleFilterTransfer|null
-     */
     protected function buildModuleFilterTransfer(string $moduleArgument): ?ModuleFilterTransfer
     {
         if (!$moduleArgument) {
@@ -208,12 +200,6 @@ class CodeArchitectureSnifferConsole extends Console
         return $moduleFilterTransfer;
     }
 
-    /**
-     * @param string $moduleArgument
-     * @param \Generated\Shared\Transfer\ModuleFilterTransfer $moduleFilterTransfer
-     *
-     * @return \Generated\Shared\Transfer\ModuleFilterTransfer
-     */
     protected function addModuleFilterDetails(string $moduleArgument, ModuleFilterTransfer $moduleFilterTransfer): ModuleFilterTransfer
     {
         [$organization, $module] = explode('.', $moduleArgument);
@@ -244,12 +230,6 @@ class CodeArchitectureSnifferConsole extends Console
         return $this->buildPath($moduleTransfer->getPath(), $pathSuffix);
     }
 
-    /**
-     * @param string $path
-     * @param string|null $suffix
-     *
-     * @return string
-     */
     protected function buildPath(string $path, ?string $suffix = null): string
     {
         return rtrim($path . $suffix, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
@@ -348,12 +328,6 @@ class CodeArchitectureSnifferConsole extends Console
         return $count;
     }
 
-    /**
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
-     * @param array $violations
-     *
-     * @return int
-     */
     protected function displayViolationsWithBaseline(OutputInterface $output, array $violations): int
     {
         if (!$violations) {
@@ -399,20 +373,11 @@ class CodeArchitectureSnifferConsole extends Console
         $output->writeln($count . ($isIgnored ? ' ' . ArchitectureSniffer::NAME_IGNORED_VIOLATIONS : '') . ' violations found');
     }
 
-    /**
-     * @return bool
-     */
     protected function isVerboseModeEnabled(): bool
     {
         return (bool)$this->input->getOption(static::OPTION_VERBOSE);
     }
 
-    /**
-     * @param string|null $module
-     * @param string|null $path
-     *
-     * @return string
-     */
     protected function getCustomPath(?string $module, ?string $path): string
     {
         $pathToRoot = $this->getFactory()->getConfig()->getPathToRoot();
@@ -425,12 +390,6 @@ class CodeArchitectureSnifferConsole extends Console
         return $this->buildPath($customPath);
     }
 
-    /**
-     * @param string|null $module
-     * @param string|null $path
-     *
-     * @return string
-     */
     protected function getCommonPath(?string $module, ?string $path): string
     {
         [$namespace, $module] = explode('.', $module);
@@ -451,13 +410,6 @@ class CodeArchitectureSnifferConsole extends Console
         );
     }
 
-    /**
-     * @param string|null $module
-     * @param string|null $path
-     * @param bool $isCore
-     *
-     * @return string
-     */
     protected function buildMessage(?string $module = null, ?string $path = null, bool $isCore = true): string
     {
         if ($this->getFactory()->getConfig()->isStandaloneMode()) {

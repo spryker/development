@@ -53,9 +53,6 @@ class CouplingBetweenObjectsTest extends Unit
         $couplingBetweenObjectsMock->apply($nodeMock);
     }
 
-    /**
-     * @return array
-     */
     public function ignorableNodesProvider(): array
     {
         return [
@@ -68,9 +65,6 @@ class CouplingBetweenObjectsTest extends Unit
         ];
     }
 
-    /**
-     * @return void
-     */
     public function testApplyAddsViolationWhenClassIsNotIgnorable(): void
     {
         $nodeMock = $this->getNodeMock('Foo', 'Bar');

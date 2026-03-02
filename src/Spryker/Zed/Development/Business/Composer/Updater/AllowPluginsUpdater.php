@@ -17,12 +17,6 @@ class AllowPluginsUpdater implements UpdaterInterface
      */
     public const KEY_CONFIG = 'config';
 
-    /**
-     * @param array $composerJson
-     * @param \Symfony\Component\Finder\SplFileInfo $composerJsonFile
-     *
-     * @return array
-     */
     public function update(array $composerJson, SplFileInfo $composerJsonFile): array
     {
         $path = pathinfo($composerJsonFile, PATHINFO_DIRNAME) . DIRECTORY_SEPARATOR;
@@ -35,12 +29,6 @@ class AllowPluginsUpdater implements UpdaterInterface
         return $composerJson;
     }
 
-    /**
-     * @param string $path
-     * @param array $jsonArray
-     *
-     * @return array
-     */
     protected function assertAllowPluginsConfig(string $path, array $jsonArray): array
     {
         $requiresCodeSniffer = is_dir($path . 'src');

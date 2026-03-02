@@ -42,12 +42,6 @@ class LicenseUpdater implements UpdaterInterface
      */
     protected const LICENSE_FILE_NAME = 'LICENSE';
 
-    /**
-     * @param array $composerJson
-     * @param \Symfony\Component\Finder\SplFileInfo $composerJsonFile
-     *
-     * @return array
-     */
     public function update(array $composerJson, SplFileInfo $composerJsonFile): array
     {
         $modulePath = dirname($composerJsonFile->getPathname());

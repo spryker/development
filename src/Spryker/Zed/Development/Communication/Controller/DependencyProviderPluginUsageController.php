@@ -20,9 +20,6 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
  */
 class DependencyProviderPluginUsageController extends AbstractController
 {
-    /**
-     * @return array
-     */
     public function indexAction(): array
     {
         return $this->viewResponse([
@@ -30,11 +27,6 @@ class DependencyProviderPluginUsageController extends AbstractController
         ]);
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return array
-     */
     public function detailsAction(Request $request): array
     {
         $organizationTransfer = new OrganizationTransfer();
@@ -65,9 +57,6 @@ class DependencyProviderPluginUsageController extends AbstractController
         ]);
     }
 
-    /**
-     * @return \Symfony\Component\HttpFoundation\StreamedResponse
-     */
     public function downloadCsvAction(): StreamedResponse
     {
         $dependencyProviderPluginUsages = $this->getFacade()->getInProjectDependencyProviderUsedPlugins();

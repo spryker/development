@@ -18,10 +18,5 @@ interface TwigFileFinderInterface
      */
     public function findTwigFiles(string $module): Finder;
 
-    /**
-     * @param string $module
-     *
-     * @return bool
-     */
     public function hasModuleTwigFiles(string $module): bool;
 }

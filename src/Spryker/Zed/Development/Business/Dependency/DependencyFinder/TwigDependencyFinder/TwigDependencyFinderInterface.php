@@ -12,17 +12,8 @@ use Spryker\Zed\Development\Business\Dependency\DependencyFinder\Context\Depende
 
 interface TwigDependencyFinderInterface
 {
-    /**
-     * @return string
-     */
     public function getType(): string;
 
-    /**
-     * @param \Spryker\Zed\Development\Business\Dependency\DependencyFinder\Context\DependencyFinderContextInterface $context
-     * @param \Spryker\Zed\Development\Business\Dependency\DependencyContainer\DependencyContainerInterface $dependencyContainer
-     *
-     * @return \Spryker\Zed\Development\Business\Dependency\DependencyContainer\DependencyContainerInterface
-     */
     public function checkDependencyInFile(
         DependencyFinderContextInterface $context,
         DependencyContainerInterface $dependencyContainer

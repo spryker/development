@@ -21,12 +21,6 @@ class RequireDevUpdater implements UpdaterInterface
      */
     public const PACKAGE_CODE_SNIFFER = 'spryker/code-sniffer';
 
-    /**
-     * @param array $composerJson
-     * @param \Symfony\Component\Finder\SplFileInfo $composerJsonFile
-     *
-     * @return array
-     */
     public function update(array $composerJson, SplFileInfo $composerJsonFile): array
     {
         $path = pathinfo($composerJsonFile, PATHINFO_DIRNAME) . DIRECTORY_SEPARATOR;
@@ -35,12 +29,6 @@ class RequireDevUpdater implements UpdaterInterface
         return $composerJson;
     }
 
-    /**
-     * @param string $path
-     * @param array $composerJson
-     *
-     * @return array
-     */
     protected function assertCodeSniffer(string $path, array $composerJson): array
     {
         $requiresCodeSniffer = is_dir($path . 'src');

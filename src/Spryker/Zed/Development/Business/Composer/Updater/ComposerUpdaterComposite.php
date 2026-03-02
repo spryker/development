@@ -28,12 +28,6 @@ class ComposerUpdaterComposite implements ComposerUpdaterCompositeInterface
         return $this;
     }
 
-    /**
-     * @param array $composerJson
-     * @param \Symfony\Component\Finder\SplFileInfo $composerJsonFile
-     *
-     * @return array
-     */
     public function update(array $composerJson, SplFileInfo $composerJsonFile): array
     {
         foreach ($this->updater as $updater) {

@@ -16,8 +16,5 @@ interface GeneratorInterface
      */
     public function generate(array $moduleTransferCollection): void;
 
-    /**
-     * @return string
-     */
     public function getName(): string;
 }

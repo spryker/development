@@ -35,9 +35,6 @@ class PropelAbstractValidateConsole extends Console
      */
     protected const OPTION_STRICT = 'strict';
 
-    /**
-     * @return void
-     */
     protected function configure(): void
     {
         parent::configure();
@@ -72,11 +69,6 @@ class PropelAbstractValidateConsole extends Console
         return static::CODE_ERROR;
     }
 
-    /**
-     * @param string|null $module
-     *
-     * @return string
-     */
     protected function buildMessage(?string $module): string
     {
         $message = 'Run Propel Abstract classes validation';

@@ -217,9 +217,6 @@ use Symfony\Component\Yaml\Parser;
  */
 class DevelopmentBusinessFactory extends AbstractBusinessFactory
 {
-    /**
-     * @return \Spryker\Zed\Development\Business\CodeStyleSniffer\CodeStyleSniffer
-     */
     public function createCodeStyleSniffer(): CodeStyleSniffer
     {
         return new CodeStyleSniffer(
@@ -228,9 +225,6 @@ class DevelopmentBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\CodeStyleSniffer\Config\CodeStyleSnifferConfigurationLoaderInterface
-     */
     public function createCodeStyleSnifferConfigurationLoader(): CodeStyleSnifferConfigurationLoaderInterface
     {
         return new CodeStyleSnifferConfigurationLoader(
@@ -239,9 +233,6 @@ class DevelopmentBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\CodeStyleSniffer\Config\CodeStyleSnifferConfigurationInterface
-     */
     public function createCodeStyleSnifferConfiguration(): CodeStyleSnifferConfigurationInterface
     {
         return new CodeStyleSnifferConfiguration($this->getConfig());
@@ -310,9 +301,6 @@ class DevelopmentBusinessFactory extends AbstractBusinessFactory
         return $this->getProvidedDependency(DevelopmentDependencyProvider::PLUGIN_GRAPH);
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\Dependency\ModuleDependencyParserInterface
-     */
     public function createModuleDependencyParser(): ModuleDependencyParserInterface
     {
         return new ModuleDependencyParser(
@@ -322,17 +310,11 @@ class DevelopmentBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\Module\ModuleFileFinder\ModuleFileFinderInterface
-     */
     public function createModuleFileFinder(): ModuleFileFinderInterface
     {
         return new ModuleFileFinder($this->createPathBuilder());
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\Module\PathBuilder\PathBuilderInterface
-     */
     public function createPathBuilder(): PathBuilderInterface
     {
         return new PathBuilderComposite([
@@ -346,17 +328,11 @@ class DevelopmentBusinessFactory extends AbstractBusinessFactory
         ]);
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\Module\PathBuilder\PathBuilderInterface
-     */
     public function createSprykerStandaloneModuleFilePathBuilder(): PathBuilderInterface
     {
         return new SprykerStandaloneModulePathBuilder($this->getConfig());
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\Module\PathBuilder\PathBuilderInterface
-     */
     public function createSprykerModuleFilePathBuilder(): PathBuilderInterface
     {
         return new SprykerModulePathBuilder(
@@ -364,9 +340,6 @@ class DevelopmentBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\Module\PathBuilder\PathBuilderInterface
-     */
     public function createSprykerFeatureModuleFilePathBuilder(): PathBuilderInterface
     {
         return new SprykerFeatureModulePathBuilder(
@@ -374,9 +347,6 @@ class DevelopmentBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\Module\PathBuilder\PathBuilderInterface
-     */
     public function createSprykerShopModuleFilePathBuilder(): PathBuilderInterface
     {
         return new SprykerShopModulePathBuilder(
@@ -384,9 +354,6 @@ class DevelopmentBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\Module\PathBuilder\PathBuilderInterface
-     */
     public function createSprykerEcoModuleFilePathBuilder(): PathBuilderInterface
     {
         return new SprykerEcoModulePathBuilder(
@@ -394,9 +361,6 @@ class DevelopmentBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\Module\PathBuilder\PathBuilderInterface
-     */
     public function createSprykerSdkModulePathBuilder(): PathBuilderInterface
     {
         return new SprykerSdkModulePathBuilder(
@@ -404,25 +368,16 @@ class DevelopmentBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\Module\PathBuilder\PathBuilderInterface
-     */
     public function createSprykerMerchantPortalModulePathBuilder(): PathBuilderInterface
     {
         return new SprykerMerchantPortalModulePathBuilder($this->getConfig());
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\Dependency\DependencyContainer\DependencyContainerInterface
-     */
     public function createDependencyContainer(): DependencyContainerInterface
     {
         return new DependencyContainer();
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\Dependency\DependencyFinder\DependencyFinderInterface
-     */
     public function createDependencyFinder(): DependencyFinderInterface
     {
         return new DependencyFinderComposite([
@@ -442,9 +397,6 @@ class DevelopmentBusinessFactory extends AbstractBusinessFactory
         ]);
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\Dependency\DependencyFinder\DependencyFinderInterface
-     */
     public function createSprykerSdkDependencyFinder(): DependencyFinderInterface
     {
         return new SprykerSdkDependencyFinder(
@@ -453,9 +405,6 @@ class DevelopmentBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\Dependency\DependencyFinder\DependencyFinderInterface
-     */
     public function createInternalDependencyFinder(): DependencyFinderInterface
     {
         return new InternalDependencyFinder(
@@ -464,9 +413,6 @@ class DevelopmentBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\Dependency\DependencyFinder\DependencyFinderInterface
-     */
     public function createExternalDependencyFinder(): DependencyFinderInterface
     {
         return new ExternalDependencyFinder(
@@ -476,25 +422,16 @@ class DevelopmentBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\Dependency\DependencyFinder\DependencyFinderInterface
-     */
     public function createMappedDependencyFinder(): DependencyFinderInterface
     {
         return new MappedDependencyFinder($this->getConfig());
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\Dependency\ComposerParser\ExternalDependencyParserInterface
-     */
     public function createExternalDependencyParser(): ExternalDependencyParserInterface
     {
         return new ExternalDependencyParser($this->getConfig());
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\Dependency\DependencyFinder\DependencyFinderInterface
-     */
     public function createExtensionDependencyFinder(): DependencyFinderInterface
     {
         return new ExtensionDependencyFinder(
@@ -502,17 +439,11 @@ class DevelopmentBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\Dependency\DependencyFinder\DependencyFinderInterface
-     */
     public function createLocatorDependencyFinder(): DependencyFinderInterface
     {
         return new LocatorDependencyFinder();
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\Dependency\DependencyFinder\DependencyFinderInterface
-     */
     public function createPersistenceDependencyFinder(): DependencyFinderInterface
     {
         return new PersistenceDependencyFinder(
@@ -520,9 +451,6 @@ class DevelopmentBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\Dependency\DependencyFinder\DependencyFinderInterface
-     */
     public function createBehaviorDependencyFinder(): DependencyFinderInterface
     {
         return new BehaviorDependencyFinder(
@@ -530,9 +458,6 @@ class DevelopmentBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\Dependency\SchemaParser\PropelSchemaParserInterface
-     */
     public function createPropelSchemaParser(): PropelSchemaParserInterface
     {
         return new PropelSchemaParser(
@@ -540,17 +465,11 @@ class DevelopmentBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\Dependency\ModuleParser\UseStatementParserInterface
-     */
     public function createUseStatementParser(): UseStatementParserInterface
     {
         return new UseStatementParser();
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\Dependency\DependencyFinder\DependencyFinderInterface
-     */
     public function createTwigDependencyFinder(): DependencyFinderInterface
     {
         return new TwigDependencyFinder(
@@ -558,41 +477,26 @@ class DevelopmentBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\Dependency\DependencyFinder\DependencyFinderInterface
-     */
     public function createComposerDependencyFinder(): DependencyFinderInterface
     {
         return new ComposerDependencyFinder();
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\Dependency\DependencyFinder\DependencyFinderInterface
-     */
     public function createTravisDependencyFinder(): DependencyFinderInterface
     {
         return new TravisDependencyFinder();
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\Dependency\DependencyFinder\DependencyFinderInterface
-     */
     public function createCodeceptionDependencyFinder(): DependencyFinderInterface
     {
         return new CodeceptionDependencyFinder();
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\Dependency\DependencyFinder\DependencyFinderInterface
-     */
     public function createModuleAnnotationDependencyFinder(): DependencyFinderInterface
     {
         return new ModuleAnnotationDependencyFinder();
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\Dependency\TwigFileFinder\TwigFileFinderInterface
-     */
     public function createTwigFinder(): TwigFileFinderInterface
     {
         return new TwigFileFinder($this->getConfig());
@@ -612,41 +516,26 @@ class DevelopmentBusinessFactory extends AbstractBusinessFactory
         ];
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\Dependency\DependencyFinder\TwigDependencyFinder\TwigDependencyFinderInterface
-     */
     public function createAtomFunctionDependencyFinder(): TwigDependencyFinderInterface
     {
         return new AtomFunctionDependencyFinder();
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\Dependency\DependencyFinder\TwigDependencyFinder\TwigDependencyFinderInterface
-     */
     public function createMoleculeFunctionDependencyFinder(): TwigDependencyFinderInterface
     {
         return new MoleculeFunctionDependencyFinder();
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\Dependency\DependencyFinder\TwigDependencyFinder\TwigDependencyFinderInterface
-     */
     public function createOrganismFunctionDependencyFinder(): TwigDependencyFinderInterface
     {
         return new OrganismFunctionDependencyFinder();
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\Dependency\DependencyFinder\TwigDependencyFinder\TwigDependencyFinderInterface
-     */
     public function createTemplateFunctionDependencyFinder(): TwigDependencyFinderInterface
     {
         return new TemplateFunctionDependencyFinder();
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\Dependency\DependencyFinder\TwigDependencyFinder\TwigDependencyFinderInterface
-     */
     public function createViewFunctionDependencyFinder(): TwigDependencyFinderInterface
     {
         return new ViewFunctionDependencyFinder();
@@ -664,9 +553,6 @@ class DevelopmentBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\Dependency\Mapper\DependencyModuleMapperInterface
-     */
     protected function createDependencyModuleMapper(): DependencyModuleMapperInterface
     {
         return new DependencyModuleMapper();
@@ -753,9 +639,6 @@ class DevelopmentBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\Dependency\Validator\DependencyValidatorInterface
-     */
     public function createDependencyValidator(): DependencyValidatorInterface
     {
         return new DependencyValidator(
@@ -766,9 +649,6 @@ class DevelopmentBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\Dependency\Validator\ValidationRules\ValidationRuleInterface
-     */
     public function createDependencyValidationRules(): ValidationRuleInterface
     {
         return new ValidationRuleComposite([
@@ -786,89 +666,56 @@ class DevelopmentBusinessFactory extends AbstractBusinessFactory
         ]);
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\Dependency\Validator\ValidationRules\ValidationRuleInterface
-     */
     public function createValidationRuleAmbiguousModuleName(): ValidationRuleInterface
     {
         return new ValidationRuleAmbiguousModuleName();
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\Dependency\Validator\ValidationRules\ValidationRuleInterface
-     */
     public function createValidationRuleDevelopmentOnlyDependency(): ValidationRuleInterface
     {
         return new ValidationRuleDevelopmentOnlyDependency();
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\Dependency\Validator\ValidationRules\ValidationRuleInterface
-     */
     public function createValidationRuleInSourceNotInRequire(): ValidationRuleInterface
     {
         return new ValidationRuleInSourceNotInRequire();
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\Dependency\Validator\ValidationRules\ValidationRuleInterface
-     */
     public function createValidationRuleNotInSourceButInRequire(): ValidationRuleInterface
     {
         return new ValidationRuleNotInSourceButInRequire();
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\Dependency\Validator\ValidationRules\ValidationRuleInterface
-     */
     public function createValidationRuleInTestNotInRequireDev(): ValidationRuleInterface
     {
         return new ValidationRuleInTestNotInRequireDev();
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\Dependency\Validator\ValidationRules\ValidationRuleInterface
-     */
     public function createValidationRuleNotInTestButInRequireDev(): ValidationRuleInterface
     {
         return new ValidationRuleNotInTestButInRequireDev();
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\Dependency\Validator\ValidationRules\ValidationRuleInterface
-     */
     public function createValidationRuleIsOptionalButInRequire(): ValidationRuleInterface
     {
         return new ValidationRuleIsOptionalButInRequire();
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\Dependency\Validator\ValidationRules\ValidationRuleInterface
-     */
     public function createValidationRuleIsOptionalButNotInRequireDev(): ValidationRuleInterface
     {
         return new ValidationRuleIsOptionalButNotInRequireDev();
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\Dependency\Validator\ValidationRules\ValidationRuleInterface
-     */
     public function createValidationRuleIsOptionalButNotSuggested(): ValidationRuleInterface
     {
         return new ValidationRuleIsOptionalButNotSuggested();
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\Dependency\Validator\ValidationRules\ValidationRuleInterface
-     */
     public function createValidationRuleInSourceAndInSuggested(): ValidationRuleInterface
     {
         return new ValidationRuleInSourceAndInSuggested();
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\Dependency\Validator\ValidationRules\ValidationRuleInterface
-     */
     public function createValidationRuleInRequireAndRequireDev(): ValidationRuleInterface
     {
         return new ValidationRuleInRequireAndRequireDev();
@@ -894,9 +741,6 @@ class DevelopmentBusinessFactory extends AbstractBusinessFactory
         return new ModuleMatcher();
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\Composer\ComposerJsonInterface
-     */
     public function createComposerJsonValidator(): ComposerJsonInterface
     {
         return new ComposerJson(
@@ -904,9 +748,6 @@ class DevelopmentBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\Composer\Validator\ComposerJsonValidatorInterface
-     */
     public function createComposerJsonValidatorComposite(): ComposerJsonValidatorInterface
     {
         return new ComposerJsonValidatorComposite([
@@ -915,25 +756,16 @@ class DevelopmentBusinessFactory extends AbstractBusinessFactory
         ]);
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\Composer\Validator\ComposerJsonValidatorInterface
-     */
     public function createComposerJsonUnboundRequireConstraintValidator(): ComposerJsonValidatorInterface
     {
         return new ComposerJsonUnboundRequireConstraintValidator();
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\Composer\Validator\ComposerJsonValidatorInterface
-     */
     public function createComposerJsonPackageNameValidator(): ComposerJsonValidatorInterface
     {
         return new ComposerJsonPackageNameValidator();
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\Integration\DependencyProviderUsedPluginFinderInterface
-     */
     public function createDependencyProviderUsedPluginFinder(): DependencyProviderUsedPluginFinderInterface
     {
         return new DependencyProviderUsedPluginFinder(
@@ -942,9 +774,6 @@ class DevelopmentBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\Module\ModuleOverviewInterface
-     */
     public function createModuleOverview(): ModuleOverviewInterface
     {
         return new ModuleOverview($this->getModuleFinderFacade());
@@ -972,9 +801,6 @@ class DevelopmentBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\Propel\PropelAbstractClassValidatorInterface
-     */
     public function createPropelAbstractValidator(): PropelAbstractClassValidatorInterface
     {
         return new PropelAbstractClassValidator();
@@ -1499,9 +1325,6 @@ class DevelopmentBusinessFactory extends AbstractBusinessFactory
         return array_keys($bundleList);
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\Composer\ComposerJsonUpdaterInterface
-     */
     public function createComposerJsonUpdater(): ComposerJsonUpdaterInterface
     {
         return new ComposerJsonUpdater(
@@ -1510,9 +1333,6 @@ class DevelopmentBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\Composer\ComposerJsonFinderInterface
-     */
     protected function createComposerJsonFinder(): ComposerJsonFinderInterface
     {
         $composerJsonFinder = new ComposerJsonFinder(
@@ -1676,9 +1496,6 @@ class DevelopmentBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\IdeAutoCompletion\Remover\DirectoryRemoverInterface
-     */
     public function createIdeAutoCompletionDirectoryRemover(): DirectoryRemoverInterface
     {
         return new DirectoryRemover(
@@ -1721,9 +1538,6 @@ class DevelopmentBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\IdeAutoCompletion\Bundle\BundleBuilderInterface
-     */
     protected function createGlueBackendIdeAutoCompletionBundleBuilder(): BundleBuilderInterface
     {
         return new IdeAutoCompletionBundleBuilder(
@@ -1732,9 +1546,6 @@ class DevelopmentBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\IdeAutoCompletion\IdeAutoCompletionWriterInterface
-     */
     public function createGlueIdeAutoCompletionWriter(): IdeAutoCompletionWriterInterface
     {
         return $this->createIdeAutoCompletionWriter(
@@ -1743,9 +1554,6 @@ class DevelopmentBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\IdeAutoCompletion\IdeAutoCompletionWriterInterface
-     */
     public function createGlueBackendIdeAutoCompletionWriter(): IdeAutoCompletionWriterInterface
     {
         return $this->createIdeAutoCompletionWriter(
@@ -1754,9 +1562,6 @@ class DevelopmentBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\IdeAutoCompletion\Remover\GeneratedFileFinderInterface
-     */
     public function createGeneratedFileFinder(): GeneratedFileFinderInterface
     {
         return new GeneratedFileFinder($this->getFinder());
@@ -1967,9 +1772,6 @@ class DevelopmentBusinessFactory extends AbstractBusinessFactory
         return new BundleGenerator($this->getTwigEnvironment(), $this->createFileWriter(), $options);
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\IdeAutoCompletion\FileWriterInterface
-     */
     protected function createFileWriter(): FileWriterInterface
     {
         return new FileWriter();
@@ -2015,9 +1817,6 @@ class DevelopmentBusinessFactory extends AbstractBusinessFactory
         return new NamespaceExtractor();
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\ArchitectureSniffer\ArchitectureSnifferInterface
-     */
     public function createArchitectureSniffer(): ArchitectureSnifferInterface
     {
         $xml = $this->createXmlReader();
@@ -2053,9 +1852,6 @@ class DevelopmentBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\ArchitectureSniffer\AllModuleFinderInterface
-     */
     public function createAllModuleFinder(): AllModuleFinderInterface
     {
         return new AllModuleFinder(
@@ -2093,17 +1889,11 @@ class DevelopmentBusinessFactory extends AbstractBusinessFactory
         return new PackageFinder($this->getConfig());
     }
 
-    /**
-     * @return \Symfony\Component\Yaml\Parser
-     */
     public function createYamlParser(): Parser
     {
         return new Parser();
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\SnifferConfiguration\ConfigurationReader\ConfigurationReaderInterface
-     */
     public function createConfigurationReader(): ConfigurationReaderInterface
     {
         return new ConfigurationReader(
@@ -2111,9 +1901,6 @@ class DevelopmentBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\SnifferConfiguration\Builder\SnifferConfigurationBuilderInterface
-     */
     public function createArchitectureSnifferConfigurationBuilder(): SnifferConfigurationBuilderInterface
     {
         return new ArchitectureSnifferConfigurationBuilder(
@@ -2122,17 +1909,11 @@ class DevelopmentBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\Phpstan\Config\PhpstanConfigFileFinderInterface
-     */
     protected function createPhpstanConfigFileFinder(): PhpstanConfigFileFinderInterface
     {
         return new PhpstanConfigFileFinder($this->createFinder(), $this->getConfig());
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\Phpstan\Config\PhpstanConfigFileManagerInterface
-     */
     protected function createPhpstanConfigFileManager(): PhpstanConfigFileManagerInterface
     {
         return new PhpstanConfigFileManager(
@@ -2143,41 +1924,26 @@ class DevelopmentBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Symfony\Component\Filesystem\Filesystem
-     */
     protected function getFilesystem(): Filesystem
     {
         return $this->getProvidedDependency(DevelopmentDependencyProvider::FILESYSTEM);
     }
 
-    /**
-     * @return \Nette\DI\Config\Loader
-     */
     protected function getConfigLoader(): Loader
     {
         return $this->getProvidedDependency(DevelopmentDependencyProvider::CONFIG_LOADER);
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Dependency\Facade\DevelopmentToModuleFinderFacadeInterface
-     */
     public function getModuleFinderFacade(): DevelopmentToModuleFinderFacadeInterface
     {
         return $this->getProvidedDependency(DevelopmentDependencyProvider::FACADE_MODULE_FINDER);
     }
 
-    /**
-     * @return \Symfony\Component\Finder\Finder
-     */
     protected function getFinder(): Finder
     {
         return $this->getProvidedDependency(DevelopmentDependencyProvider::FINDER);
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\Codeception\Argument\Builder\CodeceptionArgumentsBuilderInterface
-     */
     public function createConfigArgumentCollectionBuilder(): CodeceptionArgumentsBuilderInterface
     {
         return new CodeceptionArgumentsBuilder(
@@ -2185,17 +1951,11 @@ class DevelopmentBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\Composer\ComposerNameFinderInterface
-     */
     public function createComposerNameFinder(): ComposerNameFinderInterface
     {
         return new ComposerNameFinder($this->getModuleFinderFacade());
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\IdeAutoCompletion\Remover\TargetDirectoryResolver
-     */
     protected function createTargetDirectoryResolver(): TargetDirectoryResolver
     {
         return new TargetDirectoryResolver(
@@ -2203,9 +1963,6 @@ class DevelopmentBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\Phpstan\Config\PhpstanConfigFileSaverInterface
-     */
     public function createPhpstanConfigFileSaver(): PhpstanConfigFileSaverInterface
     {
         return new PhpstanConfigFileSaver(
@@ -2221,9 +1978,6 @@ class DevelopmentBusinessFactory extends AbstractBusinessFactory
         return $this->getProvidedDependency(DevelopmentDependencyProvider::PHPSTAN_ADAPTERS);
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\Resolver\PathResolverInterface
-     */
     public function createCodeStylePathResolver(): PathResolverInterface
     {
         return new CodeStylePathResolver(
@@ -2233,9 +1987,6 @@ class DevelopmentBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\Normalizer\NameNormalizerInterface
-     */
     public function createNameNormalizer(): NameNormalizerInterface
     {
         return new NameNormalizer();

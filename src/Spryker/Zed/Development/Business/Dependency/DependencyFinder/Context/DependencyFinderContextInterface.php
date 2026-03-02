@@ -12,18 +12,9 @@ use Symfony\Component\Finder\SplFileInfo;
 
 interface DependencyFinderContextInterface
 {
-    /**
-     * @return \Generated\Shared\Transfer\ModuleTransfer
-     */
     public function getModule(): ModuleTransfer;
 
-    /**
-     * @return \Symfony\Component\Finder\SplFileInfo
-     */
     public function getFileInfo(): SplFileInfo;
 
-    /**
-     * @return string|null
-     */
     public function getDependencyType(): ?string;
 }

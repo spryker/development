@@ -9,8 +9,5 @@ namespace Spryker\Zed\Development\Business\ArchitectureSniffer;
 
 interface AllModuleFinderInterface
 {
-    /**
-     * @return array
-     */
     public function find(): array;
 }

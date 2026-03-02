@@ -18,11 +18,5 @@ interface PropelSchemaParserInterface
      */
     public function getForeignColumnNames(SplFileInfo $fileInfo): array;
 
-    /**
-     * @param string $foreignReferenceColumnName
-     * @param string $module
-     *
-     * @return string
-     */
     public function getModuleNameByForeignReference(string $foreignReferenceColumnName, string $module): string;
 }

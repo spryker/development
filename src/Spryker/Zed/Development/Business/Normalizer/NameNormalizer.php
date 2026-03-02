@@ -14,11 +14,6 @@ use Laminas\Filter\Word\UnderscoreToCamelCase;
 
 class NameNormalizer implements NameNormalizerInterface
 {
-    /**
-     * @param string $name
-     *
-     * @return string
-     */
     public function dasherize(string $name): string
     {
         $filterChain = new FilterChain();
@@ -29,11 +24,6 @@ class NameNormalizer implements NameNormalizerInterface
         return $filterChain->filter($name);
     }
 
-    /**
-     * @param string $name
-     *
-     * @return string
-     */
     public function camelize(string $name): string
     {
         /** @var string $name */

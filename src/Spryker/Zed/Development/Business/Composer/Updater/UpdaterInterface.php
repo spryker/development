@@ -11,11 +11,5 @@ use Symfony\Component\Finder\SplFileInfo;
 
 interface UpdaterInterface
 {
-    /**
-     * @param array $composerJson
-     * @param \Symfony\Component\Finder\SplFileInfo $composerJsonFile
-     *
-     * @return array
-     */
     public function update(array $composerJson, SplFileInfo $composerJsonFile): array;
 }

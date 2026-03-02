@@ -59,10 +59,6 @@ class PhpMdRunner
      */
     protected NameNormalizerInterface $nameNormalizer;
 
-    /**
-     * @param \Spryker\Zed\Development\DevelopmentConfig $config
-     * @param \Spryker\Zed\Development\Business\Normalizer\NameNormalizerInterface $nameNormalizer
-     */
     public function __construct(
         DevelopmentConfig $config,
         NameNormalizerInterface $nameNormalizer
@@ -145,11 +141,6 @@ class PhpMdRunner
         return $this->config->getPathToCore() . $bundle . DIRECTORY_SEPARATOR;
     }
 
-    /**
-     * @param string $module
-     *
-     * @return string
-     */
     protected function resolveCorePaths(string $module): string
     {
         [$namespace, $module] = explode('.', $module, 2);
@@ -170,12 +161,6 @@ class PhpMdRunner
         return $this->getFullPathFromRoot($namespace, $module);
     }
 
-    /**
-     * @param string $module
-     * @param string $namespace
-     *
-     * @return string
-     */
     protected function resolveCommonModulePath(string $module, string $namespace): string
     {
         $moduleVendor = $this->nameNormalizer->dasherize($namespace);
@@ -184,12 +169,6 @@ class PhpMdRunner
         return $this->getFullPathFromRoot($moduleVendor, $module);
     }
 
-    /**
-     * @param string $moduleVendor
-     * @param string $module
-     *
-     * @return string
-     */
     protected function getFullPathFromRoot(string $moduleVendor, string $module): string
     {
         return sprintf(
@@ -240,11 +219,6 @@ class PhpMdRunner
         return $process->getExitCode();
     }
 
-    /**
-     * @param string $directory
-     *
-     * @return string
-     */
     protected function resolveRulesetPath(string $directory): string
     {
         $rulesetFilepath = $directory . static::CUSTOM_RULESET;
@@ -256,11 +230,6 @@ class PhpMdRunner
         return $this->getArchitectureStandard($rulesetFilepath);
     }
 
-    /**
-     * @param string $path
-     *
-     * @return string
-     */
     protected function getArchitectureStandard(string $path): string
     {
         $standardConfig = $this->config->getArchitectureStandard();

@@ -56,9 +56,6 @@ class CodePhpstanConsole extends Console
      */
     protected const OPTION_FORMAT = 'format';
 
-    /**
-     * @return void
-     */
     protected function configure(): void
     {
         parent::configure();

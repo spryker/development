@@ -29,19 +29,11 @@ class AbstractPathBuilder
      */
     protected $config;
 
-    /**
-     * @param \Spryker\Zed\Development\DevelopmentConfig $config
-     */
     public function __construct(DevelopmentConfig $config)
     {
         $this->config = $config;
     }
 
-    /**
-     * @param string $module
-     *
-     * @return array
-     */
     public function buildPaths(string $module): array
     {
         $filteredModule = $this->filterModule($module);
@@ -70,11 +62,6 @@ class AbstractPathBuilder
         return sprintf('%s/%s/%s/%s/%s/%s', $basePath, $filteredModule, $srcFolder, $namespace, $application, $module);
     }
 
-    /**
-     * @param string $module
-     *
-     * @return string
-     */
     protected function filterModule(string $module): string
     {
         if ($module === '*') {

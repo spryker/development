@@ -11,17 +11,7 @@ use Generated\Shared\Transfer\ModuleTransfer;
 
 interface PathBuilderInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\ModuleTransfer $moduleTransfer
-     *
-     * @return bool
-     */
     public function accept(ModuleTransfer $moduleTransfer): bool;
 
-    /**
-     * @param \Generated\Shared\Transfer\ModuleTransfer $moduleTransfer
-     *
-     * @return array
-     */
     public function buildPaths(ModuleTransfer $moduleTransfer): array;
 }

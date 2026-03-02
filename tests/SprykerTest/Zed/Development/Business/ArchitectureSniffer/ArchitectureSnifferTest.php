@@ -32,9 +32,6 @@ class ArchitectureSnifferTest extends Unit
      */
     protected $tester;
 
-    /**
-     * @return void
-     */
     public function shouldReturnEmptyArrayForEmptyConfiguration(): void
     {
         // Arrange
@@ -51,9 +48,6 @@ class ArchitectureSnifferTest extends Unit
         $this->assertEmpty($result);
     }
 
-    /**
-     * @return void
-     */
     public function shouldThrowExceptionForInvalidDirectory(): void
     {
         // Assert
@@ -72,9 +66,6 @@ class ArchitectureSnifferTest extends Unit
         $architectureSniffer->run('invalid/directory', []);
     }
 
-    /**
-     * @return void
-     */
     public function shouldProcessValidDirectory(): void
     {
         // Arrange
@@ -103,9 +94,6 @@ class ArchitectureSnifferTest extends Unit
         $this->assertArrayHasKey('description', $result[0]);
     }
 
-    /**
-     * @return void
-     */
     public function shouldHandleDryRunOption(): void
     {
         // Arrange
@@ -124,9 +112,6 @@ class ArchitectureSnifferTest extends Unit
         $architectureSniffer->run('directory', ['dry-run' => true]);
     }
 
-    /**
-     * @return void
-     */
     public function shouldIgnoreErrorsBasedOnConfiguration(): void
     {
         // Arrabge
@@ -155,9 +140,6 @@ class ArchitectureSnifferTest extends Unit
         $this->assertEquals('Processed violation', $result[0]['description']);
     }
 
-    /**
-     * @return void
-     */
     public function testResolveRulesetPathWithCustomRuleset(): void
     {
         // Arrange
@@ -183,9 +165,6 @@ class ArchitectureSnifferTest extends Unit
         $this->assertNotEquals($defaultCommand, $result);
     }
 
-    /**
-     * @return void
-     */
     public function testResolveRulesetPathWithoutCustomRuleset(): void
     {
         // Arrange

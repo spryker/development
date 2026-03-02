@@ -16,11 +16,6 @@ class SprykerEcoModulePathBuilder extends AbstractPathBuilder
      */
     protected const ORGANIZATION = 'SprykerEco';
 
-    /**
-     * @param \Generated\Shared\Transfer\ModuleTransfer $moduleTransfer
-     *
-     * @return string
-     */
     protected function getModuleName(ModuleTransfer $moduleTransfer): string
     {
         return $moduleTransfer->getNameDashed();

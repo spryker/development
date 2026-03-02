@@ -9,10 +9,5 @@ namespace Spryker\Zed\Development\Business\Dependency\ComposerParser;
 
 interface ExternalDependencyParserInterface
 {
-    /**
-     * @param string $className
-     *
-     * @return string|null
-     */
     public function findPackageNameByNamespace(string $className): ?string;
 }

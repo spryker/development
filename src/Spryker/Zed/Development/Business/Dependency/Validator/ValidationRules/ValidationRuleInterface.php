@@ -46,10 +46,5 @@ interface ValidationRuleInterface
      */
     public const MANUAL_FIX = 'manual-fix';
 
-    /**
-     * @param \Generated\Shared\Transfer\ModuleDependencyTransfer $moduleDependencyTransfer
-     *
-     * @return \Generated\Shared\Transfer\ModuleDependencyTransfer
-     */
     public function validateModuleDependency(ModuleDependencyTransfer $moduleDependencyTransfer): ModuleDependencyTransfer;
 }

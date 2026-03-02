@@ -9,10 +9,5 @@ namespace Spryker\Zed\Development\Business\Composer;
 
 interface ComposerNameFinderInterface
 {
-    /**
-     * @param string $moduleName
-     *
-     * @return string|null
-     */
     public function findComposerNameByModuleName(string $moduleName): ?string;
 }

@@ -24,9 +24,6 @@ class PackageFinder implements PackageFinderInterface
      */
     protected $config;
 
-    /**
-     * @param \Spryker\Zed\Development\DevelopmentConfig $config
-     */
     public function __construct(DevelopmentConfig $config)
     {
         $this->config = $config;
@@ -64,11 +61,6 @@ class PackageFinder implements PackageFinderInterface
         return (new Finder())->directories()->depth('== 0')->in(APPLICATION_VENDOR_DIR . '/spryker/');
     }
 
-    /**
-     * @param \Symfony\Component\Finder\SplFileInfo $directoryInfo
-     *
-     * @return \Generated\Shared\Transfer\PackageTransfer
-     */
     protected function getPackageTransfer(SplFileInfo $directoryInfo): PackageTransfer
     {
         $composerJsonAsArray = $this->getComposerJsonAsArray($directoryInfo->getPathname());
@@ -90,11 +82,6 @@ class PackageFinder implements PackageFinderInterface
         return $packageTransfer;
     }
 
-    /**
-     * @param string $path
-     *
-     * @return array
-     */
     protected function getComposerJsonAsArray(string $path): array
     {
         $pathToComposerJson = sprintf('%s/composer.json', $path);
@@ -105,11 +92,6 @@ class PackageFinder implements PackageFinderInterface
         return $composerJsonAsArray;
     }
 
-    /**
-     * @param string $value
-     *
-     * @return string
-     */
     public function camelCase(string $value): string
     {
         $filterChain = new FilterChain();

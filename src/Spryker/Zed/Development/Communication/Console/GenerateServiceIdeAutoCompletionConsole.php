@@ -27,9 +27,6 @@ class GenerateServiceIdeAutoCompletionConsole extends Console
      */
     public const COMMAND_NAME = 'dev:ide-auto-completion:service:generate';
 
-    /**
-     * @return void
-     */
     protected function configure(): void
     {
         parent::configure();

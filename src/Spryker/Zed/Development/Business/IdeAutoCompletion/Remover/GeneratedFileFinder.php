@@ -16,19 +16,11 @@ class GeneratedFileFinder implements GeneratedFileFinderInterface
      */
     protected $finder;
 
-    /**
-     * @param \Symfony\Component\Finder\Finder $finder
-     */
     public function __construct(Finder $finder)
     {
         $this->finder = $finder;
     }
 
-    /**
-     * @param string $directoryPath
-     *
-     * @return \Symfony\Component\Finder\Finder
-     */
     public function findFiles(string $directoryPath): Finder
     {
         $finder = clone $this->finder;
@@ -39,11 +31,6 @@ class GeneratedFileFinder implements GeneratedFileFinderInterface
         return $finder;
     }
 
-    /**
-     * @param string $directoryPath
-     *
-     * @return bool
-     */
     public function isEmpty(string $directoryPath): bool
     {
         $finder = clone $this->finder;

@@ -33,9 +33,6 @@ class AbstractCoreModuleAwareConsole extends Console
      */
     protected $moduleTransferCollection = [];
 
-    /**
-     * @return void
-     */
     protected function configure(): void
     {
         parent::configure();
@@ -136,9 +133,6 @@ Asterisk can also be used more than once in all parts. Currently, it\'s not poss
         return $this->getFacade()->getModules($moduleFilterTransfer);
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\ModuleFilterTransfer|null
-     */
     protected function buildModuleFilterTransfer(): ?ModuleFilterTransfer
     {
         /** @var string|null $moduleArgument */
@@ -162,12 +156,6 @@ Asterisk can also be used more than once in all parts. Currently, it\'s not poss
         return $moduleFilterTransfer;
     }
 
-    /**
-     * @param string $moduleArgument
-     * @param \Generated\Shared\Transfer\ModuleFilterTransfer $moduleFilterTransfer
-     *
-     * @return \Generated\Shared\Transfer\ModuleFilterTransfer
-     */
     protected function addFilterDetails(string $moduleArgument, ModuleFilterTransfer $moduleFilterTransfer): ModuleFilterTransfer
     {
         $moduleFragments = explode('.', $moduleArgument);
@@ -188,12 +176,6 @@ Asterisk can also be used more than once in all parts. Currently, it\'s not poss
         return $moduleFilterTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\ModuleFilterTransfer $moduleFilterTransfer
-     * @param string $module
-     *
-     * @return \Generated\Shared\Transfer\ModuleFilterTransfer
-     */
     protected function addModuleTransfer(ModuleFilterTransfer $moduleFilterTransfer, string $module): ModuleFilterTransfer
     {
         if ($module !== '*' && $module !== 'all') {
@@ -205,12 +187,6 @@ Asterisk can also be used more than once in all parts. Currently, it\'s not poss
         return $moduleFilterTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\ModuleFilterTransfer $moduleFilterTransfer
-     * @param string $organization
-     *
-     * @return \Generated\Shared\Transfer\ModuleFilterTransfer
-     */
     protected function addOrganizationTransfer(ModuleFilterTransfer $moduleFilterTransfer, string $organization): ModuleFilterTransfer
     {
         $organizationTransfer = new OrganizationTransfer();
@@ -221,12 +197,6 @@ Asterisk can also be used more than once in all parts. Currently, it\'s not poss
         return $moduleFilterTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\ModuleFilterTransfer $moduleFilterTransfer
-     * @param string|null $application
-     *
-     * @return \Generated\Shared\Transfer\ModuleFilterTransfer
-     */
     protected function addApplicationTransfer(ModuleFilterTransfer $moduleFilterTransfer, ?string $application = null): ModuleFilterTransfer
     {
         if ($application === null) {
@@ -240,11 +210,6 @@ Asterisk can also be used more than once in all parts. Currently, it\'s not poss
         return $moduleFilterTransfer;
     }
 
-    /**
-     * @param string $module
-     *
-     * @return string
-     */
     protected function buildFilterKey(string $module): string
     {
         if (!$this->isNamespacedModuleName($module)) {
@@ -260,11 +225,6 @@ Asterisk can also be used more than once in all parts. Currently, it\'s not poss
         return $module;
     }
 
-    /**
-     * @param string $module
-     *
-     * @return bool
-     */
     protected function isNamespacedModuleName(string $module): bool
     {
         return (strpos($module, '.') !== false);
@@ -314,11 +274,6 @@ Asterisk can also be used more than once in all parts. Currently, it\'s not poss
         return true;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\ModuleTransfer $moduleTransfer
-     *
-     * @return string
-     */
     protected function buildModuleKey(ModuleTransfer $moduleTransfer): string
     {
         return sprintf('%s.%s', $moduleTransfer->getOrganization()->getName(), $moduleTransfer->getName());

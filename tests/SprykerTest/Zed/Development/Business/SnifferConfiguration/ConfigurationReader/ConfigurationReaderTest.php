@@ -28,9 +28,6 @@ class ConfigurationReaderTest extends Unit
      */
     protected $tester;
 
-    /**
-     * @return void
-     */
     public function testAclModuleHasToolingFileAndParseIt(): void
     {
         $data = $this->tester->createConfigurationReader()->getModuleConfigurationByAbsolutePath(
@@ -40,9 +37,6 @@ class ConfigurationReaderTest extends Unit
         $this->assertNotEmpty($data);
     }
 
-    /**
-     * @return void
-     */
     public function testDiscountModuleHasToolingFileAndParseIt(): void
     {
         $data = $this->tester->createConfigurationReader()->getModuleConfigurationByAbsolutePath(
@@ -52,9 +46,6 @@ class ConfigurationReaderTest extends Unit
         $this->assertNotEmpty($data);
     }
 
-    /**
-     * @return void
-     */
     public function testCustomerModuleHasToolingFileAndParseIt(): void
     {
         $data = $this->tester->createConfigurationReader()->getModuleConfigurationByAbsolutePath(
@@ -64,9 +55,6 @@ class ConfigurationReaderTest extends Unit
         $this->assertNotEmpty($data);
     }
 
-    /**
-     * @return void
-     */
     public function testCountryModuleHasToolingFileWithWrongExtension(): void
     {
         $data = $this->tester->createConfigurationReader()->getModuleConfigurationByAbsolutePath(
@@ -76,9 +64,6 @@ class ConfigurationReaderTest extends Unit
         $this->assertEmpty($data);
     }
 
-    /**
-     * @return void
-     */
     public function testProductModuleDoesNotHaveToolingFile(): void
     {
         $data = $this->tester->createConfigurationReader()->getModuleConfigurationByAbsolutePath(
@@ -88,9 +73,6 @@ class ConfigurationReaderTest extends Unit
         $this->assertEmpty($data);
     }
 
-    /**
-     * @return void
-     */
     public function testCustomFolderHasToolingFileAndParseIt(): void
     {
         $data = $this->tester->createConfigurationReader()->getModuleConfigurationByAbsolutePath(

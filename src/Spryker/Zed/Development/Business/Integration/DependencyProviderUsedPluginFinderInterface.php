@@ -12,10 +12,5 @@ use Generated\Shared\Transfer\ModuleFilterTransfer;
 
 interface DependencyProviderUsedPluginFinderInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\ModuleFilterTransfer|null $moduleFilterTransfer
-     *
-     * @return \Generated\Shared\Transfer\DependencyProviderCollectionTransfer
-     */
     public function getUsedPlugins(?ModuleFilterTransfer $moduleFilterTransfer = null): DependencyProviderCollectionTransfer;
 }

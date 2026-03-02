@@ -29,11 +29,6 @@ class AllModuleFinder implements AllModuleFinderInterface
      */
     protected $filter;
 
-    /**
-     * @param \Symfony\Component\Finder\Finder $finder
-     * @param \Spryker\Zed\Development\DevelopmentConfig $developmentConfig
-     * @param \Laminas\Filter\FilterInterface $filter
-     */
     public function __construct(Finder $finder, DevelopmentConfig $developmentConfig, FilterInterface $filter)
     {
         $this->finder = $finder;
@@ -41,9 +36,6 @@ class AllModuleFinder implements AllModuleFinderInterface
         $this->filter = $filter;
     }
 
-    /**
-     * @return array
-     */
     public function find(): array
     {
         $modules = [];
@@ -55,9 +47,6 @@ class AllModuleFinder implements AllModuleFinderInterface
         return $this->addApplication(array_merge(...$modules));
     }
 
-    /**
-     * @return array
-     */
     protected function loadProjectModules(): array
     {
         $modules = [];
@@ -69,9 +58,6 @@ class AllModuleFinder implements AllModuleFinderInterface
         return $modules;
     }
 
-    /**
-     * @return array
-     */
     protected function loadCoreDevelopmentModules(): array
     {
         $modules = [];
@@ -88,9 +74,6 @@ class AllModuleFinder implements AllModuleFinderInterface
         return array_merge(...$modules);
     }
 
-    /**
-     * @return array
-     */
     protected function loadFeaturesDevelopmentModules(): array
     {
         $modules = [];
@@ -103,9 +86,6 @@ class AllModuleFinder implements AllModuleFinderInterface
         return array_merge(...$modules);
     }
 
-    /**
-     * @return array
-     */
     protected function loadOtherCoreModules(): array
     {
         $modules = [];

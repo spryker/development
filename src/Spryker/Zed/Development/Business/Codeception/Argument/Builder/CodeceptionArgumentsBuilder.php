@@ -152,11 +152,6 @@ class CodeceptionArgumentsBuilder implements CodeceptionArgumentsBuilderInterfac
         return $codeceptionArguments;
     }
 
-    /**
-     * @param \Spryker\Zed\Development\Business\Codeception\Argument\CodeceptionArguments $codeceptionArguments
-     *
-     * @return \Spryker\Zed\Development\Business\Codeception\Argument\CodeceptionArguments
-     */
     protected function enableSuiteFilterExtension(CodeceptionArguments $codeceptionArguments): CodeceptionArguments
     {
         return $codeceptionArguments->addArgument(

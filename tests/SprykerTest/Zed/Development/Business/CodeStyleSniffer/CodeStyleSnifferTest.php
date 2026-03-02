@@ -71,9 +71,6 @@ class CodeStyleSnifferTest extends Unit
         'path' => null,
     ];
 
-    /**
-     * @return void
-     */
     public function testCheckCsForAllModulesRunsWithSpecificRuleset(): void
     {
         $resolvedPaths = $this->getResolvedPathsForAllSprykerModules();
@@ -95,9 +92,6 @@ class CodeStyleSnifferTest extends Unit
         $codeStyleSnifferMock->checkCodeStyle($this->developmentModule, $options);
     }
 
-    /**
-     * @return void
-     */
     public function testCheckCodeStyleRunsCommandInCoreModuleForLevelOne(): void
     {
         $options = [
@@ -112,9 +106,6 @@ class CodeStyleSnifferTest extends Unit
         $codeStyleSnifferMock->checkCodeStyle($this->developmentModule, $options);
     }
 
-    /**
-     * @return void
-     */
     public function testCheckCodeStyleRunsCommandInCoreModuleForLevelTwo(): void
     {
         $options = [
@@ -187,11 +178,6 @@ class CodeStyleSnifferTest extends Unit
         return $paths;
     }
 
-    /**
-     * @param \Spryker\Zed\Development\Business\CodeStyleSniffer\Config\CodeStyleSnifferConfigurationInterface $developmentCsConfiguration
-     *
-     * @return int
-     */
     protected function getDevelopmentCsLevel(CodeStyleSnifferConfigurationInterface $developmentCsConfiguration): int
     {
         $reflectedObject = new ReflectionObject($developmentCsConfiguration);
@@ -202,31 +188,16 @@ class CodeStyleSnifferTest extends Unit
         return $moduleConfig['level'] ?? $this->tester->getDefaultLevel();
     }
 
-    /**
-     * @param string $modulePath
-     *
-     * @return string
-     */
     protected function buildPathWithProperRootDir(string $modulePath): string
     {
         return str_replace(APPLICATION_ROOT_DIR, APPLICATION_ROOT_DIR . DIRECTORY_SEPARATOR, $modulePath);
     }
 
-    /**
-     * @param string $modulePath
-     *
-     * @return string
-     */
     protected function buildPathWithProperVendorDir(string $modulePath): string
     {
         return str_replace(APPLICATION_VENDOR_DIR, APPLICATION_VENDOR_DIR . DIRECTORY_SEPARATOR, $modulePath);
     }
 
-    /**
-     * @param string $modulePath
-     *
-     * @return string
-     */
     protected function normalizePathToModule(string $modulePath): string
     {
         return str_replace(APPLICATION_ROOT_DIR . DIRECTORY_SEPARATOR, APPLICATION_ROOT_DIR, $modulePath);

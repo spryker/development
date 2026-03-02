@@ -60,9 +60,6 @@ class TooManyMethodsTest extends Unit
         $tooManyMethodsMock->apply($nodeMock);
     }
 
-    /**
-     * @return array
-     */
     public function ignorableNodesProvider(): array
     {
         return [
@@ -75,9 +72,6 @@ class TooManyMethodsTest extends Unit
         ];
     }
 
-    /**
-     * @return void
-     */
     public function testApplyAddsViolationWhenClassIsNotIgnorable(): void
     {
         $nodeMock = $this->getNodeMock('Foo', 'Bar');
@@ -88,9 +82,6 @@ class TooManyMethodsTest extends Unit
         $tooManyMethodsMock->apply($nodeMock);
     }
 
-    /**
-     * @return void
-     */
     public function testApplyDoesNotAddViolationIfNumberOfMethodsLowerThenThreshold(): void
     {
         $nodeMock = $this->getNodeMock('Foo', 'Bar');

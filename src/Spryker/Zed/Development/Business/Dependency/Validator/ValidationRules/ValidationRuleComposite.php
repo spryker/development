@@ -24,11 +24,6 @@ class ValidationRuleComposite implements ValidationRuleInterface
         $this->validationRules = $validationRules;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\ModuleDependencyTransfer $moduleDependencyTransfer
-     *
-     * @return \Generated\Shared\Transfer\ModuleDependencyTransfer
-     */
     public function validateModuleDependency(ModuleDependencyTransfer $moduleDependencyTransfer): ModuleDependencyTransfer
     {
         foreach ($this->validationRules as $validationRule) {

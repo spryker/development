@@ -35,11 +35,6 @@ class Manager implements ManagerInterface
      */
     protected $dependencyModuleMapper;
 
-    /**
-     * @param \Spryker\Zed\Development\Business\Dependency\ModuleDependencyParserInterface $moduleParser
-     * @param \Spryker\Zed\Development\DevelopmentConfig $config
-     * @param \Spryker\Zed\Development\Business\Dependency\Mapper\DependencyModuleMapperInterface $dependencyModuleMapper
-     */
     public function __construct(
         ModuleDependencyParserInterface $moduleParser,
         DevelopmentConfig $config,
@@ -87,12 +82,6 @@ class Manager implements ManagerInterface
         return $incomingDependencies;
     }
 
-    /**
-     * @param string $moduleName
-     * @param \Generated\Shared\Transfer\DependencyCollectionTransfer $moduleDependencyCollectionTransfer
-     *
-     * @return \Generated\Shared\Transfer\DependencyModuleTransfer|null
-     */
     protected function findDependencyTo(
         string $moduleName,
         DependencyCollectionTransfer $moduleDependencyCollectionTransfer

@@ -40,9 +40,6 @@ class DependencyTreeBuilderConsole extends Console
      */
     public const OPTION_LAYER = 'layer';
 
-    /**
-     * @return void
-     */
     protected function configure(): void
     {
         parent::configure();

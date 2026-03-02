@@ -25,9 +25,6 @@ use Symfony\Component\Finder\SplFileInfo;
  */
 class TypeUpdaterTest extends Unit
 {
-    /**
-     * @return void
-     */
     public function testSetsTypeToPropelBehaviorWhenPackageNameContainsBehavior(): void
     {
         $typeUpdater = new TypeUpdater();
@@ -36,9 +33,6 @@ class TypeUpdaterTest extends Unit
         $this->assertSame('propel-behavior', $updatedJson['type']);
     }
 
-    /**
-     * @return void
-     */
     public function testSetsTypeToLibraryBehaviorWhenPackageNameNotContainsBehavior(): void
     {
         $typeUpdater = new TypeUpdater();
@@ -47,11 +41,6 @@ class TypeUpdaterTest extends Unit
         $this->assertSame('library', $updatedJson['type']);
     }
 
-    /**
-     * @param string $packageName
-     *
-     * @return array
-     */
     protected function getComposerJson(string $packageName): array
     {
         $composerArray = [
@@ -62,9 +51,6 @@ class TypeUpdaterTest extends Unit
         return $composerArray;
     }
 
-    /**
-     * @return \Symfony\Component\Finder\SplFileInfo
-     */
     protected function getSplFile(): SplFileInfo
     {
         return new SplFileInfo(__FILE__, __DIR__, __DIR__);

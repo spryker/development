@@ -23,10 +23,6 @@ class BundleFormDataProvider
      */
     protected $bundleDependencyCollectionTransfer;
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Generated\Shared\Transfer\DependencyCollectionTransfer $bundleDependencyCollectionTransfer
-     */
     public function __construct(Request $request, DependencyCollectionTransfer $bundleDependencyCollectionTransfer)
     {
         $this->request = $request;

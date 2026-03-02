@@ -12,11 +12,6 @@ use Generated\Shared\Transfer\ValidationMessageTransfer;
 
 class ValidationRuleDevelopmentOnlyDependency implements ValidationRuleInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\ModuleDependencyTransfer $moduleDependencyTransfer
-     *
-     * @return \Generated\Shared\Transfer\ModuleDependencyTransfer
-     */
     public function validateModuleDependency(ModuleDependencyTransfer $moduleDependencyTransfer): ModuleDependencyTransfer
     {
         if ($this->isDevelopmentOnlyDependency($moduleDependencyTransfer) && $moduleDependencyTransfer->getIsInComposerRequire() && !$moduleDependencyTransfer->getIsOwnExtensionModule()) {
@@ -31,11 +26,6 @@ class ValidationRuleDevelopmentOnlyDependency implements ValidationRuleInterface
         return $moduleDependencyTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\ModuleDependencyTransfer $moduleDependencyTransfer
-     *
-     * @return bool
-     */
     protected function isDevelopmentOnlyDependency(ModuleDependencyTransfer $moduleDependencyTransfer): bool
     {
         $dependencyTypes = $moduleDependencyTransfer->getDependencyTypes();

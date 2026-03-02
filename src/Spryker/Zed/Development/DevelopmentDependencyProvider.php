@@ -149,11 +149,6 @@ class DevelopmentDependencyProvider extends AbstractBundleDependencyProvider
         return new FilesystemLoader();
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addModuleFinderFacade(Container $container): Container
     {
         $container->set(static::FACADE_MODULE_FINDER, function (Container $container) {
@@ -167,11 +162,6 @@ class DevelopmentDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function addPhpstanAdapters(Container $container): Container
     {
         $container->set(static::PHPSTAN_ADAPTERS, function (Container $container) {

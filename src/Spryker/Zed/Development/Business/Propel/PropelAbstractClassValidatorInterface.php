@@ -11,11 +11,5 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 interface PropelAbstractClassValidatorInterface
 {
-    /**
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
-     * @param string|null $module
-     *
-     * @return bool
-     */
     public function validate(OutputInterface $output, ?string $module): bool;
 }

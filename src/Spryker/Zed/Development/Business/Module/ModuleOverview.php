@@ -17,9 +17,6 @@ class ModuleOverview implements ModuleOverviewInterface
      */
     protected $moduleFinderFacade;
 
-    /**
-     * @param \Spryker\Zed\Development\Dependency\Facade\DevelopmentToModuleFinderFacadeInterface $moduleFinderFacade
-     */
     public function __construct(DevelopmentToModuleFinderFacadeInterface $moduleFinderFacade)
     {
         $this->moduleFinderFacade = $moduleFinderFacade;
@@ -87,11 +84,6 @@ class ModuleOverview implements ModuleOverviewInterface
         return $moduleOverviewTransferCollection;
     }
 
-    /**
-     * @param string $moduleKey
-     *
-     * @return string
-     */
     protected function getModuleNameFromModuleKey(string $moduleKey): string
     {
         $moduleKeyFragments = explode('.', $moduleKey);
@@ -114,11 +106,6 @@ class ModuleOverview implements ModuleOverviewInterface
         return $this->createModuleTransfer($moduleName);
     }
 
-    /**
-     * @param string $moduleName
-     *
-     * @return \Generated\Shared\Transfer\ModuleOverviewTransfer
-     */
     protected function createModuleTransfer(string $moduleName): ModuleOverviewTransfer
     {
         $moduleOverviewTransfer = new ModuleOverviewTransfer();

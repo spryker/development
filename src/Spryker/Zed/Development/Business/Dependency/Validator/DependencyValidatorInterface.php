@@ -12,10 +12,5 @@ use Generated\Shared\Transfer\DependencyValidationResponseTransfer;
 
 interface DependencyValidatorInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\DependencyValidationRequestTransfer $dependencyValidationRequestTransfer
-     *
-     * @return \Generated\Shared\Transfer\DependencyValidationResponseTransfer
-     */
     public function validate(DependencyValidationRequestTransfer $dependencyValidationRequestTransfer): DependencyValidationResponseTransfer;
 }

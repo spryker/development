@@ -22,12 +22,6 @@ class ComposerJsonPackageNameValidator implements ComposerJsonValidatorInterface
      */
     protected const REQUIRE_DEV = 'require-dev';
 
-    /**
-     * @param array $composerJsonArray
-     * @param \Generated\Shared\Transfer\ComposerJsonValidationResponseTransfer $composerJsonValidationResponseTransfer
-     *
-     * @return \Generated\Shared\Transfer\ComposerJsonValidationResponseTransfer
-     */
     public function validate(
         array $composerJsonArray,
         ComposerJsonValidationResponseTransfer $composerJsonValidationResponseTransfer
@@ -45,12 +39,6 @@ class ComposerJsonPackageNameValidator implements ComposerJsonValidatorInterface
         return $composerJsonValidationResponseTransfer;
     }
 
-    /**
-     * @param string $packageName
-     * @param \Generated\Shared\Transfer\ComposerJsonValidationResponseTransfer $composerJsonValidationResponseTransfer
-     *
-     * @return \Generated\Shared\Transfer\ComposerJsonValidationResponseTransfer
-     */
     protected function assertPackageName(
         string $packageName,
         ComposerJsonValidationResponseTransfer $composerJsonValidationResponseTransfer

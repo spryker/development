@@ -43,9 +43,6 @@ class CodePhpMessDetectorConsole extends Console
      */
     public const OPTION_FORMAT = 'format';
 
-    /**
-     * @return void
-     */
     protected function configure(): void
     {
         parent::configure();
@@ -77,11 +74,6 @@ class CodePhpMessDetectorConsole extends Console
         return $this->getFacade()->runPhpMd($module, $this->input->getOptions());
     }
 
-    /**
-     * @param string|null $module
-     *
-     * @return string
-     */
     protected function buildMessage(?string $module = null): string
     {
         $message = 'Run PHPMD in';

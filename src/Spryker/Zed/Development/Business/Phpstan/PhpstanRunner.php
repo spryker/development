@@ -116,12 +116,6 @@ class PhpstanRunner implements PhpstanRunnerInterface
      */
     protected $errorCount = 0;
 
-    /**
-     * @param \Spryker\Zed\Development\DevelopmentConfig $config
-     * @param \Spryker\Zed\Development\Business\Phpstan\Config\PhpstanConfigFileFinderInterface $phpstanConfigFileFinder
-     * @param \Spryker\Zed\Development\Business\Phpstan\Config\PhpstanConfigFileManagerInterface $phpstanConfigFileManager
-     * @param \Spryker\Zed\Development\Business\Normalizer\NameNormalizerInterface $nameNormalizer
-     */
     public function __construct(
         DevelopmentConfig $config,
         PhpstanConfigFileFinderInterface $phpstanConfigFileFinder,
@@ -237,13 +231,6 @@ class PhpstanRunner implements PhpstanRunnerInterface
         return $commandResult;
     }
 
-    /**
-     * @param string $command
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
-     * @param string $path
-     *
-     * @return int
-     */
     protected function executeCommand(
         string $command,
         OutputInterface $output,
@@ -274,13 +261,6 @@ class PhpstanRunner implements PhpstanRunnerInterface
         return static::ERROR_EXIT_CODE;
     }
 
-    /**
-     * @param \Symfony\Component\Console\Input\InputInterface $input
-     * @param string $path
-     * @param string $configFilePath
-     *
-     * @return int
-     */
     protected function getLevel(InputInterface $input, string $path, string $configFilePath): int
     {
         $defaultLevel = $this->getDefaultLevel($path, $configFilePath);
@@ -323,9 +303,6 @@ class PhpstanRunner implements PhpstanRunnerInterface
         ];
     }
 
-    /**
-     * @return int
-     */
     protected function getErrorCount(): int
     {
         return $this->errorCount;
@@ -509,11 +486,6 @@ class PhpstanRunner implements PhpstanRunnerInterface
         return $this->config->getPathToRoot();
     }
 
-    /**
-     * @param \SplFileInfo $moduleConfigFile
-     *
-     * @return string|null
-     */
     protected function getConfigFilenameForMerge(SplFileInfo $moduleConfigFile): ?string
     {
         $filenameFromPath = mb_strtolower(
@@ -530,11 +502,6 @@ class PhpstanRunner implements PhpstanRunnerInterface
         return $filenameFromPath . '_';
     }
 
-    /**
-     * @param string $namespace
-     *
-     * @return string|null
-     */
     protected function getVendorPathByNamespace(string $namespace): ?string
     {
         if (!$namespace) {
@@ -610,11 +577,6 @@ class PhpstanRunner implements PhpstanRunnerInterface
         return $neonLevel ?: $definedMinimumLevel;
     }
 
-    /**
-     * @param string $buffer
-     *
-     * @return void
-     */
     protected function addErrors(string $buffer): void
     {
         preg_match('#\[ERROR\] Found (\d+) error#i', $buffer, $matches);
@@ -656,11 +618,6 @@ class PhpstanRunner implements PhpstanRunnerInterface
         return false;
     }
 
-    /**
-     * @param string $path
-     *
-     * @return int|null
-     */
     protected function neonConfigLevel(string $path): ?int
     {
         $file = $path . 'phpstan.neon';
@@ -678,11 +635,6 @@ class PhpstanRunner implements PhpstanRunnerInterface
         return (int)$matches[1] ?: null;
     }
 
-    /**
-     * @param string $path
-     *
-     * @return bool
-     */
     protected function needsRun(string $path): bool
     {
         $directoryIterator = new RecursiveDirectoryIterator($path);
@@ -695,11 +647,6 @@ class PhpstanRunner implements PhpstanRunnerInterface
         return false;
     }
 
-    /**
-     * @param string|null $module
-     *
-     * @return string
-     */
     protected function buildMessage(?string $module = null): string
     {
         $message = 'Run PHPStan in ';

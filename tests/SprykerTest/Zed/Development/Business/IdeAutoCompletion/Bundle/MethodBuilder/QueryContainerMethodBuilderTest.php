@@ -39,9 +39,6 @@ class QueryContainerMethodBuilderTest extends Unit
      */
     public const BUNDLE_DIRECTORY = '/foo/bar/baz/FooBundle/src/Spryker/FooApplication/';
 
-    /**
-     * @return void
-     */
     public function testMethodNameIsQueryConntainer(): void
     {
         $methodBuilderMock = $this->getQueryContainerMethodBuilderMock();
@@ -55,9 +52,6 @@ class QueryContainerMethodBuilderTest extends Unit
         $this->assertSame('queryContainer', $bundleMethodTransfer->getName());
     }
 
-    /**
-     * @return void
-     */
     public function testFileLookupIsPerformedInPersistenceLayer(): void
     {
         $methodBuilderMock = $this->getQueryContainerMethodBuilderMock();
@@ -98,9 +92,6 @@ class QueryContainerMethodBuilderTest extends Unit
             ->getMock();
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\IdeAutoCompletionBundleTransfer
-     */
     protected function getBundleTransfer(): IdeAutoCompletionBundleTransfer
     {
         $bundleTransfer = new IdeAutoCompletionBundleTransfer();

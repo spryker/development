@@ -60,9 +60,6 @@ class TooManyPublicMethodsTest extends Unit
         $tooManyPublicMethodsMock->apply($nodeMock);
     }
 
-    /**
-     * @return array
-     */
     public function ignorableNodesProvider(): array
     {
         return [
@@ -73,9 +70,6 @@ class TooManyPublicMethodsTest extends Unit
         ];
     }
 
-    /**
-     * @return void
-     */
     public function testApplyAddsViolationWhenClassIsNotIgnorable(): void
     {
         $nodeMock = $this->getNodeMock('Foo', 'Bar');
@@ -87,9 +81,6 @@ class TooManyPublicMethodsTest extends Unit
         $manyPublicMethodsMock->apply($nodeMock);
     }
 
-    /**
-     * @return void
-     */
     public function testApplyDoesNotAddViolationIfNumberOfMethodsLowerThenThreshold(): void
     {
         $nodeMock = $this->getNodeMock('Foo', 'Bar');

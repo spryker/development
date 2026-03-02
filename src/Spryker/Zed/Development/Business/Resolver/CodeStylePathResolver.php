@@ -46,11 +46,6 @@ class CodeStylePathResolver implements PathResolverInterface
      */
     protected NameNormalizerInterface $nameNormalizer;
 
-    /**
-     * @param \Spryker\Zed\Development\DevelopmentConfig $config
-     * @param \Spryker\Zed\Development\Business\Normalizer\NameNormalizerInterface $nameNormalizer
-     * @param \Spryker\Zed\Development\Business\CodeStyleSniffer\Config\CodeStyleSnifferConfigurationLoaderInterface $codeStyleSnifferConfigurationLoader
-     */
     public function __construct(
         DevelopmentConfig $config,
         NameNormalizerInterface $nameNormalizer,
@@ -261,12 +256,6 @@ class CodeStylePathResolver implements PathResolverInterface
         return $this->buildPath($path, $pathSuffix);
     }
 
-    /**
-     * @param string $path
-     * @param string|null $suffix
-     *
-     * @return string
-     */
     protected function buildPath(string $path, ?string $suffix = null): string
     {
         if (!$suffix) {
@@ -276,11 +265,6 @@ class CodeStylePathResolver implements PathResolverInterface
         return $path . $suffix;
     }
 
-    /**
-     * @param string $path
-     *
-     * @return bool
-     */
     protected function isPathValid(string $path): bool
     {
         return (is_file($path) || is_dir($path));

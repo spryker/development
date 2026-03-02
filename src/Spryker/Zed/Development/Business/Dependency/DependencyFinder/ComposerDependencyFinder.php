@@ -17,19 +17,11 @@ class ComposerDependencyFinder extends AbstractFileDependencyFinder
      */
     public const TYPE_COMPOSER = 'composer';
 
-    /**
-     * @return string
-     */
     public function getType(): string
     {
         return static::TYPE_COMPOSER;
     }
 
-    /**
-     * @param \Spryker\Zed\Development\Business\Dependency\DependencyFinder\Context\DependencyFinderContextInterface $context
-     *
-     * @return bool
-     */
     public function accept(DependencyFinderContextInterface $context): bool
     {
         if ($context->getDependencyType() !== null && $context->getDependencyType() !== $this->getType()) {
@@ -43,12 +35,6 @@ class ComposerDependencyFinder extends AbstractFileDependencyFinder
         return true;
     }
 
-    /**
-     * @param \Spryker\Zed\Development\Business\Dependency\DependencyFinder\Context\DependencyFinderContextInterface $context
-     * @param \Spryker\Zed\Development\Business\Dependency\DependencyContainer\DependencyContainerInterface $dependencyContainer
-     *
-     * @return \Spryker\Zed\Development\Business\Dependency\DependencyContainer\DependencyContainerInterface
-     */
     public function findDependencies(DependencyFinderContextInterface $context, DependencyContainerInterface $dependencyContainer): DependencyContainerInterface
     {
         $fileContent = $context->getFileInfo()->getContents();

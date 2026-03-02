@@ -31,9 +31,6 @@ class DevelopmentFacadeTest extends Unit
      */
     protected $tester;
 
-    /**
-     * @return void
-     */
     public function testGetsModules(): void
     {
         $moduleTransferCollection = $this->getFacade()->getModules();
@@ -73,9 +70,6 @@ class DevelopmentFacadeTest extends Unit
         }
     }
 
-    /**
-     * @return array
-     */
     public function moduleFilterDataProvider(): array
     {
         return [
@@ -83,9 +77,6 @@ class DevelopmentFacadeTest extends Unit
         ];
     }
 
-    /**
-     * @return void
-     */
     public function testGetsProjectModules(): void
     {
         $moduleTransferCollection = $this->getFacade()->getProjectModules();
@@ -93,9 +84,6 @@ class DevelopmentFacadeTest extends Unit
         $this->assertIsArray($moduleTransferCollection);
     }
 
-    /**
-     * @return void
-     */
     public function testGetsPackages(): void
     {
         $packageTransferCollection = $this->getFacade()->getPackages();
@@ -103,17 +91,11 @@ class DevelopmentFacadeTest extends Unit
         $this->assertIsArray($packageTransferCollection);
     }
 
-    /**
-     * @return void
-     */
     public function testGetModuleOverviewReturnsCollection(): void
     {
         $this->assertIsArray($this->getFacade()->getModuleOverview());
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\DevelopmentFacadeInterface
-     */
     protected function getFacade(): DevelopmentFacadeInterface
     {
         return $this->tester->getFacade();

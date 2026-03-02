@@ -38,10 +38,6 @@ class ComposerJsonUpdater implements ComposerJsonUpdaterInterface
      */
     protected $updater;
 
-    /**
-     * @param \Spryker\Zed\Development\Business\Composer\ComposerJsonFinderInterface $finder
-     * @param \Spryker\Zed\Development\Business\Composer\Updater\UpdaterInterface $updater
-     */
     public function __construct(ComposerJsonFinderInterface $finder, UpdaterInterface $updater)
     {
         $this->finder = $finder;

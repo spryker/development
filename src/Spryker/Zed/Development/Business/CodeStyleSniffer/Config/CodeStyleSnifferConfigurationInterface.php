@@ -23,9 +23,6 @@ interface CodeStyleSnifferConfigurationInterface
      */
     public function setNamespace(string $namespace);
 
-    /**
-     * @return string
-     */
     public function getNamespace(): string;
 
     /**

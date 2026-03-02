@@ -74,12 +74,6 @@ class CodeTester
      */
     protected NameNormalizerInterface $nameNormalizer;
 
-    /**
-     * @param \Spryker\Zed\Development\Dependency\Facade\DevelopmentToModuleFinderFacadeInterface $developmentToModuleFinderFacade
-     * @param \Spryker\Zed\Development\Business\Codeception\Argument\Builder\CodeceptionArgumentsBuilderInterface $argumentBuilder
-     * @param \Spryker\Zed\Development\DevelopmentConfig $config
-     * @param \Spryker\Zed\Development\Business\Normalizer\NameNormalizerInterface $nameNormalizer
-     */
     public function __construct(
         DevelopmentToModuleFinderFacadeInterface $developmentToModuleFinderFacade,
         CodeceptionArgumentsBuilderInterface $argumentBuilder,
@@ -182,11 +176,6 @@ class CodeTester
         return $result;
     }
 
-    /**
-     * @param string|null $moduleName
-     *
-     * @return \Generated\Shared\Transfer\ModuleFilterTransfer
-     */
     protected function buildModuleFilterTransfer(?string $moduleName): ModuleFilterTransfer
     {
         $moduleFilterTransfer = new ModuleFilterTransfer();
@@ -205,12 +194,6 @@ class CodeTester
         return $this->addFilterDetails($moduleName, $moduleFilterTransfer);
     }
 
-    /**
-     * @param string $moduleName
-     * @param \Generated\Shared\Transfer\ModuleFilterTransfer $moduleFilterTransfer
-     *
-     * @return \Generated\Shared\Transfer\ModuleFilterTransfer
-     */
     protected function addFilterDetails(string $moduleName, ModuleFilterTransfer $moduleFilterTransfer): ModuleFilterTransfer
     {
         $moduleFragments = explode('.', $moduleName);
@@ -343,11 +326,6 @@ class CodeTester
         return static::CODE_SUCCESS;
     }
 
-    /**
-     * @param string $module
-     *
-     * @return string
-     */
     protected function getCommonModulePath(string $module): string
     {
         [$namespace, $module] = explode('.', $module);

@@ -110,9 +110,6 @@ class CodeStyleSnifferConfiguration implements CodeStyleSnifferConfigurationInte
      */
     protected $configurationOptions;
 
-    /**
-     * @param \Spryker\Zed\Development\DevelopmentConfig $developmentConfig
-     */
     public function __construct(DevelopmentConfig $developmentConfig)
     {
         $this->developmentConfig = $developmentConfig;
@@ -142,9 +139,6 @@ class CodeStyleSnifferConfiguration implements CodeStyleSnifferConfigurationInte
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getNamespace(): string
     {
         return $this->namespace;
@@ -307,9 +301,6 @@ class CodeStyleSnifferConfiguration implements CodeStyleSnifferConfigurationInte
         return $optionLevel;
     }
 
-    /**
-     * @return int
-     */
     protected function resolveOptionLevel(): int
     {
         $optionLevel = $this->configurationOptions[static::OPTION_LEVEL];

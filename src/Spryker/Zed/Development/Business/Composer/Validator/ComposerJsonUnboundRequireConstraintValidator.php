@@ -17,12 +17,6 @@ class ComposerJsonUnboundRequireConstraintValidator implements ComposerJsonValid
      */
     protected const REQUIRE = 'require';
 
-    /**
-     * @param array $composerJsonArray
-     * @param \Generated\Shared\Transfer\ComposerJsonValidationResponseTransfer $composerJsonValidationResponseTransfer
-     *
-     * @return \Generated\Shared\Transfer\ComposerJsonValidationResponseTransfer
-     */
     public function validate(
         array $composerJsonArray,
         ComposerJsonValidationResponseTransfer $composerJsonValidationResponseTransfer

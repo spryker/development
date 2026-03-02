@@ -30,9 +30,6 @@ class CodePhpstanConsoleTest extends Unit
      */
     protected $tester;
 
-    /**
-     * @return void
-     */
     public function executesSuccessfullyWithoutModuleOption(): void
     {
         // Arrange
@@ -46,9 +43,6 @@ class CodePhpstanConsoleTest extends Unit
         $this->assertStringContainsString('Run PHPStan static analyzer for project or core', $commandTester->getDisplay());
     }
 
-    /**
-     * @return void
-     */
     public function executesSuccessfullyWithModuleOption(): void
     {
         // Arrange
@@ -64,9 +58,6 @@ class CodePhpstanConsoleTest extends Unit
         $this->assertStringContainsString('Run PHPStan for Spryker.Development', $commandTester->getDisplay());
     }
 
-    /**
-     * @return void
-     */
     public function executesSuccessfullyWithDryRunOption(): void
     {
         // Arrange
@@ -82,9 +73,6 @@ class CodePhpstanConsoleTest extends Unit
         $this->assertStringContainsString('Dry-run the command, display it only', $commandTester->getDisplay());
     }
 
-    /**
-     * @return void
-     */
     public function executesSuccessfullyWithLevelOption(): void
     {
         // Arrange
@@ -100,9 +88,6 @@ class CodePhpstanConsoleTest extends Unit
         $this->assertStringContainsString('Level of rule options - the higher the stricter', $commandTester->getDisplay());
     }
 
-    /**
-     * @return void
-     */
     public function failsWithInvalidLevelOption(): void
     {
         // Arrange
@@ -117,9 +102,6 @@ class CodePhpstanConsoleTest extends Unit
         $this->assertNotSame(0, $exitCode);
     }
 
-    /**
-     * @return \Symfony\Component\Console\Tester\CommandTester
-     */
     protected function createCommandTester(): CommandTester
     {
         $application = new Application();

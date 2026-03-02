@@ -65,9 +65,6 @@ class CodeStyleSnifferConsole extends Console
      */
     protected const RUN_IN_STANDALONE_MODE = 'Run Code Style Sniffer in Standalone Mode';
 
-    /**
-     * @return void
-     */
     protected function configure(): void
     {
         parent::configure();

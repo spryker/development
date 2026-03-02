@@ -15,11 +15,5 @@ use Generated\Shared\Transfer\ModuleTransfer;
  */
 interface ModuleMatcherInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\ModuleTransfer $moduleTransfer
-     * @param \Generated\Shared\Transfer\ModuleFilterTransfer $moduleFilterTransfer
-     *
-     * @return bool
-     */
     public function matches(ModuleTransfer $moduleTransfer, ModuleFilterTransfer $moduleFilterTransfer): bool;
 }

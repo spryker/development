@@ -54,9 +54,6 @@ class DependencyViolationFinderConsole extends AbstractCoreModuleAwareConsole
      */
     protected $dependencyViolationCount = 0;
 
-    /**
-     * @return void
-     */
     protected function configure(): void
     {
         parent::configure();
@@ -70,12 +67,6 @@ class DependencyViolationFinderConsole extends AbstractCoreModuleAwareConsole
         $this->setAliases(['dev:dependency:find-violations']);
     }
 
-    /**
-     * @param \Symfony\Component\Console\Input\InputInterface $input
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
-     *
-     * @return int
-     */
     public function execute(InputInterface $input, OutputInterface $output): int
     {
         $modulesToValidate = $this->getModulesToExecute($input);
@@ -98,13 +89,6 @@ class DependencyViolationFinderConsole extends AbstractCoreModuleAwareConsole
         return $this->endValidation();
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\ModuleTransfer $moduleTransfer
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
-     * @param string|null $dependencyType
-     *
-     * @return void
-     */
     protected function validateModule(ModuleTransfer $moduleTransfer, OutputInterface $output, ?string $dependencyType = null): void
     {
         $this->startModuleValidation($this->buildModuleKey($moduleTransfer));
@@ -182,13 +166,6 @@ class DependencyViolationFinderConsole extends AbstractCoreModuleAwareConsole
         $this->renderTable($output, [new TableCell(sprintf('Dependency violations in <fg=yellow>%s</>', $moduleToValidate), ['colspan' => 2])], $tableRows);
     }
 
-    /**
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
-     * @param array $headers
-     * @param array $rows
-     *
-     * @return void
-     */
     protected function renderTable(OutputInterface $output, array $headers, array $rows): void
     {
         $table = new Table($output);
@@ -197,11 +174,6 @@ class DependencyViolationFinderConsole extends AbstractCoreModuleAwareConsole
         $table->render();
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\ModuleDependencyTransfer $moduleDependencyTransfer
-     *
-     * @return array
-     */
     protected function buildTableRow(ModuleDependencyTransfer $moduleDependencyTransfer): array
     {
         $color = $moduleDependencyTransfer->getIsValid() ? 'yellow' : 'red';
@@ -221,21 +193,11 @@ class DependencyViolationFinderConsole extends AbstractCoreModuleAwareConsole
         ];
     }
 
-    /**
-     * @param bool $bool
-     *
-     * @return string
-     */
     protected function getYesOrNo(bool $bool): string
     {
         return ($bool) ? 'yes' : 'no';
     }
 
-    /**
-     * @param bool $bool
-     *
-     * @return string
-     */
     protected function getColoredYesOrNo(bool $bool): string
     {
         return ($bool) ? '<fg=green>yes</>' : '<fg=red>no</>';
@@ -264,9 +226,6 @@ class DependencyViolationFinderConsole extends AbstractCoreModuleAwareConsole
         }
     }
 
-    /**
-     * @return int
-     */
     protected function endValidation(): int
     {
         $dependencyViolationCount = ($this->dependencyViolationCount > 0) ? sprintf('<fg=red>%d</>', $this->dependencyViolationCount) : sprintf('<fg=yellow>%d</>', $this->dependencyViolationCount);
@@ -277,11 +236,6 @@ class DependencyViolationFinderConsole extends AbstractCoreModuleAwareConsole
         return $this->dependencyViolationCount > 0 ? static::CODE_ERROR : static::CODE_SUCCESS;
     }
 
-    /**
-     * @param string $moduleName
-     *
-     * @return void
-     */
     protected function startModuleValidation(string $moduleName): void
     {
         if ($this->output->isVerbose()) {
@@ -289,13 +243,6 @@ class DependencyViolationFinderConsole extends AbstractCoreModuleAwareConsole
         }
     }
 
-    /**
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
-     * @param int $moduleViolationCount
-     * @param string|null $dependencyType
-     *
-     * @return void
-     */
     protected function endModuleValidation(OutputInterface $output, int $moduleViolationCount, ?string $dependencyType = null): void
     {
         $type = '';

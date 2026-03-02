@@ -59,17 +59,11 @@ abstract class AbstractGenerator implements GeneratorInterface
         $this->fileWriter->writeFile($fileName, $content, $this->options);
     }
 
-    /**
-     * @return string
-     */
     protected function getTemplateName(): string
     {
         return sprintf('%s.twig', $this->getName());
     }
 
-    /**
-     * @return string
-     */
     protected function getNamespace(): string
     {
         return str_replace(

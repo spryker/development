@@ -12,11 +12,6 @@ use Generated\Shared\Transfer\ValidationMessageTransfer;
 
 class ValidationRuleInTestNotInRequireDev implements ValidationRuleInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\ModuleDependencyTransfer $moduleDependencyTransfer
-     *
-     * @return \Generated\Shared\Transfer\ModuleDependencyTransfer
-     */
     public function validateModuleDependency(ModuleDependencyTransfer $moduleDependencyTransfer): ModuleDependencyTransfer
     {
         if ($moduleDependencyTransfer->getIsTestDependency() && !$moduleDependencyTransfer->getIsInComposerRequireDev() && !$moduleDependencyTransfer->getIsInComposerRequire()) {

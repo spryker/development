@@ -48,9 +48,6 @@ class CodeTestConsole extends Console
      */
     public const OPTION_DRY_RUN = 'dry-run';
 
-    /**
-     * @return void
-     */
     protected function configure(): void
     {
         parent::configure();
@@ -67,12 +64,6 @@ class CodeTestConsole extends Console
         $this->addOption(static::OPTION_DRY_RUN, 'd', InputOption::VALUE_NONE, 'Dry-run the command, only output the commands that would be run');
     }
 
-    /**
-     * @param \Symfony\Component\Console\Input\InputInterface $input
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
-     *
-     * @return int
-     */
     public function execute(InputInterface $input, OutputInterface $output): int
     {
         /** @var string|null $module */
@@ -89,11 +80,6 @@ class CodeTestConsole extends Console
         );
     }
 
-    /**
-     * @param \Symfony\Component\Console\Input\InputInterface $input
-     *
-     * @return array
-     */
     protected function extendOptions(InputInterface $input): array
     {
         $options = $input->getOptions();
@@ -101,12 +87,6 @@ class CodeTestConsole extends Console
         return $options;
     }
 
-    /**
-     * @param \Symfony\Component\Console\Input\InputInterface $input
-     * @param string|null $module
-     *
-     * @return void
-     */
     protected function displayRunInfo(InputInterface $input, ?string $module): void
     {
         $message = 'Run codecept tests for project level';

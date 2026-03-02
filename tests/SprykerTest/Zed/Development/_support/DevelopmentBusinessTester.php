@@ -49,9 +49,6 @@ class DevelopmentBusinessTester extends Actor
      */
     protected const DEFAULT_LEVEL = 1;
 
-    /**
-     * @return \Spryker\Zed\Development\Business\SnifferConfiguration\Builder\SnifferConfigurationBuilderInterface
-     */
     public function createArchitectureSnifferConfigurationBuilder(): SnifferConfigurationBuilderInterface
     {
         return new ArchitectureSnifferConfigurationBuilder(
@@ -60,9 +57,6 @@ class DevelopmentBusinessTester extends Actor
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\SnifferConfiguration\ConfigurationReader\ConfigurationReaderInterface
-     */
     public function createConfigurationReader(): ConfigurationReaderInterface
     {
         return new ConfigurationReader(
@@ -70,33 +64,21 @@ class DevelopmentBusinessTester extends Actor
         );
     }
 
-    /**
-     * @return int
-     */
     public function getDefaultPriority(): int
     {
         return static::DEFAULT_PRIORITY;
     }
 
-    /**
-     * @return int
-     */
     public function getDefaultLevel(): int
     {
         return static::DEFAULT_LEVEL;
     }
 
-    /**
-     * @return \Symfony\Component\Yaml\Parser
-     */
     protected function createSymfonyYamlParser(): Parser
     {
         return new Parser();
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\CodeStyleSniffer\Config\CodeStyleSnifferConfigurationLoader
-     */
     public function createCodeStyleSnifferConfigurationLoader(): CodeStyleSnifferConfigurationLoader
     {
         return new CodeStyleSnifferConfigurationLoader(
@@ -105,9 +87,6 @@ class DevelopmentBusinessTester extends Actor
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\CodeStyleSniffer\Config\CodeStyleSnifferConfiguration
-     */
     public function createCodeStyleSnifferConfiguration(): CodeStyleSnifferConfiguration
     {
         return new CodeStyleSnifferConfiguration(
@@ -115,17 +94,11 @@ class DevelopmentBusinessTester extends Actor
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Development\DevelopmentConfig
-     */
     public function createDevelopmentConfig(): DevelopmentConfig
     {
         return new DevelopmentConfig();
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\CodeStyleSniffer\CodeStyleSniffer
-     */
     public function createCodeStyleSniffer(): CodeStyleSniffer
     {
         return new CodeStyleSniffer(
@@ -134,9 +107,6 @@ class DevelopmentBusinessTester extends Actor
         );
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\Resolver\PathResolverInterface
-     */
     public function createCodeStylePathResolver(): PathResolverInterface
     {
         return new CodeStylePathResolver(

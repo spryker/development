@@ -23,19 +23,11 @@ class ComposerJsonFinder implements ComposerJsonFinderInterface
      */
     protected $finder;
 
-    /**
-     * @param \Symfony\Component\Finder\Finder $finder
-     */
     public function __construct(Finder $finder)
     {
         $this->finder = $finder;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\ModuleTransfer $module
-     *
-     * @return \Symfony\Component\Finder\SplFileInfo|null
-     */
     public function findByModule(ModuleTransfer $module): ?SplFileInfo
     {
         $currentFinderInstance = $this->getNewFinderInstance();
@@ -54,9 +46,6 @@ class ComposerJsonFinder implements ComposerJsonFinderInterface
         return reset($finderAsArray);
     }
 
-    /**
-     * @return \Symfony\Component\Finder\Finder
-     */
     protected function getNewFinderInstance(): Finder
     {
         return $this->finder::create();

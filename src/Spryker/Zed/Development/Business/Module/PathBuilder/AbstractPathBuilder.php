@@ -22,19 +22,11 @@ abstract class AbstractPathBuilder implements PathBuilderInterface
      */
     protected $config;
 
-    /**
-     * @param \Spryker\Zed\Development\DevelopmentConfig $config
-     */
     public function __construct(DevelopmentConfig $config)
     {
         $this->config = $config;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\ModuleTransfer $moduleTransfer
-     *
-     * @return array
-     */
     public function buildPaths(ModuleTransfer $moduleTransfer): array
     {
         return [
@@ -46,21 +38,11 @@ abstract class AbstractPathBuilder implements PathBuilderInterface
         ];
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\ModuleTransfer $moduleTransfer
-     *
-     * @return bool
-     */
     public function accept(ModuleTransfer $moduleTransfer): bool
     {
         return ($moduleTransfer->getOrganization()->getName() === static::ORGANIZATION);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\ModuleTransfer $moduleTransfer
-     *
-     * @return string
-     */
     protected function getModuleName(ModuleTransfer $moduleTransfer): string
     {
         return $moduleTransfer->getName();

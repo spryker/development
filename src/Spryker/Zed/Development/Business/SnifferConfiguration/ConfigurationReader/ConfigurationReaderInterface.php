@@ -9,10 +9,5 @@ namespace Spryker\Zed\Development\Business\SnifferConfiguration\ConfigurationRea
 
 interface ConfigurationReaderInterface
 {
-    /**
-     * @param string $absoluteModulePath
-     *
-     * @return array
-     */
     public function getModuleConfigurationByAbsolutePath(string $absoluteModulePath): array;
 }

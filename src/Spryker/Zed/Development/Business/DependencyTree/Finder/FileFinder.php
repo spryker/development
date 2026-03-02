@@ -17,9 +17,6 @@ class FileFinder implements FinderInterface
      */
     protected $pathBuilder;
 
-    /**
-     * @param \Spryker\Zed\Development\Business\DependencyTree\Finder\PathBuilder\PathBuilderInterface $pathBuilder
-     */
     public function __construct(PathBuilderInterface $pathBuilder)
     {
         $this->pathBuilder = $pathBuilder;

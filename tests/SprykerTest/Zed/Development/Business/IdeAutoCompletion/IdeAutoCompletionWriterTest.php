@@ -36,9 +36,6 @@ class IdeAutoCompletionWriterTest extends Unit
      */
     protected $tester;
 
-    /**
-     * @return void
-     */
     public function testWriterCreatesYvesAutoCompletionFiles(): void
     {
         $tester = $this->createFunctionalTester();
@@ -57,9 +54,6 @@ class IdeAutoCompletionWriterTest extends Unit
         $this->assertTrue($finder->count() > 1);
     }
 
-    /**
-     * @return void
-     */
     public function testWriterCreatesZedAutoCompletionFiles(): void
     {
         $tester = $this->createFunctionalTester();
@@ -79,9 +73,6 @@ class IdeAutoCompletionWriterTest extends Unit
         $this->assertTrue($finder->count() > 1);
     }
 
-    /**
-     * @return void
-     */
     public function testWriterCreatesClientAutoCompletionFiles(): void
     {
         $tester = $this->createFunctionalTester();
@@ -101,9 +92,6 @@ class IdeAutoCompletionWriterTest extends Unit
         $this->assertTrue($finder->count() > 1);
     }
 
-    /**
-     * @return void
-     */
     public function testWriterCreatesServiceAutoCompletionFiles(): void
     {
         $tester = $this->createFunctionalTester();
@@ -118,9 +106,6 @@ class IdeAutoCompletionWriterTest extends Unit
         $tester->canSeeFileFound('AutoCompletion.php', IdeAutoCompletion::TEST_TARGET_DIRECTORY . 'Generated/Service/Ide/');
     }
 
-    /**
-     * @return void
-     */
     public function testWriterCreatesGlueAutoCompletionFiles(): void
     {
         $tester = $this->createFunctionalTester();
@@ -135,9 +120,6 @@ class IdeAutoCompletionWriterTest extends Unit
         $tester->canSeeFileFound('AutoCompletion.php', IdeAutoCompletion::TEST_TARGET_DIRECTORY . 'Generated/Glue/Ide/');
     }
 
-    /**
-     * @return void
-     */
     public function testWriterCreatesGlueBackendAutoCompletionFiles(): void
     {
         $tester = $this->createFunctionalTester();
@@ -152,17 +134,11 @@ class IdeAutoCompletionWriterTest extends Unit
         $tester->canSeeFileFound('AutoCompletion.php', IdeAutoCompletion::TEST_TARGET_DIRECTORY . 'Generated/GlueBackend/Ide/');
     }
 
-    /**
-     * @return \SprykerTest\Zed\Development\DevelopmentBusinessTester
-     */
     protected function createFunctionalTester(): DevelopmentBusinessTester
     {
         return $this->tester;
     }
 
-    /**
-     * @return \Spryker\Zed\Development\Business\DevelopmentBusinessFactory
-     */
     protected function getDevelopmentBusinessFactory(): DevelopmentBusinessFactory
     {
         $container = new Container();

@@ -12,11 +12,6 @@ use Generated\Shared\Transfer\ValidationMessageTransfer;
 
 class ValidationRuleAmbiguousModuleName implements ValidationRuleInterface
 {
-    /**
-     * @param \Generated\Shared\Transfer\ModuleDependencyTransfer $moduleDependencyTransfer
-     *
-     * @return \Generated\Shared\Transfer\ModuleDependencyTransfer
-     */
     public function validateModuleDependency(ModuleDependencyTransfer $moduleDependencyTransfer): ModuleDependencyTransfer
     {
         if ($moduleDependencyTransfer->getComposerName() === null) {

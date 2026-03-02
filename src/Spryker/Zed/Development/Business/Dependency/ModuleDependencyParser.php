@@ -34,11 +34,6 @@ class ModuleDependencyParser implements ModuleDependencyParserInterface
      */
     protected $dependencyFinder;
 
-    /**
-     * @param \Spryker\Zed\Development\Business\Module\ModuleFileFinder\ModuleFileFinderInterface $moduleFileFinder
-     * @param \Spryker\Zed\Development\Business\Dependency\DependencyContainer\DependencyContainerInterface $dependencyContainer
-     * @param \Spryker\Zed\Development\Business\Dependency\DependencyFinder\DependencyFinderInterface $dependencyFinder
-     */
     public function __construct(
         ModuleFileFinderInterface $moduleFileFinder,
         DependencyContainerInterface $dependencyContainer,
@@ -49,12 +44,6 @@ class ModuleDependencyParser implements ModuleDependencyParserInterface
         $this->dependencyFinder = $dependencyFinder;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\ModuleTransfer $moduleTransfer
-     * @param string|null $dependencyType
-     *
-     * @return \Generated\Shared\Transfer\DependencyCollectionTransfer
-     */
     public function parseOutgoingDependencies(ModuleTransfer $moduleTransfer, ?string $dependencyType = null): DependencyCollectionTransfer
     {
         if ($moduleTransfer->getNameDashed() == null) {
@@ -77,11 +66,6 @@ class ModuleDependencyParser implements ModuleDependencyParserInterface
         return $dependencyContainer->getDependencyCollection();
     }
 
-    /**
-     * @param string $value
-     *
-     * @return string
-     */
     protected function dasherize(string $value): string
     {
         $filterChain = new FilterChain();

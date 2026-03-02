@@ -27,9 +27,6 @@ class ExternalGraphBuilder implements GraphBuilderInterface
      */
     protected $graph;
 
-    /**
-     * @param \Spryker\Shared\Graph\GraphInterface $graph
-     */
     public function __construct(GraphInterface $graph)
     {
         $this->graph = $graph;

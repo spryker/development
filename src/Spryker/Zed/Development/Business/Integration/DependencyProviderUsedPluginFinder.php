@@ -31,21 +31,12 @@ class DependencyProviderUsedPluginFinder implements DependencyProviderUsedPlugin
      */
     protected $config;
 
-    /**
-     * @param \Spryker\Zed\Development\Dependency\Facade\DevelopmentToModuleFinderFacadeInterface $moduleFinderFacade
-     * @param \Spryker\Zed\Development\DevelopmentConfig $config
-     */
     public function __construct(DevelopmentToModuleFinderFacadeInterface $moduleFinderFacade, DevelopmentConfig $config)
     {
         $this->moduleFinderFacade = $moduleFinderFacade;
         $this->config = $config;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\ModuleFilterTransfer|null $moduleFilterTransfer
-     *
-     * @return \Generated\Shared\Transfer\DependencyProviderCollectionTransfer
-     */
     public function getUsedPlugins(?ModuleFilterTransfer $moduleFilterTransfer = null): DependencyProviderCollectionTransfer
     {
         $projectModules = $this->moduleFinderFacade->getProjectModules($moduleFilterTransfer);
@@ -61,12 +52,6 @@ class DependencyProviderUsedPluginFinder implements DependencyProviderUsedPlugin
         return $dependencyProviderCollectionTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\ModuleTransfer $moduleTransfer
-     * @param \Generated\Shared\Transfer\DependencyProviderCollectionTransfer $dependencyProviderCollectionTransfer
-     *
-     * @return \Generated\Shared\Transfer\DependencyProviderCollectionTransfer
-     */
     protected function addPluginUsageInModuleApplications(
         ModuleTransfer $moduleTransfer,
         DependencyProviderCollectionTransfer $dependencyProviderCollectionTransfer
@@ -102,12 +87,6 @@ class DependencyProviderUsedPluginFinder implements DependencyProviderUsedPlugin
         return $dependencyProviderCollectionTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\ModuleTransfer $moduleTransfer
-     * @param \Generated\Shared\Transfer\ApplicationTransfer $applicationTransfer
-     *
-     * @return string
-     */
     protected function getPath(ModuleTransfer $moduleTransfer, ApplicationTransfer $applicationTransfer): string
     {
         return sprintf(
@@ -153,12 +132,6 @@ class DependencyProviderUsedPluginFinder implements DependencyProviderUsedPlugin
         };
     }
 
-    /**
-     * @param \Symfony\Component\Finder\SplFileInfo $splFileInfo
-     * @param \Generated\Shared\Transfer\ModuleTransfer $moduleTransfer
-     *
-     * @return \Generated\Shared\Transfer\DependencyProviderTransfer
-     */
     protected function buildDependencyProviderTransfer(SplFileInfo $splFileInfo, ModuleTransfer $moduleTransfer): DependencyProviderTransfer
     {
         $dependencyProviderClassName = str_replace([$moduleTransfer->getPath() . 'src/', '.php', DIRECTORY_SEPARATOR], ['', '', '\\'], $splFileInfo->getPathname());
@@ -173,13 +146,6 @@ class DependencyProviderUsedPluginFinder implements DependencyProviderUsedPlugin
         return $dependencyProviderTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\DependencyProviderCollectionTransfer $dependencyProviderCollectionTransfer
-     * @param \Generated\Shared\Transfer\DependencyProviderTransfer $dependencyProviderTransfer
-     * @param \Symfony\Component\Finder\SplFileInfo $splFileInfo
-     *
-     * @return \Generated\Shared\Transfer\DependencyProviderCollectionTransfer
-     */
     protected function addPluginUsages(
         DependencyProviderCollectionTransfer $dependencyProviderCollectionTransfer,
         DependencyProviderTransfer $dependencyProviderTransfer,
@@ -196,12 +162,6 @@ class DependencyProviderUsedPluginFinder implements DependencyProviderUsedPlugin
         return $dependencyProviderCollectionTransfer;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\DependencyProviderTransfer $dependencyProviderTransfer
-     * @param array $useStatements
-     *
-     * @return \Generated\Shared\Transfer\DependencyProviderTransfer
-     */
     protected function addUsedPlugins(DependencyProviderTransfer $dependencyProviderTransfer, array $useStatements): DependencyProviderTransfer
     {
         foreach ($useStatements as $match) {
@@ -214,11 +174,6 @@ class DependencyProviderUsedPluginFinder implements DependencyProviderUsedPlugin
         return $dependencyProviderTransfer;
     }
 
-    /**
-     * @param string $pluginClassName
-     *
-     * @return \Generated\Shared\Transfer\PluginTransfer
-     */
     protected function buildPluginTransfer(string $pluginClassName): PluginTransfer
     {
         $moduleTransfer = $this->buildModuleTransferFromClassName($pluginClassName);
@@ -233,11 +188,6 @@ class DependencyProviderUsedPluginFinder implements DependencyProviderUsedPlugin
         return $pluginTransfer;
     }
 
-    /**
-     * @param string $className
-     *
-     * @return \Generated\Shared\Transfer\ModuleTransfer
-     */
     protected function buildModuleTransferFromClassName(string $className): ModuleTransfer
     {
         $classNameFragments = explode('\\', $className);
@@ -261,11 +211,6 @@ class DependencyProviderUsedPluginFinder implements DependencyProviderUsedPlugin
         return $moduleTransfer;
     }
 
-    /**
-     * @param string $organization
-     *
-     * @return bool
-     */
     protected function isProjectOrganization(string $organization): bool
     {
         return in_array($organization, $this->config->getProjectNamespaces(), true);

@@ -53,9 +53,6 @@ class ModuleBuilder
         'tooling.yml',
     ];
 
-    /**
-     * @param \Spryker\Zed\Development\DevelopmentConfig $config
-     */
     public function __construct(DevelopmentConfig $config)
     {
         $this->config = $config;

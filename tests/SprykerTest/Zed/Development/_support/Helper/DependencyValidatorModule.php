@@ -24,11 +24,6 @@ use Spryker\Zed\Kernel\Container;
 
 class DependencyValidatorModule extends Module
 {
-    /**
-     * @param array $composerDependency
-     *
-     * @return \Spryker\Zed\Development\Business\DevelopmentFacadeInterface
-     */
     public function getFacadeForDependencyTests(array $composerDependency): DevelopmentFacadeInterface
     {
         /** @var \Spryker\Zed\Development\Business\DevelopmentBusinessFactory $developmentFactory */
@@ -68,9 +63,6 @@ class DependencyValidatorModule extends Module
         return $developmentFactory;
     }
 
-    /**
-     * @return \Spryker\Zed\Kernel\Container
-     */
     protected function getContainerWithProvidedDependencies(): Container
     {
         $container = new Container();
@@ -80,12 +72,6 @@ class DependencyValidatorModule extends Module
         return $container;
     }
 
-    /**
-     * @param string $moduleName
-     * @param string|null $dependencyType
-     *
-     * @return \Generated\Shared\Transfer\DependencyValidationRequestTransfer
-     */
     public function getDependencyValidationRequestTransfer(string $moduleName = 'Default', ?string $dependencyType = null): DependencyValidationRequestTransfer
     {
         $organizationTransfer = new OrganizationTransfer();
@@ -357,11 +343,6 @@ class DependencyValidatorModule extends Module
         ];
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\DependencyValidationResponseTransfer $dependencyValidationResponseTransfer
-     *
-     * @return void
-     */
     public function assertValidDependencies(DependencyValidationResponseTransfer $dependencyValidationResponseTransfer): void
     {
         foreach ($dependencyValidationResponseTransfer->getModuleDependencies() as $moduleDependency) {
@@ -369,11 +350,6 @@ class DependencyValidatorModule extends Module
         }
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\DependencyValidationResponseTransfer $dependencyValidationResponseTransfer
-     *
-     * @return void
-     */
     public function assertInvalidDependencies(DependencyValidationResponseTransfer $dependencyValidationResponseTransfer): void
     {
         foreach ($dependencyValidationResponseTransfer->getModuleDependencies() as $moduleDependency) {

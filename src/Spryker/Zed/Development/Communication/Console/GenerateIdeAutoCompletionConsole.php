@@ -27,9 +27,6 @@ class GenerateIdeAutoCompletionConsole extends Console
      */
     public const COMMAND_NAME = 'dev:ide-auto-completion:generate';
 
-    /**
-     * @return void
-     */
     protected function configure(): void
     {
         parent::configure();
@@ -72,11 +69,6 @@ class GenerateIdeAutoCompletionConsole extends Console
         return $this->getLastExitCode();
     }
 
-    /**
-     * @param string $commandName
-     *
-     * @return void
-     */
     protected function showCommandNotFoundMessage(string $commandName): void
     {
         $message = "Can not find $commandName in your project." . PHP_EOL;

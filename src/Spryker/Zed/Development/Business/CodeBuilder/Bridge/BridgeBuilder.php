@@ -95,9 +95,6 @@ class BridgeBuilder
      */
     protected $config;
 
-    /**
-     * @param \Spryker\Zed\Development\DevelopmentConfig $config
-     */
     public function __construct(DevelopmentConfig $config)
     {
         $this->config = $config;
@@ -123,11 +120,6 @@ class BridgeBuilder
         $this->createBridge($bridgeBuilderDataTransfer);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\BridgeBuilderDataTransfer $bridgeBuilderDataTransfer
-     *
-     * @return void
-     */
     protected function createInterface(BridgeBuilderDataTransfer $bridgeBuilderDataTransfer): void
     {
         $fileName = $bridgeBuilderDataTransfer->getModule() . 'To' . $bridgeBuilderDataTransfer->getToModule() . $bridgeBuilderDataTransfer->getToType() . 'Interface.php';
@@ -154,11 +146,6 @@ class BridgeBuilder
         $this->saveFile($bridgeBuilderDataTransfer, $templateContent, $fileName);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\BridgeBuilderDataTransfer $bridgeBuilderDataTransfer
-     *
-     * @return void
-     */
     protected function createBridge(BridgeBuilderDataTransfer $bridgeBuilderDataTransfer): void
     {
         $fileName = $bridgeBuilderDataTransfer->getModule() . 'To' . $bridgeBuilderDataTransfer->getToModule() . $bridgeBuilderDataTransfer->getToType() . 'Bridge.php';
@@ -188,43 +175,26 @@ class BridgeBuilder
         $this->saveFile($bridgeBuilderDataTransfer, $templateContent, $fileName);
     }
 
-    /**
-     * @return string
-     */
     protected function getInterfaceTemplateContent(): string
     {
         return $this->getTemplateContent(static::TEMPLATE_INTERFACE);
     }
 
-    /**
-     * @return string
-     */
     protected function getInterfaceMethodTemplateContent(): string
     {
         return $this->getTemplateContent(static::TEMPLATE_INTERFACE_METHOD);
     }
 
-    /**
-     * @return string
-     */
     protected function getBridgeMethodTemplateContent(): string
     {
         return $this->getTemplateContent(static::TEMPLATE_BRIDGE_METHOD);
     }
 
-    /**
-     * @return string
-     */
     protected function getBridgeTemplateContent(): string
     {
         return $this->getTemplateContent(static::TEMPLATE_BRIDGE);
     }
 
-    /**
-     * @param string $templateName
-     *
-     * @return string
-     */
     protected function getTemplateContent(string $templateName): string
     {
         /** @phpstan-var string */
@@ -233,12 +203,6 @@ class BridgeBuilder
         );
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\BridgeBuilderDataTransfer $bridgeBuilderDataTransfer
-     * @param string $templateContent
-     *
-     * @return string
-     */
     protected function replacePlaceHolder(BridgeBuilderDataTransfer $bridgeBuilderDataTransfer, string $templateContent): string
     {
         $replacements = [
@@ -265,13 +229,6 @@ class BridgeBuilder
         return $templateContent;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\BridgeBuilderDataTransfer $bridgeBuilderDataTransfer
-     * @param string $templateContent
-     * @param string $fileName
-     *
-     * @return void
-     */
     protected function saveFile(BridgeBuilderDataTransfer $bridgeBuilderDataTransfer, string $templateContent, string $fileName): void
     {
         $path = $this->getPathToDependencyFiles($bridgeBuilderDataTransfer);
@@ -282,11 +239,6 @@ class BridgeBuilder
         $filesystem->dumpFile($filePath, $templateContent);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\BridgeBuilderDataTransfer $bridgeBuilderDataTransfer
-     *
-     * @return string
-     */
     protected function getPathToDependencyFiles(BridgeBuilderDataTransfer $bridgeBuilderDataTransfer): string
     {
         $pathParts = [
@@ -398,11 +350,6 @@ class BridgeBuilder
         return '';
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\BridgeBuilderDataTransfer $bridgeBuilderDataTransfer
-     *
-     * @return string
-     */
     protected function resolveModulePath(BridgeBuilderDataTransfer $bridgeBuilderDataTransfer): string
     {
         $pathToInternalNamespace = $this->config->getPathToInternalNamespace($bridgeBuilderDataTransfer->getVendor());
@@ -420,11 +367,6 @@ class BridgeBuilder
         ]);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\BridgeBuilderDataTransfer $bridgeBuilderDataTransfer
-     *
-     * @return string
-     */
     protected function resolveTargetModulePath(BridgeBuilderDataTransfer $bridgeBuilderDataTransfer): string
     {
         $pathToInternalNamespace = $this->config->getPathToInternalNamespace($bridgeBuilderDataTransfer->getToVendor());
@@ -457,21 +399,11 @@ class BridgeBuilder
         return strtolower($filterChain->filter($module));
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\BridgeBuilderDataTransfer $bridgeBuilderDataTransfer
-     *
-     * @return bool
-     */
     protected function checkIfBridgeTargetExists(BridgeBuilderDataTransfer $bridgeBuilderDataTransfer): bool
     {
         return is_file($this->getBridgeTarget($bridgeBuilderDataTransfer) . '.php');
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\BridgeBuilderDataTransfer $bridgeBuilderDataTransfer
-     *
-     * @return string
-     */
     protected function getBridgeTarget(BridgeBuilderDataTransfer $bridgeBuilderDataTransfer): string
     {
         $pathParts = [
@@ -487,12 +419,6 @@ class BridgeBuilder
         return implode(DIRECTORY_SEPARATOR, $pathParts);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\BridgeBuilderDataTransfer $bridgeBuilderDataTransfer
-     * @param string $templateContent
-     *
-     * @return string
-     */
     protected function addMethodsToBridge(BridgeBuilderDataTransfer $bridgeBuilderDataTransfer, string $templateContent): string
     {
         $path =
@@ -516,12 +442,6 @@ class BridgeBuilder
         );
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\BridgeBuilderDataTransfer $bridgeBuilderDataTransfer
-     * @param string $templateContent
-     *
-     * @return string
-     */
     protected function addMethodsToInterface(BridgeBuilderDataTransfer $bridgeBuilderDataTransfer, string $templateContent): string
     {
         $path =
@@ -621,11 +541,6 @@ class BridgeBuilder
         );
     }
 
-    /**
-     * @param \ReflectionMethod $method
-     *
-     * @return string
-     */
     protected function getParameters(ReflectionMethod $method): string
     {
         $finalOutput = '';
@@ -685,11 +600,6 @@ class BridgeBuilder
         return str_replace("\t", str_repeat(' ', 4), $docCommentWithoutExtras);
     }
 
-    /**
-     * @param \ReflectionMethod $method
-     *
-     * @return array
-     */
     protected function getParameterTypes(ReflectionMethod $method): array
     {
         $parameterTypes = [];
@@ -707,11 +617,6 @@ class BridgeBuilder
         return $parameterTypes;
     }
 
-    /**
-     * @param \ReflectionMethod $method
-     *
-     * @return string
-     */
     protected function getParameterNames(ReflectionMethod $method): string
     {
         $parameters = '';
@@ -722,11 +627,6 @@ class BridgeBuilder
         return rtrim($parameters, ', ');
     }
 
-    /**
-     * @param string $docComment
-     *
-     * @return string
-     */
     protected function getMethodReturnTypeFromDocComment(string $docComment): string
     {
         preg_match('/@return (.+)/', $docComment, $returnType);
@@ -789,11 +689,6 @@ class BridgeBuilder
         return static::NULLABLE_RETURN_TYPE_HINT . $this->arrayReturnTypeFix($methodTypeHint);
     }
 
-    /**
-     * @param string $returnType
-     *
-     * @return string
-     */
     protected function arrayReturnTypeFix(string $returnType): string
     {
         return (strpos($returnType, '[]') === false) ? $returnType : 'array';

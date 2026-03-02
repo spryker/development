@@ -39,9 +39,6 @@ class ServiceMethodBuilderTest extends Unit
      */
     public const BUNDLE_DIRECTORY = '/foo/bar/baz/FooBundle/src/Spryker/Service/';
 
-    /**
-     * @return void
-     */
     public function testMethodNameIsClient(): void
     {
         $methodBuilderMock = $this->getServiceMethodBuilderMock();
@@ -55,9 +52,6 @@ class ServiceMethodBuilderTest extends Unit
         $this->assertSame('service', $bundleMethodTransfer->getName());
     }
 
-    /**
-     * @return void
-     */
     public function testFileLookupIsPerformedInClientApplication(): void
     {
         $methodBuilderMock = $this->getServiceMethodBuilderMock();
@@ -98,9 +92,6 @@ class ServiceMethodBuilderTest extends Unit
             ->getMock();
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\IdeAutoCompletionBundleTransfer
-     */
     protected function getBundleTransfer(): IdeAutoCompletionBundleTransfer
     {
         $bundleTransfer = new IdeAutoCompletionBundleTransfer();

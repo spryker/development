@@ -60,10 +60,6 @@ class CodeStyleSniffer
      */
     protected $commandsToFix = [];
 
-    /**
-     * @param \Spryker\Zed\Development\DevelopmentConfig $config
-     * @param \Spryker\Zed\Development\Business\Resolver\PathResolverInterface $pathResolver
-     */
     public function __construct(
         DevelopmentConfig $config,
         PathResolverInterface $pathResolver
@@ -220,13 +216,6 @@ class CodeStyleSniffer
         return $process->getExitCode();
     }
 
-    /**
-     * @param \Symfony\Component\Process\Process $process
-     * @param string $path
-     * @param \Spryker\Zed\Development\Business\CodeStyleSniffer\Config\CodeStyleSnifferConfigurationInterface $codeStyleSnifferConfiguration
-     *
-     * @return int
-     */
     protected function runSnifferCommandForAll(
         Process $process,
         string $path,
@@ -251,21 +240,11 @@ class CodeStyleSniffer
         return $process->getExitCode();
     }
 
-    /**
-     * @param \Symfony\Component\Process\Process $process
-     *
-     * @return string
-     */
     protected function getSnifferResultMessage(Process $process): string
     {
         return sprintf('%s', $process->getExitCode() === static::CODE_SUCCESS ? "\033[32m OK \033[0m" : "\033[31m FAIL \033[0m");
     }
 
-    /**
-     * @param string $path
-     *
-     * @return bool
-     */
     protected function hasLegacyConfiguration(string $path): bool
     {
         $xml = (new Xml())->fromFile($path);

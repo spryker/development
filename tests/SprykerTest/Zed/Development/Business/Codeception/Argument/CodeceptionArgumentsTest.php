@@ -41,9 +41,6 @@ class CodeceptionArgumentsTest extends Unit
         $this->assertSame($result, $codeceptionArgument->getArguments());
     }
 
-    /**
-     * @return array
-     */
     public function argumentsDataProvider(): array
     {
         return [

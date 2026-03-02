@@ -210,12 +210,6 @@ class AutoloadUpdater implements UpdaterInterface
         self::SPRYKER_MERCHANT_PORTAL_SHOP_TEST_NAMESPACE,
     ];
 
-    /**
-     * @param array $composerJson
-     * @param \Symfony\Component\Finder\SplFileInfo $composerJsonFile
-     *
-     * @return array
-     */
     public function update(array $composerJson, SplFileInfo $composerJsonFile): array
     {
         $originalAutoload = $composerJson[static::AUTOLOAD_KEY] ?? [];
@@ -676,11 +670,6 @@ class AutoloadUpdater implements UpdaterInterface
         return $composerJson;
     }
 
-    /**
-     * @param string $value
-     *
-     * @return string
-     */
     protected function convertDashToCamelCase(string $value): string
     {
         $filterChain = new FilterChain();
@@ -689,11 +678,6 @@ class AutoloadUpdater implements UpdaterInterface
         return $filterChain->filter($value);
     }
 
-    /**
-     * @param string $relativeDirectory
-     *
-     * @return bool
-     */
     protected function isReservedNamespace(string $relativeDirectory): bool
     {
         foreach (static::RESERVED_NAMESPACES as $reservedNamespace) {

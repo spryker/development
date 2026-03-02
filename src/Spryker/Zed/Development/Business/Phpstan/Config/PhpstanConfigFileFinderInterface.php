@@ -11,10 +11,5 @@ use SplFileInfo;
 
 interface PhpstanConfigFileFinderInterface
 {
-    /**
-     * @param string $directoryPath
-     *
-     * @return \SplFileInfo|null
-     */
     public function searchIn(string $directoryPath): ?SplFileInfo;
 }

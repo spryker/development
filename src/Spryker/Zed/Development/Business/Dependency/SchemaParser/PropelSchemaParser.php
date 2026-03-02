@@ -35,19 +35,11 @@ class PropelSchemaParser implements PropelSchemaParserInterface
      */
     protected static $uniqueFieldToModuleNameMap;
 
-    /**
-     * @param \Spryker\Zed\Development\DevelopmentConfig $config
-     */
     public function __construct(DevelopmentConfig $config)
     {
         $this->config = $config;
     }
 
-    /**
-     * @param \Symfony\Component\Finder\SplFileInfo $fileInfo
-     *
-     * @return array
-     */
     public function getForeignColumnNames(SplFileInfo $fileInfo): array
     {
         $foreignReferenceColumnNames = [];
@@ -95,9 +87,6 @@ class PropelSchemaParser implements PropelSchemaParserInterface
         throw new PropelSchemaParserException(sprintf('Could not find a module which defines the reference column "%s" defined in the module "%s"', $foreignReferenceColumnName, $module));
     }
 
-    /**
-     * @return array
-     */
     protected function getIdFieldToModuleNameMap(): array
     {
         if (static::$idFieldToModuleNameMap === null) {
@@ -269,11 +258,6 @@ class PropelSchemaParser implements PropelSchemaParserInterface
         return $requiredColumnNames;
     }
 
-    /**
-     * @param \Symfony\Component\Finder\SplFileInfo $splFileInfo
-     *
-     * @return string
-     */
     protected function getModuleNameFromFile(SplFileInfo $splFileInfo): string
     {
         preg_match('#Zed\/(?<module>[[:alpha:]]+)\/Persistence#', $splFileInfo->getPath(), $matches);
@@ -341,11 +325,6 @@ class PropelSchemaParser implements PropelSchemaParserInterface
         return array_filter($lookupPaths, 'glob');
     }
 
-    /**
-     * @param \SimpleXMLElement $simpleXmlElement
-     *
-     * @return bool
-     */
     protected function hasNamespaceInSchema(SimpleXMLElement $simpleXmlElement): bool
     {
         if (in_array('spryker:schema-01', $simpleXmlElement->getNamespaces(), true)) {

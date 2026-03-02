@@ -40,9 +40,6 @@ class FacadeMethodBuilderTest extends Unit
      */
     public const BUNDLE_DIRECTORY = '/foo/bar/baz/FooBundle/src/Spryker/FooApplication/';
 
-    /**
-     * @return void
-     */
     public function testMethodNameIsFacade(): void
     {
         $methodBuilderMock = $this->getFacadeMethodBuilderMock();
@@ -56,9 +53,6 @@ class FacadeMethodBuilderTest extends Unit
         $this->assertSame('facade', $bundleMethodTransfer->getName());
     }
 
-    /**
-     * @return void
-     */
     public function testFileLookupIsPerformedInBusinessLayer(): void
     {
         $methodBuilderMock = $this->getFacadeMethodBuilderMock();
@@ -70,9 +64,6 @@ class FacadeMethodBuilderTest extends Unit
         $methodBuilderMock->getMethod($this->getBundleTransfer());
     }
 
-    /**
-     * @return void
-     */
     public function testFileLookupPrefersInterface(): void
     {
         $methodBuilderMock = $this->getFacadeMethodBuilderMock();
@@ -89,9 +80,6 @@ class FacadeMethodBuilderTest extends Unit
         $this->assertSame('FooBundleFacadeInterface', $bundleMethodTransfer->getClassName());
     }
 
-    /**
-     * @return void
-     */
     public function testFileLookupFallsBackToConcreteClassIfInterfaceIsMissing(): void
     {
         $methodBuilderMock = $this->getFacadeMethodBuilderMock();
@@ -137,9 +125,6 @@ class FacadeMethodBuilderTest extends Unit
             ->getMock();
     }
 
-    /**
-     * @return \Generated\Shared\Transfer\IdeAutoCompletionBundleTransfer
-     */
     protected function getBundleTransfer(): IdeAutoCompletionBundleTransfer
     {
         $bundleTransfer = new IdeAutoCompletionBundleTransfer();

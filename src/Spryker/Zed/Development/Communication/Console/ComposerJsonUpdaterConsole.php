@@ -34,9 +34,6 @@ class ComposerJsonUpdaterConsole extends AbstractCoreModuleAwareConsole
      */
     public const VERBOSE = 'verbose';
 
-    /**
-     * @return void
-     */
     protected function configure(): void
     {
         parent::configure();

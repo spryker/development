@@ -21,10 +21,6 @@ class DependencyGraphBuilder implements DependencyGraphBuilderInterface
      */
     protected $dependencyTree;
 
-    /**
-     * @param \Spryker\Zed\Development\Business\DependencyTree\DependencyGraph\GraphBuilderInterface $graphBuilder
-     * @param array $dependencyTree
-     */
     public function __construct(
         GraphBuilderInterface $graphBuilder,
         array $dependencyTree

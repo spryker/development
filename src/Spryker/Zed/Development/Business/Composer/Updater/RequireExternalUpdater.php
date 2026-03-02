@@ -58,12 +58,6 @@ class RequireExternalUpdater implements UpdaterInterface
         $this->ignorableDependencies = $ignorableDependencies;
     }
 
-    /**
-     * @param array $composerJson
-     * @param \Symfony\Component\Finder\SplFileInfo $composerJsonFile
-     *
-     * @return array
-     */
     public function update(array $composerJson, SplFileInfo $composerJsonFile): array
     {
         $moduleName = $this->getModuleName($composerJson);

@@ -43,9 +43,6 @@ class ArchitectureSnifferConfigurationBuilderTest extends Unit
      */
     protected $configurationReader;
 
-    /**
-     * @return void
-     */
     public function testAclModuleHasPriorityDifferentFromDefaultPriority(): void
     {
         $aclModuleArchitectureSnifferConfig = $this->tester->createArchitectureSnifferConfigurationBuilder()->getConfiguration(
@@ -57,9 +54,6 @@ class ArchitectureSnifferConfigurationBuilderTest extends Unit
         $this->assertNotEquals($aclPriority, $this->tester->getDefaultPriority());
     }
 
-    /**
-     * @return void
-     */
     public function testCustomerModuleWillBeSkipped(): void
     {
         $this->expectExceptionMessage('Priority should be more than 0');
@@ -69,9 +63,6 @@ class ArchitectureSnifferConfigurationBuilderTest extends Unit
         );
     }
 
-    /**
-     * @return void
-     */
     public function testDiscountModuleHasDefaultPriorityBecauseDoesNotHavePriorityParamInConfigFile(): void
     {
         $discountModuleArchitectureSnifferConfig = $this->tester->createArchitectureSnifferConfigurationBuilder()->getConfiguration(
@@ -83,9 +74,6 @@ class ArchitectureSnifferConfigurationBuilderTest extends Unit
         $this->assertEquals($discountPriority, $this->tester->getDefaultPriority());
     }
 
-    /**
-     * @return void
-     */
     public function testCountryModuleHasDefaultPriorityBecauseConfigFileHasWrongExtension(): void
     {
         $countryModuleArchitectureSnifferConfig = $this->tester->createArchitectureSnifferConfigurationBuilder()->getConfiguration(
@@ -97,9 +85,6 @@ class ArchitectureSnifferConfigurationBuilderTest extends Unit
         $this->assertEquals($countryPriority, $this->tester->getDefaultPriority());
     }
 
-    /**
-     * @return void
-     */
     public function testProductModuleHasDefaultPriorityBecauseConfigFileDoesNotExist(): void
     {
         $productModuleArchitectureSnifferConfig = $this->tester->createArchitectureSnifferConfigurationBuilder()->getConfiguration(
@@ -111,9 +96,6 @@ class ArchitectureSnifferConfigurationBuilderTest extends Unit
         $this->assertEquals($productPriority, $this->tester->getDefaultPriority());
     }
 
-    /**
-     * @return void
-     */
     public function testCustomDirectoryHasDefaultPriorityBecauseConfigFileDoesNotHaveArchitectureSnifferBlock(): void
     {
         $customDirectoryArchitectureSnifferConfig = $this->tester->createArchitectureSnifferConfigurationBuilder()->getConfiguration(
@@ -125,9 +107,6 @@ class ArchitectureSnifferConfigurationBuilderTest extends Unit
         $this->assertEquals($customDirectoryPriority, $this->tester->getDefaultPriority());
     }
 
-    /**
-     * @return void
-     */
     public function testDiscountModuleHasIgnoreErrorPatternsInConfigFile(): void
     {
         $discountModuleArchitectureSnifferConfig = $this->tester->createArchitectureSnifferConfigurationBuilder()->getConfiguration(

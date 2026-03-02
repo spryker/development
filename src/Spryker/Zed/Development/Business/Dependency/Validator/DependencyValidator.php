@@ -37,12 +37,6 @@ class DependencyValidator implements DependencyValidatorInterface
      */
     protected $composerNameFinder;
 
-    /**
-     * @param \Spryker\Zed\Development\Business\Dependency\ModuleDependencyParserInterface $moduleDependencyParser
-     * @param \Spryker\Zed\Development\Business\DependencyTree\ComposerDependencyParserInterface $composerDependencyParser
-     * @param \Spryker\Zed\Development\Business\Dependency\Validator\ValidationRules\ValidationRuleInterface $validationRule
-     * @param \Spryker\Zed\Development\Business\Composer\ComposerNameFinderInterface $composerNameFinder
-     */
     public function __construct(
         ModuleDependencyParserInterface $moduleDependencyParser,
         ComposerDependencyParserInterface $composerDependencyParser,
@@ -55,11 +49,6 @@ class DependencyValidator implements DependencyValidatorInterface
         $this->composerNameFinder = $composerNameFinder;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\DependencyValidationRequestTransfer $dependencyValidationRequestTransfer
-     *
-     * @return \Generated\Shared\Transfer\DependencyValidationResponseTransfer
-     */
     public function validate(DependencyValidationRequestTransfer $dependencyValidationRequestTransfer): DependencyValidationResponseTransfer
     {
         $moduleDependencyTransferCollection = $this->buildModuleDependencyTransferCollection($dependencyValidationRequestTransfer);
@@ -84,11 +73,6 @@ class DependencyValidator implements DependencyValidatorInterface
         return $this->formatDependencies($composerDependencies);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\DependencyValidationRequestTransfer $dependencyValidationRequestTransfer
-     *
-     * @return array
-     */
     protected function getComposerDependencies(DependencyValidationRequestTransfer $dependencyValidationRequestTransfer): array
     {
         $dependencyCollectionTransfer = $this->moduleDependencyParser->parseOutgoingDependencies(
@@ -134,11 +118,6 @@ class DependencyValidator implements DependencyValidatorInterface
         return $moduleDependencyTransferCollection;
     }
 
-    /**
-     * @param array $composerDependency
-     *
-     * @return array
-     */
     protected function getDependencyTypes(array $composerDependency): array
     {
         $dependencyTypes = $composerDependency['types'];

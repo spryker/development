@@ -24,9 +24,6 @@ abstract class AbstractBundleMethodBuilder implements BundleMethodBuilderInterfa
      */
     protected $namespaceExtractor;
 
-    /**
-     * @param \Spryker\Zed\Development\Business\IdeAutoCompletion\Bundle\NamespaceExtractorInterface $namespaceExtractor
-     */
     public function __construct(NamespaceExtractorInterface $namespaceExtractor)
     {
         $this->namespaceExtractor = $namespaceExtractor;

@@ -16,10 +16,5 @@ interface DependencyTreeBuilderInterface
      */
     public function addDependencyChecker($dependencyChecker);
 
-    /**
-     * @param string $module
-     *
-     * @return void
-     */
     public function buildDependencyTree(string $module): void;
 }

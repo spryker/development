@@ -17,17 +17,7 @@ interface PhpstanConfigFileManagerInterface
      */
     public function merge(array $configFiles, string $newConfigFileName): string;
 
-    /**
-     * @param string $configFilePath
-     *
-     * @return bool
-     */
     public function isMergedConfigFile(string $configFilePath): bool;
 
-    /**
-     * @param string $configFilePath
-     *
-     * @return void
-     */
     public function deleteConfigFile(string $configFilePath): void;
 }

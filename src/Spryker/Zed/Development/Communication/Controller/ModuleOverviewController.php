@@ -15,9 +15,6 @@ use Spryker\Zed\Kernel\Communication\Controller\AbstractController;
  */
 class ModuleOverviewController extends AbstractController
 {
-    /**
-     * @return array
-     */
     public function indexAction(): array
     {
         return $this->viewResponse([

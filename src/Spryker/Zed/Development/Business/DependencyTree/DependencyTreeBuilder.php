@@ -32,11 +32,6 @@ class DependencyTreeBuilder implements DependencyTreeBuilderInterface
      */
     protected $dependencyChecker = [];
 
-    /**
-     * @param \Spryker\Zed\Development\Business\DependencyTree\Finder\FinderInterface $finder
-     * @param \Spryker\Zed\Development\Business\DependencyTree\AbstractDependencyTree $report
-     * @param \Spryker\Zed\Development\Business\DependencyTree\DependencyTreeWriter\DependencyTreeWriterInterface $writer
-     */
     public function __construct(FinderInterface $finder, AbstractDependencyTree $report, DependencyTreeWriterInterface $writer)
     {
         $this->finder = $finder;
@@ -64,11 +59,6 @@ class DependencyTreeBuilder implements DependencyTreeBuilderInterface
         return $this;
     }
 
-    /**
-     * @param string $module
-     *
-     * @return void
-     */
     public function buildDependencyTree(string $module): void
     {
         foreach ($this->finder->find($module) as $fileInfo) {

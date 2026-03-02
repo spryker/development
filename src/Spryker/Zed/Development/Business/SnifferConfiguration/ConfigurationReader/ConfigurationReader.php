@@ -21,19 +21,11 @@ class ConfigurationReader implements ConfigurationReaderInterface
      */
     protected $yamlParser;
 
-    /**
-     * @param \Symfony\Component\Yaml\Parser $yamlParser
-     */
     public function __construct(Parser $yamlParser)
     {
         $this->yamlParser = $yamlParser;
     }
 
-    /**
-     * @param string $absoluteModulePath
-     *
-     * @return array
-     */
     public function getModuleConfigurationByAbsolutePath(string $absoluteModulePath): array
     {
         $absoluteModuleSnifferConfigPath = $absoluteModulePath . static::CONFIG_FILE_NAME;

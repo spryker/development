@@ -33,27 +33,16 @@ class ExtensionDependencyFinder extends AbstractFileDependencyFinder
      */
     protected $filter;
 
-    /**
-     * @param \Spryker\Zed\Development\Dependency\Facade\DevelopmentToModuleFinderFacadeInterface $moduleFinderFacade
-     */
     public function __construct(DevelopmentToModuleFinderFacadeInterface $moduleFinderFacade)
     {
         $this->moduleFinderFacade = $moduleFinderFacade;
     }
 
-    /**
-     * @return string
-     */
     public function getType(): string
     {
         return static::TYPE_EXTENSION;
     }
 
-    /**
-     * @param \Spryker\Zed\Development\Business\Dependency\DependencyFinder\Context\DependencyFinderContextInterface $context
-     *
-     * @return bool
-     */
     public function accept(DependencyFinderContextInterface $context): bool
     {
         $moduleTransfer = $context->getModule();
@@ -62,12 +51,6 @@ class ExtensionDependencyFinder extends AbstractFileDependencyFinder
         return !isset($this->executedModules[$splObjectHash]);
     }
 
-    /**
-     * @param \Spryker\Zed\Development\Business\Dependency\DependencyFinder\Context\DependencyFinderContextInterface $context
-     * @param \Spryker\Zed\Development\Business\Dependency\DependencyContainer\DependencyContainerInterface $dependencyContainer
-     *
-     * @return \Spryker\Zed\Development\Business\Dependency\DependencyContainer\DependencyContainerInterface
-     */
     public function findDependencies(DependencyFinderContextInterface $context, DependencyContainerInterface $dependencyContainer): DependencyContainerInterface
     {
         $moduleTransfer = $context->getModule();
@@ -84,11 +67,6 @@ class ExtensionDependencyFinder extends AbstractFileDependencyFinder
         return $dependencyContainer;
     }
 
-    /**
-     * @param string $moduleExtensionKey
-     *
-     * @return bool
-     */
     protected function hasExtensionModule(string $moduleExtensionKey): bool
     {
         $moduleTransferCollection = $this->moduleFinderFacade->getModules();

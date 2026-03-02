@@ -48,19 +48,11 @@ class ComposerDependencyParser implements ComposerDependencyParserInterface
      */
     protected $composerNameFinder;
 
-    /**
-     * @param \Spryker\Zed\Development\Business\Composer\ComposerNameFinderInterface $composerNameFinder
-     */
     public function __construct(ComposerNameFinderInterface $composerNameFinder)
     {
         $this->composerNameFinder = $composerNameFinder;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\DependencyCollectionTransfer $dependencyCollectionTransfer
-     *
-     * @return array
-     */
     public function getComposerDependencyComparison(DependencyCollectionTransfer $dependencyCollectionTransfer): array
     {
         // Code dependencies
@@ -151,11 +143,6 @@ class ComposerDependencyParser implements ComposerDependencyParserInterface
         return $dependencyTypes;
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\DependencyCollectionTransfer $moduleDependencyCollectionTransfer
-     *
-     * @return array
-     */
     protected function getComposerNames(DependencyCollectionTransfer $moduleDependencyCollectionTransfer): array
     {
         $composerNames = [];

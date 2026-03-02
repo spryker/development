@@ -29,9 +29,6 @@ class ExternalDependency extends AbstractDependencyFinder
      */
     protected $externalToInternalNamespaceMap;
 
-    /**
-     * @param array $externalToInternalNamespaceMap
-     */
     public function __construct(array $externalToInternalNamespaceMap)
     {
         $this->externalToInternalNamespaceMap = $externalToInternalNamespaceMap;
