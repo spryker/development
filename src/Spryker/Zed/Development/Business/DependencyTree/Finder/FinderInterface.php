@@ -12,7 +12,7 @@ interface FinderInterface
     /**
      * @param string $module
      *
-     * @return array<\Symfony\Component\Finder\SplFileInfo>
+     * @return iterable<\Symfony\Component\Finder\SplFileInfo>
      */
-    public function find(string $module): array;
+    public function find(string $module): iterable;
 }

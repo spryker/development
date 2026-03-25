@@ -25,30 +25,20 @@ class FileFinder implements FinderInterface
     /**
      * @param string $module
      *
-     * @return array<\Symfony\Component\Finder\SplFileInfo>
+     * @return iterable<\Symfony\Component\Finder\SplFileInfo>
      */
-    public function find(string $module): array
+    public function find(string $module): iterable
     {
         $directories = $this->pathBuilder->buildPaths($module);
         $directories = array_filter($directories, function (string $directory) {
             return glob($directory, GLOB_NOSORT);
         });
 
-        if (count($directories) === 0) {
-            return [];
-        }
-
-        $res = [];
         foreach ($directories as $directory) {
             $finder = new Finder();
-            $finder->files()->ignoreVCSIgnored(true)->in($directory);
+            $finder->files()->ignoreVCSIgnored(true)->in($directory)->name('*.php');
 
-            $finder->name('*.php');
-            $res = array_merge($res, iterator_to_array($finder));
-
-            unset($finder);
+            yield from $finder;
         }
-
-        return $res;
     }
 }

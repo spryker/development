@@ -164,7 +164,7 @@ class DependencyController extends AbstractController
         }
 
         $callback = function () use ($request) {
-            $module = $request->query->getAlpha(static::QUERY_KEY_MODULE, '*');
+            $module = $request->query->getAlpha(static::QUERY_KEY_MODULE) ?: '*';
 
             if ($request->query->getBoolean(static::QUERY_KEY_BUILD_TREE, !$this->hasDependencyTreeCache())) {
                 $this->getFacade()->buildDependencyTree($module);
@@ -184,7 +184,7 @@ class DependencyController extends AbstractController
     public function simpleAction(Request $request)
     {
         $callback = function () use ($request) {
-            $module = $request->query->getAlpha(static::QUERY_KEY_MODULE, '*');
+            $module = $request->query->getAlpha(static::QUERY_KEY_MODULE) ?: '*';
             $showEngineBundle = $request->query->getBoolean('show-engine-bundle', true);
 
             if ($request->query->getBoolean(static::QUERY_KEY_BUILD_TREE, !$this->hasDependencyTreeCache())) {
@@ -222,7 +222,7 @@ class DependencyController extends AbstractController
     public function externalDependencyTreeAction(Request $request)
     {
         $callback = function () use ($request) {
-            $module = $request->query->getAlpha(static::QUERY_KEY_MODULE, '*');
+            $module = $request->query->getAlpha(static::QUERY_KEY_MODULE) ?: '*';
 
             if ($request->query->getBoolean(static::QUERY_KEY_BUILD_TREE, !$this->hasDependencyTreeCache())) {
                 $this->getFacade()->buildDependencyTree($module);

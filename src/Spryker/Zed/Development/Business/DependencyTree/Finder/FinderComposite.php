@@ -26,13 +26,10 @@ class FinderComposite implements FinderCompositeInterface
         return $this;
     }
 
-    public function find(string $module): array
+    public function find(string $module): iterable
     {
-        $files = [];
         foreach ($this->finder as $finder) {
-            $files = array_merge($files, $finder->find($module));
+            yield from $finder->find($module);
         }
-
-        return $files;
     }
 }

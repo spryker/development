@@ -94,12 +94,13 @@ class FileInfoExtractor
      *
      * @return array
      */
-    private function getClassNameParts(SplFileInfo $fileInfo)
+    protected function getClassNameParts(SplFileInfo $fileInfo)
     {
         $pathParts = explode(DIRECTORY_SEPARATOR, $fileInfo->getPathname());
-        $sourceDirectoryPosition = array_search('src', $pathParts);
-        if ($sourceDirectoryPosition) {
-            return array_slice($pathParts, $sourceDirectoryPosition + 1);
+
+        $srcPositions = array_keys($pathParts, 'src', true);
+        if ($srcPositions !== []) {
+            return array_slice($pathParts, end($srcPositions) + 1);
         }
 
         $testsDirectoryPosition = array_search('tests', $pathParts);
