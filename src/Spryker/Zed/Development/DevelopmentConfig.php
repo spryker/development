@@ -567,6 +567,66 @@ class DevelopmentConfig extends AbstractBundleConfig
     }
 
     /**
+     * Maps internal PHP namespaces that cannot be resolved by the standard
+     * {Organization}\{Layer}\{Module}\ convention to their composer package names.
+     *
+     * @api
+     *
+     * @return array<string, string>
+     */
+    public function getInternalNamespaceToPackageMap(): array
+    {
+        return [
+            'Spryker\\ApiPlatform\\' => 'spryker/api-platform',
+        ];
+    }
+
+    /**
+     * Packages that are always treated as optional dependencies,
+     * regardless of where they are used in source code.
+     *
+     * Optional dependencies must be declared in `require-dev` and `suggest`,
+     * not in `require`.
+     *
+     * @api
+     *
+     * @return array<string>
+     */
+    public function getAlwaysOptionalDependencies(): array
+    {
+        return [
+            'spryker/api-platform',
+            'spryker/silex',
+        ];
+    }
+
+    /**
+     * Maps detected dependencies to other packages they should be redirected to.
+     *
+     * Each entry defines a `target` package and an optional `whenPresent` condition.
+     * When `whenPresent` is defined, the redirect only applies if at least one of the
+     * listed dependencies is also detected in the module.
+     * When `whenPresent` is absent, the redirect applies unconditionally.
+     *
+     * @api
+     *
+     * @return array<string, array<string, mixed>>
+     */
+    public function getDependencyRedirectMap(): array
+    {
+        return [
+            'spryker/serializer' => [
+                'target' => 'spryker/api-platform',
+                'whenPresent' => [
+                    'spryker/glue-storefront-api-application',
+                    'spryker/glue-backend-api-application',
+                    'spryker/api-platform',
+                ],
+            ],
+        ];
+    }
+
+    /**
      * @api
      *
      * @return array<string>

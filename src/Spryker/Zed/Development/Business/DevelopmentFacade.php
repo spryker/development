@@ -9,6 +9,8 @@ namespace Spryker\Zed\Development\Business;
 
 use Generated\Shared\Transfer\ComposerJsonValidationRequestTransfer;
 use Generated\Shared\Transfer\ComposerJsonValidationResponseTransfer;
+use Generated\Shared\Transfer\CycleDetectionRequestTransfer;
+use Generated\Shared\Transfer\CycleDetectionResponseTransfer;
 use Generated\Shared\Transfer\DependencyCollectionTransfer;
 use Generated\Shared\Transfer\DependencyProviderCollectionTransfer;
 use Generated\Shared\Transfer\DependencyValidationRequestTransfer;
@@ -684,5 +686,20 @@ class DevelopmentFacade extends AbstractFacade implements DevelopmentFacadeInter
     public function removeGlueBackendIdeAutoCompletion(): void
     {
         $this->getFactory()->createIdeAutoCompletionDirectoryRemover()->remove(IdeAutoCompletionOptionConstants::GLUE_BACKEND);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\CycleDetectionRequestTransfer $cycleDetectionRequestTransfer
+     *
+     * @return \Generated\Shared\Transfer\CycleDetectionResponseTransfer
+     */
+    public function findModuleDependencyCycles(
+        CycleDetectionRequestTransfer $cycleDetectionRequestTransfer
+    ): CycleDetectionResponseTransfer {
+        return $this->getFactory()->createCycleDetector()->detectCycles($cycleDetectionRequestTransfer);
     }
 }

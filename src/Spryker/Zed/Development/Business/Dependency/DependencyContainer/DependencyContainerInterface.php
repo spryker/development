@@ -24,10 +24,11 @@ interface DependencyContainerInterface
      * @param string $type
      * @param bool $isOptional
      * @param bool $isTest
+     * @param string|null $usedByFqcn Fully qualified class name of the file that references the dependency. Aggregated per package when provided.
      *
      * @return $this
      */
-    public function addDependency(string $moduleOrComposerName, string $type, bool $isOptional = false, bool $isTest = false);
+    public function addDependency(string $moduleOrComposerName, string $type, bool $isOptional = false, bool $isTest = false, ?string $usedByFqcn = null);
 
     public function getDependencyCollection(): DependencyCollectionTransfer;
 }

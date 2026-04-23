@@ -56,6 +56,7 @@ class SprykerSdkDependencyFinder extends AbstractFileDependencyFinder
     public function findDependencies(DependencyFinderContextInterface $context, DependencyContainerInterface $dependencyContainer): DependencyContainerInterface
     {
         $dependencyModules = $this->getDependencyModules($context);
+        $ownerFqcn = $context->getOwnerFqcn();
 
         foreach ($dependencyModules as $filePath => $modules) {
             foreach ($modules as $dependentModule) {
@@ -64,6 +65,7 @@ class SprykerSdkDependencyFinder extends AbstractFileDependencyFinder
                     $this->getType(),
                     $this->isOptional($filePath, $dependentModule),
                     $this->isTestFile($filePath),
+                    $ownerFqcn,
                 );
             }
         }

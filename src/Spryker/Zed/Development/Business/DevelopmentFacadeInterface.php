@@ -9,6 +9,8 @@ namespace Spryker\Zed\Development\Business;
 
 use Generated\Shared\Transfer\ComposerJsonValidationRequestTransfer;
 use Generated\Shared\Transfer\ComposerJsonValidationResponseTransfer;
+use Generated\Shared\Transfer\CycleDetectionRequestTransfer;
+use Generated\Shared\Transfer\CycleDetectionResponseTransfer;
 use Generated\Shared\Transfer\DependencyCollectionTransfer;
 use Generated\Shared\Transfer\DependencyProviderCollectionTransfer;
 use Generated\Shared\Transfer\DependencyValidationRequestTransfer;
@@ -595,4 +597,21 @@ interface DevelopmentFacadeInterface
      * @return void
      */
     public function removeGlueBackendIdeAutoCompletion(): void;
+
+    /**
+     * Specification:
+     * - Detects direct or deep cycles between core Spryker modules.
+     * - Builds a declared-dependency graph from each module's composer.json.
+     * - Builds a usage-dependency graph from parsed PHP sources.
+     * - Compares both graphs and returns declared cycles plus usage-only cycles.
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\CycleDetectionRequestTransfer $cycleDetectionRequestTransfer
+     *
+     * @return \Generated\Shared\Transfer\CycleDetectionResponseTransfer
+     */
+    public function findModuleDependencyCycles(
+        CycleDetectionRequestTransfer $cycleDetectionRequestTransfer
+    ): CycleDetectionResponseTransfer;
 }

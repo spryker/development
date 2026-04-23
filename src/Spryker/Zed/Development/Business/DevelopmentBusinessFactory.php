@@ -50,6 +50,13 @@ use Spryker\Zed\Development\Business\Composer\Validator\ComposerJsonValidatorCom
 use Spryker\Zed\Development\Business\Composer\Validator\ComposerJsonValidatorInterface;
 use Spryker\Zed\Development\Business\Dependency\ComposerParser\ExternalDependencyParser;
 use Spryker\Zed\Development\Business\Dependency\ComposerParser\ExternalDependencyParserInterface;
+use Spryker\Zed\Development\Business\Dependency\Cycle\Algorithm\CycleFinderInterface;
+use Spryker\Zed\Development\Business\Dependency\Cycle\Algorithm\DirectCycleFinder;
+use Spryker\Zed\Development\Business\Dependency\Cycle\Algorithm\TarjanCycleFinder;
+use Spryker\Zed\Development\Business\Dependency\Cycle\CycleDetector;
+use Spryker\Zed\Development\Business\Dependency\Cycle\CycleDetectorInterface;
+use Spryker\Zed\Development\Business\Dependency\Cycle\Graph\CycleGraphBuilder;
+use Spryker\Zed\Development\Business\Dependency\Cycle\Graph\CycleGraphBuilderInterface;
 use Spryker\Zed\Development\Business\Dependency\DependencyContainer\DependencyContainer;
 use Spryker\Zed\Development\Business\Dependency\DependencyContainer\DependencyContainerInterface;
 use Spryker\Zed\Development\Business\Dependency\DependencyFinder\BehaviorDependencyFinder;
@@ -78,6 +85,8 @@ use Spryker\Zed\Development\Business\Dependency\Mapper\DependencyModuleMapper;
 use Spryker\Zed\Development\Business\Dependency\Mapper\DependencyModuleMapperInterface;
 use Spryker\Zed\Development\Business\Dependency\ModuleDependencyParser;
 use Spryker\Zed\Development\Business\Dependency\ModuleDependencyParserInterface;
+use Spryker\Zed\Development\Business\Dependency\ModuleParser\OwnerFqcnResolver;
+use Spryker\Zed\Development\Business\Dependency\ModuleParser\OwnerFqcnResolverInterface;
 use Spryker\Zed\Development\Business\Dependency\ModuleParser\UseStatementParser;
 use Spryker\Zed\Development\Business\Dependency\ModuleParser\UseStatementParserInterface;
 use Spryker\Zed\Development\Business\Dependency\SchemaParser\PropelSchemaParser;
@@ -307,7 +316,42 @@ class DevelopmentBusinessFactory extends AbstractBusinessFactory
             $this->createModuleFileFinder(),
             $this->createDependencyContainer(),
             $this->createDependencyFinder(),
+            $this->createOwnerFqcnResolver(),
         );
+    }
+
+    public function createOwnerFqcnResolver(): OwnerFqcnResolverInterface
+    {
+        return new OwnerFqcnResolver();
+    }
+
+    public function createCycleDetector(): CycleDetectorInterface
+    {
+        return new CycleDetector(
+            $this->createCycleGraphBuilder(),
+            $this->createDirectCycleFinder(),
+            $this->createTarjanCycleFinder(),
+        );
+    }
+
+    public function createCycleGraphBuilder(): CycleGraphBuilderInterface
+    {
+        return new CycleGraphBuilder(
+            $this->getModuleFinderFacade(),
+            $this->createModuleDependencyParser(),
+            $this->createComposerDependencyParser(),
+            $this->getConfig(),
+        );
+    }
+
+    public function createDirectCycleFinder(): CycleFinderInterface
+    {
+        return new DirectCycleFinder();
+    }
+
+    public function createTarjanCycleFinder(): CycleFinderInterface
+    {
+        return new TarjanCycleFinder();
     }
 
     public function createModuleFileFinder(): ModuleFileFinderInterface
@@ -375,7 +419,10 @@ class DevelopmentBusinessFactory extends AbstractBusinessFactory
 
     public function createDependencyContainer(): DependencyContainerInterface
     {
-        return new DependencyContainer();
+        return new DependencyContainer(
+            $this->getConfig()->getAlwaysOptionalDependencies(),
+            $this->getConfig()->getDependencyRedirectMap(),
+        );
     }
 
     public function createDependencyFinder(): DependencyFinderInterface

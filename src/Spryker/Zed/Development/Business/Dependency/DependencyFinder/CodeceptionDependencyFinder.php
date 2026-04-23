@@ -50,7 +50,7 @@ class CodeceptionDependencyFinder extends AbstractFileDependencyFinder
                     $moduleName = $applicationName;
                 }
 
-                $dependencyContainer->addDependency(sprintf('spryker/%s', $this->getFilter()->filter($moduleName)), $this->getType(), false, true);
+                $dependencyContainer->addDependency(sprintf('spryker/%s', $this->getFilter()->filter($moduleName)), $this->getType(), false, true, $context->getOwnerFqcn());
             }
         }
 

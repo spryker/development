@@ -49,12 +49,16 @@ class PersistenceDependencyFinder implements DependencyFinderInterface
     public function findDependencies(DependencyFinderContextInterface $context, DependencyContainerInterface $dependencyContainer): DependencyContainerInterface
     {
         $foreignIdColumnNames = $this->propelSchemaParser->getForeignColumnNames($context->getFileInfo());
+        $ownerFqcn = $context->getOwnerFqcn();
 
         foreach ($foreignIdColumnNames as $foreignIdColumnName) {
             $dependentModule = $this->propelSchemaParser->getModuleNameByForeignReference($foreignIdColumnName, $context->getModule()->getName());
             $dependencyContainer->addDependency(
                 $dependentModule,
                 $this->getType(),
+                false,
+                false,
+                $ownerFqcn,
             );
         }
 

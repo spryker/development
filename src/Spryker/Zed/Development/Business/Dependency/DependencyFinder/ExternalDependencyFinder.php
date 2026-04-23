@@ -74,6 +74,8 @@ class ExternalDependencyFinder extends AbstractFileDependencyFinder
     {
         $dependencyModules = $this->getDependencyModules($context);
 
+        $ownerFqcn = $context->getOwnerFqcn();
+
         foreach ($dependencyModules as $filePath => $modules) {
             foreach ($modules as $dependentModule) {
                 $dependencyContainer->addDependency(
@@ -81,6 +83,7 @@ class ExternalDependencyFinder extends AbstractFileDependencyFinder
                     $this->getType(),
                     $this->isPluginFile($filePath),
                     $this->isTestFile($filePath),
+                    $ownerFqcn,
                 );
             }
         }

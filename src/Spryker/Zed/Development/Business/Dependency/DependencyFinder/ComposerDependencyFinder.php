@@ -38,21 +38,22 @@ class ComposerDependencyFinder extends AbstractFileDependencyFinder
     public function findDependencies(DependencyFinderContextInterface $context, DependencyContainerInterface $dependencyContainer): DependencyContainerInterface
     {
         $fileContent = $context->getFileInfo()->getContents();
+        $ownerFqcn = $context->getOwnerFqcn();
 
         if (strpos($fileContent, 'cs-check') !== false) {
-            $dependencyContainer->addDependency('spryker/code-sniffer', $this->getType(), false, true);
+            $dependencyContainer->addDependency('spryker/code-sniffer', $this->getType(), false, true, $ownerFqcn);
         }
 
         if (preg_match('/code-sniffer\/(Spryker|SprykerStrict)/', $fileContent)) {
-            $dependencyContainer->addDependency('spryker/code-sniffer', $this->getType(), false, true);
+            $dependencyContainer->addDependency('spryker/code-sniffer', $this->getType(), false, true, $ownerFqcn);
         }
 
         if (strpos($fileContent, 'codecept run') !== false) {
-            $dependencyContainer->addDependency('spryker/testify', $this->getType(), false, true);
+            $dependencyContainer->addDependency('spryker/testify', $this->getType(), false, true, $ownerFqcn);
         }
 
         if (strpos($fileContent, 'phpstan analyse') !== false) {
-            $dependencyContainer->addDependency('phpstan/phpstan', $this->getType(), false, true);
+            $dependencyContainer->addDependency('phpstan/phpstan', $this->getType(), false, true, $ownerFqcn);
         }
 
         return $dependencyContainer;

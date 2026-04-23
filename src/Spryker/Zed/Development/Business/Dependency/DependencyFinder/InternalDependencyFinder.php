@@ -57,6 +57,8 @@ class InternalDependencyFinder extends AbstractFileDependencyFinder
     {
         $dependencyModules = $this->getDependencyModules($context);
 
+        $ownerFqcn = $context->getOwnerFqcn();
+
         foreach ($dependencyModules as $filePath => $composerNames) {
             foreach ($composerNames as $composerName) {
                 $dependencyContainer->addDependency(
@@ -64,6 +66,7 @@ class InternalDependencyFinder extends AbstractFileDependencyFinder
                     $this->getType(),
                     $this->isOptional($filePath, $composerName),
                     $this->isTestFile($filePath),
+                    $ownerFqcn,
                 );
             }
         }
@@ -101,6 +104,14 @@ class InternalDependencyFinder extends AbstractFileDependencyFinder
         $dependentComposerNames = [];
         foreach ($useStatements as $useStatement) {
             $useStatementFragments = explode('\\', $useStatement);
+
+            $composerName = $this->resolveFromNamespaceToPackageMap($useStatement);
+            if ($composerName !== null) {
+                $dependentComposerNames[] = $composerName;
+
+                continue;
+            }
+
             if ($this->isIgnorableUseStatement($useStatementFragments)) {
                 continue;
             }
@@ -130,5 +141,16 @@ class InternalDependencyFinder extends AbstractFileDependencyFinder
     protected function isIgnorableUseStatement(array $useStatementFragments): bool
     {
         return (!in_array($useStatementFragments[0], $this->config->getInternalNamespaces(), true) || !in_array($useStatementFragments[1], $this->config->getApplications(), true));
+    }
+
+    protected function resolveFromNamespaceToPackageMap(string $useStatement): ?string
+    {
+        foreach ($this->config->getInternalNamespaceToPackageMap() as $namespace => $composerName) {
+            if (str_starts_with($useStatement, $namespace)) {
+                return $composerName;
+            }
+        }
+
+        return null;
     }
 }

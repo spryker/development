@@ -64,9 +64,10 @@ class ModuleAnnotationDependencyFinder implements DependencyFinderInterface
 
     public function findDependencies(DependencyFinderContextInterface $context, DependencyContainerInterface $dependencyContainer): DependencyContainerInterface
     {
+        $ownerFqcn = $context->getOwnerFqcn();
         if (preg_match_all('/@module\s([a-zA-Z]+)/', $context->getFileInfo()->getContents(), $matches, PREG_SET_ORDER) !== false) {
             foreach ($matches as $match) {
-                $dependencyContainer->addDependency($match[1], $this->getType());
+                $dependencyContainer->addDependency($match[1], $this->getType(), false, false, $ownerFqcn);
             }
         }
 

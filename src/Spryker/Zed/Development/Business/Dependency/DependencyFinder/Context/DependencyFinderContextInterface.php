@@ -17,4 +17,13 @@ interface DependencyFinderContextInterface
     public function getFileInfo(): SplFileInfo;
 
     public function getDependencyType(): ?string;
+
+    public function getOwnerFqcn(): ?string;
+
+    /**
+     * @param string|null $ownerFqcn
+     *
+     * @return $this
+     */
+    public function setOwnerFqcn(?string $ownerFqcn);
 }

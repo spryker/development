@@ -1,6 +1,7 @@
 {
     "include": {
-        "spryker/gui": "Needed for page layout."
+        "spryker/gui": "Needed for page layout.",
+        "spryker/transfer": "Provides transfer objects definition with strict types."
     },
     "include-dev": {
         "spryker-sdk/phpstan-spryker": "Provides a PHPStan command",

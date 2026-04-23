@@ -53,6 +53,11 @@ class ComposerDependencyParser implements ComposerDependencyParserInterface
         $this->composerNameFinder = $composerNameFinder;
     }
 
+    public function getDeclaredComposerDependencies(ModuleTransfer $moduleTransfer): ComposerDependencyCollectionTransfer
+    {
+        return $this->parseComposerJson($moduleTransfer);
+    }
+
     public function getComposerDependencyComparison(DependencyCollectionTransfer $dependencyCollectionTransfer): array
     {
         // Code dependencies
@@ -89,10 +94,30 @@ class ComposerDependencyParser implements ComposerDependencyParserInterface
                 'composerRequireDev' => in_array($composerName, $composerRequiredDevNames, true) ? $composerName : '',
                 'suggested' => in_array($composerName, $composerSuggestedNames, true) ? $composerName : '',
                 'isOwnExtensionModule' => $this->isOwnExtensionModule($composerName, $dependencyCollectionTransfer),
+                'usedByFqcns' => $this->getUsedByFqcns($composerName, $dependencyCollectionTransfer),
             ];
         }
 
         return $dependencies;
+    }
+
+    /**
+     * @return array<string>
+     */
+    protected function getUsedByFqcns(string $composerName, DependencyCollectionTransfer $moduleDependencyCollectionTransfer): array
+    {
+        $usedByFqcns = [];
+        foreach ($moduleDependencyCollectionTransfer->getDependencyModules() as $moduleDependencyTransfer) {
+            if ($moduleDependencyTransfer->getComposerName() !== $composerName) {
+                continue;
+            }
+
+            foreach ($moduleDependencyTransfer->getUsedByFqcns() as $usedByFqcn) {
+                $usedByFqcns[$usedByFqcn] = $usedByFqcn;
+            }
+        }
+
+        return array_values($usedByFqcns);
     }
 
     /**

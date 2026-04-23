@@ -87,11 +87,12 @@ Asterisk can also be used more than once in all parts. Currently, it\'s not poss
      *
      * @return \ArrayObject<int, \Generated\Shared\Transfer\ModuleDependencyTransfer>
      */
-    protected function getModuleDependencies(ModuleTransfer $moduleTransfer, ?string $dependencyType = null): ArrayObject
+    protected function getModuleDependencies(ModuleTransfer $moduleTransfer, ?string $dependencyType = null, bool $isWithUsage = false): ArrayObject
     {
         $dependencyValidationRequestTransfer = new DependencyValidationRequestTransfer();
         $dependencyValidationRequestTransfer->setModule($moduleTransfer);
         $dependencyValidationRequestTransfer->setDependencyType($dependencyType);
+        $dependencyValidationRequestTransfer->setIsWithUsage($isWithUsage);
 
         $dependencyValidationResponseTransfer = $this->getFacade()->validateModuleDependencies($dependencyValidationRequestTransfer);
 

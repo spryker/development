@@ -25,6 +25,7 @@
         <property name="module" type="string"/>
         <property name="composerName" type="string"/>
         <property name="dependencies" type="Dependency[]" singular="dependency"/>
+        <property name="usedByFqcns" type="string[]" singular="usedByFqcn"/>
     </transfer>
 
     <transfer name="Dependency">
@@ -33,6 +34,7 @@
         <property name="type" type="string"/>
         <property name="isInTest" type="bool"/>
         <property name="isOptional" type="bool"/>
+        <property name="usedByFqcns" type="string[]" singular="usedByFqcn"/>
     </transfer>
 
     <transfer name="BundleDependencyCollection">
@@ -74,6 +76,7 @@
     <transfer name="DependencyValidationRequest">
         <property name="module" type="Module"/>
         <property name="dependencyType" type="string"/>
+        <property name="isWithUsage" type="bool"/>
     </transfer>
 
     <transfer name="DependencyValidationResponse">
@@ -94,6 +97,7 @@
         <property name="isInComposerRequireDev" type="bool"/>
         <property name="dependencyTypes" type="string[]" singular="dependencyTypes"/>
         <property name="validationMessages" type="ValidationMessage[]" singular="validationMessage"/>
+        <property name="usedByFqcns" type="string[]" singular="usedByFqcn"/>
     </transfer>
 
     <transfer name="ValidationMessage">
@@ -172,6 +176,24 @@
         <property name="totalDependencyCount" type="int"/>
         <property name="testDependencyCount" type="int"/>
         <property name="optionalDependencyCount" type="int"/>
+    </transfer>
+
+    <transfer name="CycleDetectionRequest" strict="true">
+        <property name="isDeep" type="bool"/>
+        <property name="includeExtensions" type="bool"/>
+        <property name="includeRequireDev" type="bool"/>
+        <property name="failOn" type="string"/>
+    </transfer>
+
+    <transfer name="CycleDetectionResponse" strict="true">
+        <property name="declaredCycles" type="Cycle[]" singular="declaredCycle"/>
+        <property name="usageOnlyCycles" type="Cycle[]" singular="usageOnlyCycle"/>
+    </transfer>
+
+    <transfer name="Cycle" strict="true">
+        <property name="moduleChain" type="string[]" singular="moduleChainEntry"/>
+        <property name="length" type="int"/>
+        <property name="source" type="string"/>
     </transfer>
 
 </transfers>

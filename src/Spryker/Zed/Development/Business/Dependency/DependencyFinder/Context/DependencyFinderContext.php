@@ -27,6 +27,8 @@ class DependencyFinderContext implements DependencyFinderContextInterface
      */
     protected $dependencyType;
 
+    protected ?string $ownerFqcn = null;
+
     public function __construct(ModuleTransfer $moduleTransfer, SplFileInfo $fileInfo, ?string $dependencyType = null)
     {
         $this->moduleTransfer = $moduleTransfer;
@@ -47,5 +49,22 @@ class DependencyFinderContext implements DependencyFinderContextInterface
     public function getDependencyType(): ?string
     {
         return $this->dependencyType;
+    }
+
+    public function getOwnerFqcn(): ?string
+    {
+        return $this->ownerFqcn;
+    }
+
+    /**
+     * @param string|null $ownerFqcn
+     *
+     * @return $this
+     */
+    public function setOwnerFqcn(?string $ownerFqcn)
+    {
+        $this->ownerFqcn = $ownerFqcn;
+
+        return $this;
     }
 }

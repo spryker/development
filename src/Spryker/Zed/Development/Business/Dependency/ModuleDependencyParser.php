@@ -15,6 +15,7 @@ use Laminas\Filter\Word\CamelCaseToDash;
 use Spryker\Zed\Development\Business\Dependency\DependencyContainer\DependencyContainerInterface;
 use Spryker\Zed\Development\Business\Dependency\DependencyFinder\Context\DependencyFinderContext;
 use Spryker\Zed\Development\Business\Dependency\DependencyFinder\DependencyFinderInterface;
+use Spryker\Zed\Development\Business\Dependency\ModuleParser\OwnerFqcnResolverInterface;
 use Spryker\Zed\Development\Business\Module\ModuleFileFinder\ModuleFileFinderInterface;
 
 class ModuleDependencyParser implements ModuleDependencyParserInterface
@@ -34,18 +35,25 @@ class ModuleDependencyParser implements ModuleDependencyParserInterface
      */
     protected $dependencyFinder;
 
+    protected OwnerFqcnResolverInterface $ownerFqcnResolver;
+
     public function __construct(
         ModuleFileFinderInterface $moduleFileFinder,
         DependencyContainerInterface $dependencyContainer,
-        DependencyFinderInterface $dependencyFinder
+        DependencyFinderInterface $dependencyFinder,
+        OwnerFqcnResolverInterface $ownerFqcnResolver
     ) {
         $this->moduleFileFinder = $moduleFileFinder;
         $this->dependencyContainer = $dependencyContainer;
         $this->dependencyFinder = $dependencyFinder;
+        $this->ownerFqcnResolver = $ownerFqcnResolver;
     }
 
-    public function parseOutgoingDependencies(ModuleTransfer $moduleTransfer, ?string $dependencyType = null): DependencyCollectionTransfer
-    {
+    public function parseOutgoingDependencies(
+        ModuleTransfer $moduleTransfer,
+        ?string $dependencyType = null,
+        bool $isWithUsage = false
+    ): DependencyCollectionTransfer {
         if ($moduleTransfer->getNameDashed() == null) {
             $moduleTransfer->setNameDashed($this->dasherize($moduleTransfer->getName()));
         }
@@ -60,6 +68,9 @@ class ModuleDependencyParser implements ModuleDependencyParserInterface
 
         foreach ($moduleFiles as $moduleFile) {
             $dependencyFinderContext = new DependencyFinderContext($moduleTransfer, $moduleFile, $dependencyType);
+            if ($isWithUsage) {
+                $dependencyFinderContext->setOwnerFqcn($this->ownerFqcnResolver->resolve($moduleFile));
+            }
             $dependencyContainer = $this->dependencyFinder->findDependencies($dependencyFinderContext, $dependencyContainer);
         }
 

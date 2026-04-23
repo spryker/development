@@ -62,7 +62,7 @@ class BehaviorDependencyFinder implements DependencyFinderInterface
                     continue;
                 }
 
-                $dependencyContainer = $this->addModuleDependency($dependencyContainer, $moduleName);
+                $dependencyContainer = $this->addModuleDependency($dependencyContainer, $moduleName, $context->getOwnerFqcn());
             }
         }
 
@@ -91,11 +91,17 @@ class BehaviorDependencyFinder implements DependencyFinderInterface
         return isset($moduleTransferCollection['Spryker.' . $moduleName]);
     }
 
-    protected function addModuleDependency(DependencyContainerInterface $dependencyContainer, string $moduleName): DependencyContainerInterface
-    {
+    protected function addModuleDependency(
+        DependencyContainerInterface $dependencyContainer,
+        string $moduleName,
+        ?string $ownerFqcn = null
+    ): DependencyContainerInterface {
         $dependencyContainer->addDependency(
             $moduleName,
             $this->getType(),
+            false,
+            false,
+            $ownerFqcn,
         );
 
         return $dependencyContainer;

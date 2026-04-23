@@ -78,6 +78,7 @@ class DependencyValidator implements DependencyValidatorInterface
         $dependencyCollectionTransfer = $this->moduleDependencyParser->parseOutgoingDependencies(
             $dependencyValidationRequestTransfer->getModule(),
             $dependencyValidationRequestTransfer->getDependencyType(),
+            (bool)$dependencyValidationRequestTransfer->getIsWithUsage(),
         );
 
         foreach ($dependencyCollectionTransfer->getDependencyModules() as $dependencyModuleTransfer) {
@@ -111,6 +112,10 @@ class DependencyValidator implements DependencyValidatorInterface
                 ->setIsInComposerRequireDev(($composerDependency['composerRequireDev'] === '') ? false : true)
                 ->setIsSuggested(($composerDependency['suggested'] === '') ? false : true)
                 ->setIsOwnExtensionModule($composerDependency['isOwnExtensionModule']);
+
+            foreach ($composerDependency['usedByFqcns'] ?? [] as $usedByFqcn) {
+                $moduleDependencyTransfer->addUsedByFqcn($usedByFqcn);
+            }
 
             $moduleDependencyTransferCollection[] = $moduleDependencyTransfer;
         }

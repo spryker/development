@@ -7,6 +7,7 @@
 
 namespace SprykerTest\Zed\Development\Business\Dependency\Validator;
 
+use ArrayObject;
 use Codeception\Test\Unit;
 
 /**
@@ -122,5 +123,39 @@ class DependencyValidatorTest extends Unit
         $dependencyValidationResponseTransfer = $developmentFacade->validateModuleDependencies($this->tester->getDependencyValidationRequestTransfer());
 
         $this->tester->assertInvalidDependencies($dependencyValidationResponseTransfer);
+    }
+
+    public function testUsedByFqcnsArePopulatedWhenRequested(): void
+    {
+        $developmentFacade = $this->tester->getFacadeForDependencyTestsWithUsage($this->tester->getValidSourceDependencyWithUsage());
+        $dependencyValidationRequestTransfer = $this->tester->getDependencyValidationRequestTransfer();
+        $dependencyValidationRequestTransfer->setIsWithUsage(true);
+
+        $dependencyValidationResponseTransfer = $developmentFacade->validateModuleDependencies($dependencyValidationRequestTransfer);
+
+        $moduleDependencies = $dependencyValidationResponseTransfer->getModuleDependencies()->getArrayCopy();
+        $this->assertCount(1, $moduleDependencies);
+        $moduleDependencyTransfer = $moduleDependencies[0];
+        $this->assertSame(
+            [
+                'Spryker\\Zed\\Foo\\Business\\FooFacade',
+                'Spryker\\Zed\\Foo\\Business\\Model\\FooModel',
+            ],
+            $this->toArray($moduleDependencyTransfer->getUsedByFqcns()),
+        );
+    }
+
+    /**
+     * @param \ArrayObject<int, string>|array<string> $collection
+     *
+     * @return array<string>
+     */
+    protected function toArray($collection): array
+    {
+        if ($collection instanceof ArrayObject) {
+            return $collection->getArrayCopy();
+        }
+
+        return (array)$collection;
     }
 }

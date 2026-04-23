@@ -33,6 +33,7 @@
         <exclude name="Spryker.Commenting.DocBlockReturnVoid.ReturnVoidMissing"/>
         <exclude name="Spryker.Commenting.DocBlockReturnVoid.ReturnMissingInInterface"/>
         <exclude name="Spryker.Commenting.DocBlock.ReturnVoidMissing"/>
+        <exclude name="Spryker.Commenting.Attributes.ExpectedFQCN"/>
         <!-- Ignore when a constant does not have a doc-block. -->
         <exclude name="Spryker.Commenting.DocBlockConst.VarDocBlockMissing"/>
 

@@ -356,4 +356,50 @@ class DependencyValidatorModule extends Module
             $this->assertFalse($moduleDependency->getIsValid(), sprintf('Expected invalid dependency but "%s" is marked as valid', $moduleDependency->getModuleName()));
         }
     }
+
+    public function getFacadeForDependencyTestsWithUsage(array $composerDependency): DevelopmentFacadeInterface
+    {
+        $developmentFactory = Stub::make(DevelopmentBusinessFactory::class, [
+            'createModuleDependencyParser' => function () {
+                return Stub::makeEmpty(ModuleDependencyParserInterface::class, [
+                    'parseOutgoingDependencies' => function () {
+                        return new DependencyCollectionTransfer();
+                    },
+                ]);
+            },
+            'createComposerDependencyParser' => function () use ($composerDependency) {
+                return Stub::makeEmpty(ComposerDependencyParserInterface::class, [
+                    'getComposerDependencyComparison' => function () use ($composerDependency) {
+                        return [$composerDependency];
+                    },
+                ]);
+            },
+        ]);
+        $developmentFactory->setContainer($this->getContainerWithProvidedDependencies());
+
+        $developmentFacade = new DevelopmentFacade();
+        $developmentFacade->setFactory($developmentFactory);
+
+        return $developmentFacade;
+    }
+
+    public function getValidSourceDependencyWithUsage(): array
+    {
+        return [
+            'moduleName' => 'Foo',
+            'composerName' => 'bar/foo',
+            'types' => ['foo'],
+            'isOptional' => false,
+            'src' => 'bar/foo',
+            'tests' => '',
+            'composerRequire' => 'bar/foo',
+            'composerRequireDev' => '',
+            'suggested' => '',
+            'isOwnExtensionModule' => false,
+            'usedByFqcns' => [
+                'Spryker\\Zed\\Foo\\Business\\FooFacade',
+                'Spryker\\Zed\\Foo\\Business\\Model\\FooModel',
+            ],
+        ];
+    }
 }

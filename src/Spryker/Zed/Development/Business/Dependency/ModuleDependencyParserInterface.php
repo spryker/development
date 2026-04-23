@@ -12,5 +12,9 @@ use Generated\Shared\Transfer\ModuleTransfer;
 
 interface ModuleDependencyParserInterface
 {
-    public function parseOutgoingDependencies(ModuleTransfer $moduleTransfer, ?string $dependencyType = null): DependencyCollectionTransfer;
+    public function parseOutgoingDependencies(
+        ModuleTransfer $moduleTransfer,
+        ?string $dependencyType = null,
+        bool $isWithUsage = false
+    ): DependencyCollectionTransfer;
 }

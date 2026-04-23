@@ -50,6 +50,11 @@ class DependencyViolationFinderConsole extends AbstractCoreModuleAwareConsole
     public const OPTION_STOP_ON_VIOLATION_SHORT = 's';
 
     /**
+     * @var string
+     */
+    public const OPTION_WHY = 'why';
+
+    /**
      * @var int
      */
     protected $dependencyViolationCount = 0;
@@ -62,6 +67,7 @@ class DependencyViolationFinderConsole extends AbstractCoreModuleAwareConsole
             ->setName(static::COMMAND_NAME)
             ->addOption(static::OPTION_DEPENDENCY_TYPE, static::OPTION_DEPENDENCY_TYPE_SHORT, InputOption::VALUE_REQUIRED, 'Runs only one specific dependency type check.')
             ->addOption(static::OPTION_STOP_ON_VIOLATION, static::OPTION_STOP_ON_VIOLATION_SHORT, InputOption::VALUE_NONE, 'Stop execution when a violation was found.')
+            ->addOption(static::OPTION_WHY, null, InputOption::VALUE_NONE, 'Show which classes of the current module reference each listed composer package.')
             ->setDescription('Find dependency violations in the modules.');
 
         $this->setAliases(['dev:dependency:find-violations']);
@@ -76,6 +82,7 @@ class DependencyViolationFinderConsole extends AbstractCoreModuleAwareConsole
         }
 
         $dependencyType = $this->getDependencyType($input);
+        $isWithUsage = (bool)$input->getOption(static::OPTION_WHY);
 
         $this->startValidation($modulesToValidate, $dependencyType);
 
@@ -83,20 +90,20 @@ class DependencyViolationFinderConsole extends AbstractCoreModuleAwareConsole
             if (!$this->isNamespacedModuleName($index)) {
                 continue;
             }
-            $this->validateModule($moduleTransfer, $output, $dependencyType);
+            $this->validateModule($moduleTransfer, $output, $dependencyType, $isWithUsage);
         }
 
         return $this->endValidation();
     }
 
-    protected function validateModule(ModuleTransfer $moduleTransfer, OutputInterface $output, ?string $dependencyType = null): void
+    protected function validateModule(ModuleTransfer $moduleTransfer, OutputInterface $output, ?string $dependencyType = null, bool $isWithUsage = false): void
     {
         $this->startModuleValidation($this->buildModuleKey($moduleTransfer));
 
-        $moduleDependencyTransferCollection = $this->getModuleDependencies($moduleTransfer, $dependencyType);
+        $moduleDependencyTransferCollection = $this->getModuleDependencies($moduleTransfer, $dependencyType, $isWithUsage);
 
-        if ($output->isVeryVerbose()) {
-            $this->describeDependencies($moduleDependencyTransferCollection, $output, $dependencyType);
+        if ($output->isVeryVerbose() || $isWithUsage) {
+            $this->describeDependencies($moduleDependencyTransferCollection, $output, $dependencyType, $isWithUsage);
         }
 
         $moduleViolationCount = $this->getDependencyViolationCount($moduleDependencyTransferCollection, $dependencyType);
@@ -117,11 +124,16 @@ class DependencyViolationFinderConsole extends AbstractCoreModuleAwareConsole
      * @param \ArrayObject<int, \Generated\Shared\Transfer\ModuleDependencyTransfer> $moduleDependencyTransferCollection
      * @param \Symfony\Component\Console\Output\OutputInterface $output
      * @param string|null $dependencyType
+     * @param bool $isWithUsage
      *
      * @return void
      */
-    protected function describeDependencies(ArrayObject $moduleDependencyTransferCollection, OutputInterface $output, ?string $dependencyType = null): void
-    {
+    protected function describeDependencies(
+        ArrayObject $moduleDependencyTransferCollection,
+        OutputInterface $output,
+        ?string $dependencyType = null,
+        bool $isWithUsage = false
+    ): void {
         $tableRows = [];
 
         foreach ($moduleDependencyTransferCollection as $moduleDependencyTransfer) {
@@ -129,7 +141,7 @@ class DependencyViolationFinderConsole extends AbstractCoreModuleAwareConsole
                 continue;
             }
 
-            $tableRows[] = $this->buildTableRow($moduleDependencyTransfer);
+            $tableRows[] = $this->buildTableRow($moduleDependencyTransfer, $isWithUsage);
         }
 
         if (count($tableRows) > 0) {
@@ -174,12 +186,12 @@ class DependencyViolationFinderConsole extends AbstractCoreModuleAwareConsole
         $table->render();
     }
 
-    protected function buildTableRow(ModuleDependencyTransfer $moduleDependencyTransfer): array
+    protected function buildTableRow(ModuleDependencyTransfer $moduleDependencyTransfer, bool $isWithUsage = false): array
     {
         $color = $moduleDependencyTransfer->getIsValid() ? 'yellow' : 'red';
         $composerName = $moduleDependencyTransfer->getComposerName();
 
-        return [
+        $row = [
             'Composer name' => sprintf('<fg=%s>%s</>', $color, $composerName),
             'is valid' => $this->getColoredYesOrNo($moduleDependencyTransfer->getIsValid()),
             'src dependency' => $this->getYesOrNo($moduleDependencyTransfer->getIsSrcDependency()),
@@ -191,6 +203,13 @@ class DependencyViolationFinderConsole extends AbstractCoreModuleAwareConsole
             'is own extension module' => $this->getYesOrNo($moduleDependencyTransfer->getIsOwnExtensionModule()),
             'Type(s)' => implode(', ', $moduleDependencyTransfer->getDependencyTypes()),
         ];
+
+        if ($isWithUsage) {
+            $usedByFqcns = (array)$moduleDependencyTransfer->getUsedByFqcns();
+            $row['Used by'] = $usedByFqcns === [] ? '' : implode("\n", $usedByFqcns);
+        }
+
+        return $row;
     }
 
     protected function getYesOrNo(bool $bool): string

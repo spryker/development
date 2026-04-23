@@ -64,9 +64,10 @@ class MappedDependencyFinder extends AbstractFileDependencyFinder
             throw new RuntimeException('Composer name missing: ' . $context->getFileInfo()->getPath());
         }
 
+        $ownerFqcn = $context->getOwnerFqcn();
         foreach ($this->config->getExternalToInternalMap() as $externalPackageName => $internalModulePackageName) {
             if ($internalModulePackageName === $composerName) {
-                $dependencyContainer->addDependency($externalPackageName, $this->getType());
+                $dependencyContainer->addDependency($externalPackageName, $this->getType(), false, false, $ownerFqcn);
             }
         }
 

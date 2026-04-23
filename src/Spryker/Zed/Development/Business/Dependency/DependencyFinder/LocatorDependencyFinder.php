@@ -39,11 +39,15 @@ class LocatorDependencyFinder implements DependencyFinderInterface
     public function findDependencies(DependencyFinderContextInterface $context, DependencyContainerInterface $dependencyContainer): DependencyContainerInterface
     {
         $dependencyModules = $this->getDependencyModules($context);
+        $ownerFqcn = $context->getOwnerFqcn();
 
         foreach ($dependencyModules as $module) {
             $dependencyContainer->addDependency(
                 $module,
                 $this->getType(),
+                false,
+                false,
+                $ownerFqcn,
             );
         }
 
