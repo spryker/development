@@ -16,6 +16,8 @@ use Spryker\Zed\Kernel\AbstractBundleConfig;
 class DevelopmentConfig extends AbstractBundleConfig
 {
     /**
+     * @api
+     *
      * @var string
      */
     public const BUNDLE_PLACEHOLDER = '[BUNDLE]';
@@ -66,6 +68,8 @@ class DevelopmentConfig extends AbstractBundleConfig
     protected const NAMESPACE_SPRYKER_FEATURE = 'SprykerFeature';
 
     /**
+     * @api
+     *
      * @var array<string>
      */
     public const APPLICATION_NAMESPACES = [
@@ -73,6 +77,8 @@ class DevelopmentConfig extends AbstractBundleConfig
     ];
 
     /**
+     * @api
+     *
      * @var array<string>
      */
     public const APPLICATIONS = [
@@ -85,6 +91,8 @@ class DevelopmentConfig extends AbstractBundleConfig
     ];
 
     /**
+     * @api
+     *
      * @var array<string>
      */
     public const array TEST_APPLICATION_NAMESPACES = [
