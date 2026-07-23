@@ -47,6 +47,45 @@
         <exclude name="Spryker.DependencyProvider.FacadeNotInBridgeReturned"/>
     </rule>
 
+    <!-- The project-convention sniffs ship in code-sniffer's opt-in SprykerConventions
+         standard (deliberately NOT part of the Spryker standard included above). Opt in
+         explicitly so the core-only downgrades below can reference them. Keep advisory
+         warnings non-blocking on exit; this file previously inherited that config from
+         the retired in-tree SprykerSuite ruleset. -->
+    <config name="ignore_warnings_on_exit" value="1"/>
+    <rule ref="vendor/spryker/code-sniffer/SprykerConventions/ruleset.xml"/>
+
+    <!-- Core-only downgrades: these sniff codes each have >50 pre-existing errors
+         on src/Spryker (measured 2026-07-06: DisallowHydrate 587,
+         ColConstType 424, ColConstVisibility 218, SetWithoutClosure 232), so they report
+         as warnings here to keep the core CodeSniffer CI job green while the violation
+         backlog is cleaned up. The project ruleset (phpcs.xml) keeps them as errors.
+         Flip each back to error once its core count reaches zero. -->
+    <rule ref="SprykerConventions.Naming.DisallowHydrate">
+        <type>warning</type>
+    </rule>
+    <rule ref="SprykerConventions.Table.TableConstants.ColConstType">
+        <type>warning</type>
+    </rule>
+    <rule ref="SprykerConventions.Table.TableConstants.ColConstVisibility">
+        <type>warning</type>
+    </rule>
+    <rule ref="SprykerConventions.DependencyProvider.ContainerSetClosure">
+        <type>warning</type>
+    </rule>
+    <!-- Same treatment for the remaining core backlog (DbSpecificSql 43,
+         BeforeAfterForbidden 26, SprintfInMessage 5): the method names are part of
+         released plugin APIs and SQL portability debt needs its own cleanup PR. -->
+    <rule ref="SprykerConventions.Persistence.DbSpecificSql">
+        <type>warning</type>
+    </rule>
+    <rule ref="SprykerConventions.Naming.PluginPrePostMethods">
+        <type>warning</type>
+    </rule>
+    <rule ref="SprykerConventions.Messenger.NoSprintfInMessage">
+        <type>warning</type>
+    </rule>
+
     <rule ref="SlevomatCodingStandard.Commenting.UselessFunctionDocComment"/>
     <rule ref="SlevomatCodingStandard.Commenting.UselessInheritDocComment"/>
     <rule ref="SlevomatCodingStandard.TypeHints.ReturnTypeHint">

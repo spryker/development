@@ -1,5 +1,929 @@
 [
     {
+        "fileName": "src/Spryker/Shared/Development/DevelopmentConstants.php",
+        "description": "Shared Module Constants: The constant value is expected to be `'DEVELOPMENT:COMPOSER_REQUIRE_VERSION'` but is `'COMPOSER_REQUIRE_VERSION'`. This violates the rule \"The modules' *Constants interfaces must only contain constants to be used with env config. Their values must be exactly the same as the const key prefixed with module name.\"",
+        "rule": "ModuleConstantsFormingConstantValuesRule",
+        "ruleset": "Spryker Shared",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Shared/Development/DevelopmentConstants.php",
+        "description": "Shared Module Constants: The constant value is expected to be `'DEVELOPMENT:COMPOSER_REQUIRE_VERSION_EXTERNAL'` but is `'COMPOSER_REQUIRE_VERSION_EXTERNAL'`. This violates the rule \"The modules' *Constants interfaces must only contain constants to be used with env config. Their values must be exactly the same as the const key prefixed with module name.\"",
+        "rule": "ModuleConstantsFormingConstantValuesRule",
+        "ruleset": "Spryker Shared",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Shared/Development/DevelopmentConstants.php",
+        "description": "Shared Module Constants: The constant value is expected to be `'DEVELOPMENT:COMPOSER_BRANCH_ALIAS'` but is `'COMPOSER_BRANCH_ALIAS'`. This violates the rule \"The modules' *Constants interfaces must only contain constants to be used with env config. Their values must be exactly the same as the const key prefixed with module name.\"",
+        "rule": "ModuleConstantsFormingConstantValuesRule",
+        "ruleset": "Spryker Shared",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Shared/Development/DevelopmentConstants.php",
+        "description": "Shared Module Constants: The constant value is expected to be `'DEVELOPMENT:PROJECT_NAMESPACES'` but is `'PROJECT_NAMESPACES'`. This violates the rule \"The modules' *Constants interfaces must only contain constants to be used with env config. Their values must be exactly the same as the const key prefixed with module name.\"",
+        "rule": "ModuleConstantsFormingConstantValuesRule",
+        "ruleset": "Spryker Shared",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Shared/Development/DevelopmentConstants.php",
+        "description": "Shared Module Constants: The constant value is expected to be `'DEVELOPMENT:CORE_NAMESPACES'` but is `'CORE_NAMESPACES'`. This violates the rule \"The modules' *Constants interfaces must only contain constants to be used with env config. Their values must be exactly the same as the const key prefixed with module name.\"",
+        "rule": "ModuleConstantsFormingConstantValuesRule",
+        "ruleset": "Spryker Shared",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DependencyTree/DependencyFinder/LocatorClient.php",
+        "description": "Access: The public class method `Spryker\\Zed\\Development\\Business\\DependencyTree\\DependencyFinder\\LocatorClient::addDependencies()()` does not contain an `{@inheritDoc}` tag which violates rule \"Every API public method must also contain the {@inheritDoc} tag in docblock.\"",
+        "rule": "ImplementsApiInheritDocRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DependencyTree/DependencyFinder/LocatorFacade.php",
+        "description": "Access: The public class method `Spryker\\Zed\\Development\\Business\\DependencyTree\\DependencyFinder\\LocatorFacade::addDependencies()()` does not contain an `{@inheritDoc}` tag which violates rule \"Every API public method must also contain the {@inheritDoc} tag in docblock.\"",
+        "rule": "ImplementsApiInheritDocRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DependencyTree/DependencyFinder/LocatorQueryContainer.php",
+        "description": "Access: The public class method `Spryker\\Zed\\Development\\Business\\DependencyTree\\DependencyFinder\\LocatorQueryContainer::addDependencies()()` does not contain an `{@inheritDoc}` tag which violates rule \"Every API public method must also contain the {@inheritDoc} tag in docblock.\"",
+        "rule": "ImplementsApiInheritDocRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DependencyTree/DependencyFinder/LocatorService.php",
+        "description": "Access: The public class method `Spryker\\Zed\\Development\\Business\\DependencyTree\\DependencyFinder\\LocatorService::addDependencies()()` does not contain an `{@inheritDoc}` tag which violates rule \"Every API public method must also contain the {@inheritDoc} tag in docblock.\"",
+        "rule": "ImplementsApiInheritDocRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DependencyTree/ViolationFinder/UseForeignConstants.php",
+        "description": "Shared Module Constants: The environment configuration is not in \"Shared\" layer. That violates the rule \"An environment configuration must lie in \"Shared\" layer.\"",
+        "rule": "ModuleConstantsPathRule",
+        "ruleset": "Spryker Shared",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DependencyTree/ViolationFinder/UseForeignConstants.php",
+        "description": "Shared Module Constants: The environment configuration is not an interface. That violates the rule \"An environment configuration must be an interface.\"",
+        "rule": "ModuleConstantsTypeRule",
+        "ruleset": "Spryker Shared",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "`DevelopmentBusinessFactory::createCodeTester()` (`Spryker\\Zed\\Development\\Business\\DevelopmentBusinessFactory::createCodeTester()`) returns a concrete class which violates the rule \"Every method in a Factory must only return an interface or an array of interfaces.\"",
+        "rule": "FactoryMethodReturnInterfaceRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "`DevelopmentBusinessFactory::createPhpMdRunner()` (`Spryker\\Zed\\Development\\Business\\DevelopmentBusinessFactory::createPhpMdRunner()`) returns a concrete class which violates the rule \"Every method in a Factory must only return an interface or an array of interfaces.\"",
+        "rule": "FactoryMethodReturnInterfaceRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "`DevelopmentBusinessFactory::createBridgeBuilder()` (`Spryker\\Zed\\Development\\Business\\DevelopmentBusinessFactory::createBridgeBuilder()`) returns a concrete class which violates the rule \"Every method in a Factory must only return an interface or an array of interfaces.\"",
+        "rule": "FactoryMethodReturnInterfaceRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "`DevelopmentBusinessFactory::createModuleBuilder()` (`Spryker\\Zed\\Development\\Business\\DevelopmentBusinessFactory::createModuleBuilder()`) returns a concrete class which violates the rule \"Every method in a Factory must only return an interface or an array of interfaces.\"",
+        "rule": "FactoryMethodReturnInterfaceRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "`DevelopmentBusinessFactory::getGraph()` (`Spryker\\Zed\\Development\\Business\\DevelopmentBusinessFactory::getGraph()`) returns a concrete class which violates the rule \"Every method in a Factory must only return an interface or an array of interfaces.\"",
+        "rule": "FactoryMethodReturnInterfaceRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `getGraph()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `createDependencyModuleMapper()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `createDependencyTreeFinder()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `createSprykerFinder()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `createSprykerMerchantPortalFinder()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `createSprykerPathBuilder()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `createSprykerMerchantPortalPathBuilder()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `createSdkFinder()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `createSprykerSdkPathBuilder()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `createEcoFinder()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `createSprykerEcoPathBuilder()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `createShopFinder()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `createSprykerShopPathBuilder()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "`DevelopmentBusinessFactory::createDependencyTree()` (`Spryker\\Zed\\Development\\Business\\DevelopmentBusinessFactory::createDependencyTree()`) returns a concrete class which violates the rule \"Every method in a Factory must only return an interface or an array of interfaces.\"",
+        "rule": "FactoryMethodReturnInterfaceRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `createDependencyTree()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "`DevelopmentBusinessFactory::createDependencyTreeFileInfoExtractor()` (`Spryker\\Zed\\Development\\Business\\DevelopmentBusinessFactory::createDependencyTreeFileInfoExtractor()`) returns a concrete class which violates the rule \"Every method in a Factory must only return an interface or an array of interfaces.\"",
+        "rule": "FactoryMethodReturnInterfaceRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `createDependencyTreeFileInfoExtractor()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "`DevelopmentBusinessFactory::createDependencyTreeWriter()` (`Spryker\\Zed\\Development\\Business\\DevelopmentBusinessFactory::createDependencyTreeWriter()`) returns a concrete class which violates the rule \"Every method in a Factory must only return an interface or an array of interfaces.\"",
+        "rule": "FactoryMethodReturnInterfaceRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `createDependencyTreeWriter()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "`DevelopmentBusinessFactory::createDependencyTreeReader()` (`Spryker\\Zed\\Development\\Business\\DevelopmentBusinessFactory::createDependencyTreeReader()`) returns a concrete class which violates the rule \"Every method in a Factory must only return an interface or an array of interfaces.\"",
+        "rule": "FactoryMethodReturnInterfaceRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "`DevelopmentBusinessFactory::createDependencyTreeChecker()` (`Spryker\\Zed\\Development\\Business\\DevelopmentBusinessFactory::createDependencyTreeChecker()`) returns a concrete class which violates the rule \"Every method in a Factory must only return an interface or an array of interfaces.\"",
+        "rule": "FactoryMethodReturnInterfaceRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `createDependencyTreeChecker()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "`DevelopmentBusinessFactory::createUseStatementChecker()` (`Spryker\\Zed\\Development\\Business\\DevelopmentBusinessFactory::createUseStatementChecker()`) returns a concrete class which violates the rule \"Every method in a Factory must only return an interface or an array of interfaces.\"",
+        "rule": "FactoryMethodReturnInterfaceRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `createUseStatementChecker()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "`DevelopmentBusinessFactory::createLocatorFacadeChecker()` (`Spryker\\Zed\\Development\\Business\\DevelopmentBusinessFactory::createLocatorFacadeChecker()`) returns a concrete class which violates the rule \"Every method in a Factory must only return an interface or an array of interfaces.\"",
+        "rule": "FactoryMethodReturnInterfaceRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `createLocatorFacadeChecker()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "`DevelopmentBusinessFactory::createLocatorQueryContainerChecker()` (`Spryker\\Zed\\Development\\Business\\DevelopmentBusinessFactory::createLocatorQueryContainerChecker()`) returns a concrete class which violates the rule \"Every method in a Factory must only return an interface or an array of interfaces.\"",
+        "rule": "FactoryMethodReturnInterfaceRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `createLocatorQueryContainerChecker()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "`DevelopmentBusinessFactory::createLocatorClientChecker()` (`Spryker\\Zed\\Development\\Business\\DevelopmentBusinessFactory::createLocatorClientChecker()`) returns a concrete class which violates the rule \"Every method in a Factory must only return an interface or an array of interfaces.\"",
+        "rule": "FactoryMethodReturnInterfaceRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `createLocatorClientChecker()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "`DevelopmentBusinessFactory::createLocatorServiceChecker()` (`Spryker\\Zed\\Development\\Business\\DevelopmentBusinessFactory::createLocatorServiceChecker()`) returns a concrete class which violates the rule \"Every method in a Factory must only return an interface or an array of interfaces.\"",
+        "rule": "FactoryMethodReturnInterfaceRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `createLocatorServiceChecker()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "`DevelopmentBusinessFactory::createExternalDependencyChecker()` (`Spryker\\Zed\\Development\\Business\\DevelopmentBusinessFactory::createExternalDependencyChecker()`) returns a concrete class which violates the rule \"Every method in a Factory must only return an interface or an array of interfaces.\"",
+        "rule": "FactoryMethodReturnInterfaceRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `createExternalDependencyChecker()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "`DevelopmentBusinessFactory::createDetailedDependencyGraphBuilder()` (`Spryker\\Zed\\Development\\Business\\DevelopmentBusinessFactory::createDetailedDependencyGraphBuilder()`) returns a concrete class which violates the rule \"Every method in a Factory must only return an interface or an array of interfaces.\"",
+        "rule": "FactoryMethodReturnInterfaceRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "`DevelopmentBusinessFactory::createDetailedGraphBuilder()` (`Spryker\\Zed\\Development\\Business\\DevelopmentBusinessFactory::createDetailedGraphBuilder()`) returns a concrete class which violates the rule \"Every method in a Factory must only return an interface or an array of interfaces.\"",
+        "rule": "FactoryMethodReturnInterfaceRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `createDetailedGraphBuilder()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The method `Spryker\\Zed\\Development\\Business\\DevelopmentBusinessFactory::createDetailedDependencyTreeFilter()()` contains a `if` statement which violates the rule \"Factory should not contain any business logic.\"",
+        "rule": "FactoryNoLogicRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `createDetailedDependencyTreeFilter()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "`DevelopmentBusinessFactory::createOutgoingDependencyGraphBuilder()` (`Spryker\\Zed\\Development\\Business\\DevelopmentBusinessFactory::createOutgoingDependencyGraphBuilder()`) returns a concrete class which violates the rule \"Every method in a Factory must only return an interface or an array of interfaces.\"",
+        "rule": "FactoryMethodReturnInterfaceRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `createOutgoingGraphBuilder()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `createSimpleGraphBuilder()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The method `Spryker\\Zed\\Development\\Business\\DevelopmentBusinessFactory::createSimpleGraphDependencyTreeFilter()()` contains a `if` statement which violates the rule \"Factory should not contain any business logic.\"",
+        "rule": "FactoryNoLogicRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The method `Spryker\\Zed\\Development\\Business\\DevelopmentBusinessFactory::createSimpleGraphDependencyTreeFilter()()` contains a `if` statement which violates the rule \"Factory should not contain any business logic.\"",
+        "rule": "FactoryNoLogicRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `createSimpleGraphDependencyTreeFilter()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "`DevelopmentBusinessFactory::createExternalDependencyTree()` (`Spryker\\Zed\\Development\\Business\\DevelopmentBusinessFactory::createExternalDependencyTree()`) returns a concrete class which violates the rule \"Every method in a Factory must only return an interface or an array of interfaces.\"",
+        "rule": "FactoryMethodReturnInterfaceRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The method `Spryker\\Zed\\Development\\Business\\DevelopmentBusinessFactory::createExternalDependencyTree()()` contains a `if` statement which violates the rule \"Factory should not contain any business logic.\"",
+        "rule": "FactoryNoLogicRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `createExternalGraphBuilder()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `createAdjacencyMatrixDependencyTreeFilter()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `createDependencyTreeClassNameFilter()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `createDependencyTreeBundleToViewFilter()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `createDependencyTreeForeignEngineBundleFilter()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `createDependencyTreeEngineBundleFilter()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `createDependencyTreeInvalidForeignBundleFilter()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `createDependencyTreeExternalDependencyFilter()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `createDependencyTreeInternalDependencyFilter()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `createDependencyTreeFilter()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "`DevelopmentBusinessFactory::getEngineBundleList()` (`Spryker\\Zed\\Development\\Business\\DevelopmentBusinessFactory::getEngineBundleList()`) returns a concrete class which violates the rule \"Every method in a Factory must only return an interface or an array of interfaces.\"",
+        "rule": "FactoryMethodReturnInterfaceRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `createComposerJsonFinder()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `createComposerJsonUpdaterComposite()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "`DevelopmentBusinessFactory::createFinder()` (`Spryker\\Zed\\Development\\Business\\DevelopmentBusinessFactory::createFinder()`) returns a concrete class which violates the rule \"Every method in a Factory must only return an interface or an array of interfaces.\"",
+        "rule": "FactoryMethodReturnInterfaceRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `createFinder()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `createComposerJsonTypeUpdater()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `createComposerJsonScriptsUpdater()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `createComposerJsonDescriptionUpdater()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `createComposerJsonLicenseUpdater()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `createComposerJsonRequireUpdater()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `createComposerJsonRequireDevUpdater()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `createComposerJsonStabilityUpdater()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `createComposerJsonAutoloadUpdater()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `createComposerJsonBranchAliasUpdater()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `createComposerJsonAllowPluginsUpdater()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `createComposerJsonRequireUpdaterTreeFilter()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `createYvesIdeAutoCompletionBundleBuilder()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `createZedIdeAutoCompletionBundleBuilder()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `createGlueIdeAutoCompletionBundleBuilder()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `createGlueBackendIdeAutoCompletionBundleBuilder()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `createClientIdeAutoCompletionBundleBuilder()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `createServiceIdeAutoCompletionBundleBuilder()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `getYvesIdeAutoCompletionMethodBuilderStack()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `getZedIdeAutoCompletionMethodBuilderStack()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `createGlueAutoCompletionMethodBuilderStack()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `createGlueBackendAutoCompletionMethodBuilderStack()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `getClientIdeAutoCompletionMethodBuilderStack()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `getServiceIdeAutoCompletionMethodBuilderStack()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `createIdeAutoCompletionFacadeMethodBuilder()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `createIdeAutoCompletionQueryContainerMethodBuilder()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `createIdeAutoCompletionClientMethodBuilder()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `createIdeAutoCompletionServiceMethodBuilder()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `createIdeAutoCompletionResourceMethodBuild()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `createIdeAutoCompletionWriter()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `createIdeAutoCompletionBundleFinder()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `getIdeAutoCompletionGeneratorStack()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `createIdeAutoCompletionBundleGenerator()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `createFileWriter()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `createIdeAutoCompletionBundleMethodGenerator()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "`DevelopmentBusinessFactory::getTwigEnvironment()` (`Spryker\\Zed\\Development\\Business\\DevelopmentBusinessFactory::getTwigEnvironment()`) returns a concrete class which violates the rule \"Every method in a Factory must only return an interface or an array of interfaces.\"",
+        "rule": "FactoryMethodReturnInterfaceRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `getTwigEnvironment()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `getTwigFilesystemLoader()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `createIdeAutoCompletionNamespaceExtractor()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `createXmlReader()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `createCamelCaseToDashFilter()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `createPhpstanConfigFileFinder()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `createPhpstanConfigFileManager()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `getFilesystem()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `getConfigLoader()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `getFinder()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "Factories: The factory method `createTargetDirectoryResolver()` is not public which violates the rule \"All the factory methods should be public by default\"",
+        "rule": "FactoryOnlyPublicMethodsRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentBusinessFactory.php",
+        "description": "`DevelopmentBusinessFactory::getPhpstanFileAdapters()` (`Spryker\\Zed\\Development\\Business\\DevelopmentBusinessFactory::getPhpstanFileAdapters()`) returns a concrete class which violates the rule \"Every method in a Factory must only return an interface or an array of interfaces.\"",
+        "rule": "FactoryMethodReturnInterfaceRule",
+        "ruleset": "Spryker",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentFacade.php",
+        "description": "Zed Business Layer - Facade: The class `Spryker\\Zed\\Development\\Business\\DevelopmentFacade::runPhpstan()` is using an invalid argument type which violates the rule \"Every Facade should only retrieve native types or transfer objects.\"",
+        "rule": "FacadeArgumentsRule",
+        "ruleset": "Spryker Zed",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentFacade.php",
+        "description": "Zed Business Layer - Facade: The class `Spryker\\Zed\\Development\\Business\\DevelopmentFacade::runPhpstan()` is using an invalid argument type which violates the rule \"Every Facade should only retrieve native types or transfer objects.\"",
+        "rule": "FacadeArgumentsRule",
+        "ruleset": "Spryker Zed",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/DevelopmentFacade.php",
+        "description": "Zed Business Layer - Facade: The class `Spryker\\Zed\\Development\\Business\\DevelopmentFacade::runPropelAbstractValidation()` is using an invalid argument type which violates the rule \"Every Facade should only retrieve native types or transfer objects.\"",
+        "rule": "FacadeArgumentsRule",
+        "ruleset": "Spryker Zed",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/IdeAutoCompletion/IdeAutoCompletionConstants.php",
+        "description": "Shared Module Constants: The environment configuration is not in \"Shared\" layer. That violates the rule \"An environment configuration must lie in \"Shared\" layer.\"",
+        "rule": "ModuleConstantsPathRule",
+        "ruleset": "Spryker Shared",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/IdeAutoCompletion/IdeAutoCompletionConstants.php",
+        "description": "Shared Module Constants: The environment configuration is not an interface. That violates the rule \"An environment configuration must be an interface.\"",
+        "rule": "ModuleConstantsTypeRule",
+        "ruleset": "Spryker Shared",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/IdeAutoCompletion/IdeAutoCompletionOptionConstants.php",
+        "description": "Shared Module Constants: The environment configuration is not in \"Shared\" layer. That violates the rule \"An environment configuration must lie in \"Shared\" layer.\"",
+        "rule": "ModuleConstantsPathRule",
+        "ruleset": "Spryker Shared",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/Business/IdeAutoCompletion/IdeAutoCompletionOptionConstants.php",
+        "description": "Shared Module Constants: The environment configuration is not an interface. That violates the rule \"An environment configuration must be an interface.\"",
+        "rule": "ModuleConstantsTypeRule",
+        "ruleset": "Spryker Shared",
+        "priority": "3"
+    },
+    {
         "fileName": "src/Spryker/Zed/Development/Business/PhpMd/Rules/Controversial/CamelCaseMethodName.php",
         "description": "Method `Spryker\\Zed\\Development\\Business\\PhpMd\\Rules\\Controversial\\CamelCaseMethodName::apply()` must have return type.",
         "rule": "ExternalMethodExtensionReturnTypeRule",
@@ -194,5 +1118,40 @@
         "rule": "BridgeFacadeMethodsRule",
         "ruleset": "Spryker",
         "priority": "2"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/DevelopmentDependencyProvider.php",
+        "description": "Zed DependencyProvider - DependencyProvider: The DependencyProvider method `createFinder()` violates rule \"DependencyProvider should only contain additional add*() or get*() methods.\"",
+        "rule": "ZedDependencyProviderMethodNameRule",
+        "ruleset": "Spryker Zed",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/DevelopmentDependencyProvider.php",
+        "description": "Zed DependencyProvider - DependencyProvider: The DependencyProvider method `createFilesystem()` violates rule \"DependencyProvider should only contain additional add*() or get*() methods.\"",
+        "rule": "ZedDependencyProviderMethodNameRule",
+        "ruleset": "Spryker Zed",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/DevelopmentDependencyProvider.php",
+        "description": "Zed DependencyProvider - DependencyProvider: The DependencyProvider method `createConfigLoader()` violates rule \"DependencyProvider should only contain additional add*() or get*() methods.\"",
+        "rule": "ZedDependencyProviderMethodNameRule",
+        "ruleset": "Spryker Zed",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/DevelopmentDependencyProvider.php",
+        "description": "Zed DependencyProvider - DependencyProvider: The DependencyProvider method `createTwigEnvironment()` violates rule \"DependencyProvider should only contain additional add*() or get*() methods.\"",
+        "rule": "ZedDependencyProviderMethodNameRule",
+        "ruleset": "Spryker Zed",
+        "priority": "3"
+    },
+    {
+        "fileName": "src/Spryker/Zed/Development/DevelopmentDependencyProvider.php",
+        "description": "Zed DependencyProvider - DependencyProvider: The DependencyProvider method `createTwigLoaderFilesystem()` violates rule \"DependencyProvider should only contain additional add*() or get*() methods.\"",
+        "rule": "ZedDependencyProviderMethodNameRule",
+        "ruleset": "Spryker Zed",
+        "priority": "3"
     }
 ]
