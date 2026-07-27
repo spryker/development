@@ -98,7 +98,7 @@ class ArchitectureSnifferConfigurationBuilder implements SnifferConfigurationBui
             throw new InvalidTypeException('Priority must be integer only.');
         }
 
-        return $userPriorityOption;
+        return (int)$userPriorityOption;
     }
 
     /**

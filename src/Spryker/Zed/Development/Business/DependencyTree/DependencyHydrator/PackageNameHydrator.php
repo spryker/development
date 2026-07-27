@@ -72,11 +72,13 @@ class PackageNameHydrator implements DependencyHydratorInterface
         $codeSnifferAutoloadFunction = false;
 
         foreach ($autoloadFunctions as $autoloadFunction) {
+            /** @phpstan-ignore booleanAnd.alwaysFalse, identical.alwaysFalse, if.alwaysFalse (legacy PHP_CodeSniffer registered a bare-string autoloader the SDK stub no longer models) */
             if (is_array($autoloadFunction) && $autoloadFunction[0] === 'PHP_CodeSniffer') {
                 $codeSnifferAutoloadFunction = $autoloadFunction;
             }
         }
 
+        /** @phpstan-ignore if.alwaysFalse (guards the legacy bare-string PHP_CodeSniffer autoloader handled above) */
         if ($codeSnifferAutoloadFunction) {
             /** @phpstan-ignore argument.type */
             spl_autoload_unregister($codeSnifferAutoloadFunction);
