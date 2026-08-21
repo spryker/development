@@ -9,14 +9,15 @@ namespace Spryker\Zed\Development\Business\Dependency\DependencyFinder;
 
 use Spryker\Zed\Development\Business\Dependency\DependencyContainer\DependencyContainerInterface;
 use Spryker\Zed\Development\Business\Dependency\DependencyFinder\Context\DependencyFinderContextInterface;
-use Spryker\Zed\Development\DevelopmentConfig;
 
-class CodeceptionDependencyFinder extends AbstractFileDependencyFinder
+class CodeceptionDependencyFinder extends AbstractTestNamespaceDependencyFinder
 {
     /**
      * @var string
      */
     public const TYPE_CODECEPTION = 'codeception';
+
+    protected const string TEST_NAMESPACE_PATTERN = '/(?<!\\w)(Spryker[A-Za-z]*Test)\\\\([A-Za-z0-9_]+)\\\\([A-Za-z0-9_]+)\\\\/';
 
     public function getType(): string
     {
@@ -38,20 +39,20 @@ class CodeceptionDependencyFinder extends AbstractFileDependencyFinder
 
     public function findDependencies(DependencyFinderContextInterface $context, DependencyContainerInterface $dependencyContainer): DependencyContainerInterface
     {
-        if (preg_match_all('/SprykerTest\\\\(.*?)\\\\(.*?)\\\\/', $context->getFileInfo()->getContents(), $matches, PREG_SET_ORDER)) {
-            foreach ($matches as $match) {
-                $applicationName = $match[1];
-                $moduleName = $match[2];
+        if (!preg_match_all(static::TEST_NAMESPACE_PATTERN, $context->getFileInfo()->getContents(), $matches, PREG_SET_ORDER)) {
+            return $dependencyContainer;
+        }
 
-                // When a class name does not follow "normal" Spryker naming convention where the Application name is the second and the Module name the third element.
-                // In this case, we will most likely have a module name following a more modern structure where the second element is the Module name.
-                // We also must take into account different test namespaces such as SprykerTest\\AsyncApi\\ModuleName
-                if (!in_array($applicationName, DevelopmentConfig::APPLICATIONS) && !in_array($applicationName, DevelopmentConfig::TEST_APPLICATION_NAMESPACES)) {
-                    $moduleName = $applicationName;
-                }
+        $moduleName = $context->getModule()->getNameOrFail();
 
-                $dependencyContainer->addDependency(sprintf('spryker/%s', $this->getFilter()->filter($moduleName)), $this->getType(), false, true, $context->getOwnerFqcn());
+        foreach ($matches as $match) {
+            $composerName = $this->resolveComposerName([$match[1], $match[2], $match[3]], $moduleName);
+
+            if ($composerName === null) {
+                continue;
             }
+
+            $dependencyContainer->addDependency($composerName, $this->getType(), false, true, $context->getOwnerFqcn());
         }
 
         return $dependencyContainer;

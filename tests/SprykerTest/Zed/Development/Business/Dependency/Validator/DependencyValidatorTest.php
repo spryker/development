@@ -9,6 +9,7 @@ namespace SprykerTest\Zed\Development\Business\Dependency\Validator;
 
 use ArrayObject;
 use Codeception\Test\Unit;
+use Spryker\Zed\Development\Business\Dependency\Validator\ValidationRules\ValidationRuleInterface;
 
 /**
  * Auto-generated group annotations
@@ -123,6 +124,33 @@ class DependencyValidatorTest extends Unit
         $dependencyValidationResponseTransfer = $developmentFacade->validateModuleDependencies($this->tester->getDependencyValidationRequestTransfer());
 
         $this->tester->assertInvalidDependencies($dependencyValidationResponseTransfer);
+    }
+
+    public function testGivenATestNamespaceDependencyDeclaredInRequireDevWhenTheModuleIsValidatedThenItIsAccepted(): void
+    {
+        // Arrange
+        $developmentFacade = $this->tester->getFacadeForDependencyTests($this->tester->getValidTestNamespaceDependency());
+
+        // Act
+        $dependencyValidationResponseTransfer = $developmentFacade->validateModuleDependencies($this->tester->getDependencyValidationRequestTransfer());
+
+        // Assert
+        $this->tester->assertValidDependencies($dependencyValidationResponseTransfer);
+    }
+
+    public function testGivenATestNamespaceDependencyMissingFromRequireDevWhenTheModuleIsValidatedThenAddRequireDevIsReported(): void
+    {
+        // Arrange
+        $developmentFacade = $this->tester->getFacadeForDependencyTests($this->tester->getInvalidTestNamespaceDependency());
+
+        // Act
+        $dependencyValidationResponseTransfer = $developmentFacade->validateModuleDependencies($this->tester->getDependencyValidationRequestTransfer());
+
+        // Assert
+        $this->tester->assertInvalidDependencies($dependencyValidationResponseTransfer);
+        $moduleDependencyTransfers = $dependencyValidationResponseTransfer->getModuleDependencies()->getArrayCopy();
+        $validationMessageTransfers = $moduleDependencyTransfers[0]->getValidationMessages()->getArrayCopy();
+        $this->assertSame(ValidationRuleInterface::ADD_REQUIRE_DEV, $validationMessageTransfers[0]->getFixType());
     }
 
     public function testUsedByFqcnsArePopulatedWhenRequested(): void

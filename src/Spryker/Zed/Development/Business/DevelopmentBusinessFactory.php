@@ -67,6 +67,7 @@ use Spryker\Zed\Development\Business\Dependency\DependencyFinder\DependencyFinde
 use Spryker\Zed\Development\Business\Dependency\DependencyFinder\ExtensionDependencyFinder;
 use Spryker\Zed\Development\Business\Dependency\DependencyFinder\ExternalDependencyFinder;
 use Spryker\Zed\Development\Business\Dependency\DependencyFinder\InternalDependencyFinder;
+use Spryker\Zed\Development\Business\Dependency\DependencyFinder\InternalTestDependencyFinder;
 use Spryker\Zed\Development\Business\Dependency\DependencyFinder\LocatorDependencyFinder;
 use Spryker\Zed\Development\Business\Dependency\DependencyFinder\MappedDependencyFinder;
 use Spryker\Zed\Development\Business\Dependency\DependencyFinder\ModuleAnnotationDependencyFinder;
@@ -87,6 +88,8 @@ use Spryker\Zed\Development\Business\Dependency\ModuleDependencyParser;
 use Spryker\Zed\Development\Business\Dependency\ModuleDependencyParserInterface;
 use Spryker\Zed\Development\Business\Dependency\ModuleParser\OwnerFqcnResolver;
 use Spryker\Zed\Development\Business\Dependency\ModuleParser\OwnerFqcnResolverInterface;
+use Spryker\Zed\Development\Business\Dependency\ModuleParser\TestNamespaceParser;
+use Spryker\Zed\Development\Business\Dependency\ModuleParser\TestNamespaceParserInterface;
 use Spryker\Zed\Development\Business\Dependency\ModuleParser\UseStatementParser;
 use Spryker\Zed\Development\Business\Dependency\ModuleParser\UseStatementParserInterface;
 use Spryker\Zed\Development\Business\Dependency\SchemaParser\PropelSchemaParser;
@@ -430,6 +433,7 @@ class DevelopmentBusinessFactory extends AbstractBusinessFactory
         return new DependencyFinderComposite([
             $this->createSprykerSdkDependencyFinder(),
             $this->createInternalDependencyFinder(),
+            $this->createInternalTestDependencyFinder(),
             $this->createExternalDependencyFinder(),
             $this->createMappedDependencyFinder(),
             $this->createExtensionDependencyFinder(),
@@ -457,6 +461,14 @@ class DevelopmentBusinessFactory extends AbstractBusinessFactory
         return new InternalDependencyFinder(
             $this->createUseStatementParser(),
             $this->getConfig(),
+        );
+    }
+
+    public function createInternalTestDependencyFinder(): DependencyFinderInterface
+    {
+        return new InternalTestDependencyFinder(
+            $this->createUseStatementParser(),
+            $this->createTestNamespaceParser(),
         );
     }
 
@@ -517,6 +529,11 @@ class DevelopmentBusinessFactory extends AbstractBusinessFactory
         return new UseStatementParser();
     }
 
+    public function createTestNamespaceParser(): TestNamespaceParserInterface
+    {
+        return new TestNamespaceParser($this->getConfig());
+    }
+
     public function createTwigDependencyFinder(): DependencyFinderInterface
     {
         return new TwigDependencyFinder(
@@ -536,7 +553,9 @@ class DevelopmentBusinessFactory extends AbstractBusinessFactory
 
     public function createCodeceptionDependencyFinder(): DependencyFinderInterface
     {
-        return new CodeceptionDependencyFinder();
+        return new CodeceptionDependencyFinder(
+            $this->createTestNamespaceParser(),
+        );
     }
 
     public function createModuleAnnotationDependencyFinder(): DependencyFinderInterface

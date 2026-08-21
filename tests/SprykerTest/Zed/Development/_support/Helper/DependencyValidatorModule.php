@@ -14,6 +14,7 @@ use Generated\Shared\Transfer\DependencyValidationRequestTransfer;
 use Generated\Shared\Transfer\DependencyValidationResponseTransfer;
 use Generated\Shared\Transfer\ModuleTransfer;
 use Generated\Shared\Transfer\OrganizationTransfer;
+use Spryker\Zed\Development\Business\Dependency\DependencyFinder\InternalTestDependencyFinder;
 use Spryker\Zed\Development\Business\Dependency\ModuleDependencyParserInterface;
 use Spryker\Zed\Development\Business\DependencyTree\ComposerDependencyParserInterface;
 use Spryker\Zed\Development\Business\DevelopmentBusinessFactory;
@@ -233,6 +234,44 @@ class DependencyValidatorModule extends Module
             'tests' => 'bar/foo',
             'composerRequire' => '',
             'composerRequireDev' => 'bar/foo',
+            'suggested' => '',
+            'isOwnExtensionModule' => false,
+        ];
+    }
+
+    /**
+     * Valid dependency as the test namespace import is found in tests and declared in require-dev
+     */
+    public function getValidTestNamespaceDependency(): array
+    {
+        return [
+            'moduleName' => 'Foo',
+            'composerName' => 'bar/foo',
+            'types' => [InternalTestDependencyFinder::TYPE_INTERNAL_TEST],
+            'isOptional' => false,
+            'src' => '',
+            'tests' => 'bar/foo',
+            'composerRequire' => '',
+            'composerRequireDev' => 'bar/foo',
+            'suggested' => '',
+            'isOwnExtensionModule' => false,
+        ];
+    }
+
+    /**
+     * Invalid dependency as the test namespace import is found in tests but not declared in require-dev
+     */
+    public function getInvalidTestNamespaceDependency(): array
+    {
+        return [
+            'moduleName' => 'Foo',
+            'composerName' => 'bar/foo',
+            'types' => [InternalTestDependencyFinder::TYPE_INTERNAL_TEST],
+            'isOptional' => false,
+            'src' => '',
+            'tests' => 'bar/foo',
+            'composerRequire' => '',
+            'composerRequireDev' => '',
             'suggested' => '',
             'isOwnExtensionModule' => false,
         ];

@@ -100,6 +100,19 @@ class DevelopmentConfig extends AbstractBundleConfig
     ];
 
     /**
+     * @var array<string, string>
+     */
+    protected const array TEST_NAMESPACE_TO_ORGANIZATION_MAP = [
+        'SprykerTest' => self::NAMESPACE_SPRYKER,
+        'SprykerShopTest' => self::NAMESPACE_SPRYKER_SHOP,
+        'SprykerFeatureTest' => self::NAMESPACE_SPRYKER_FEATURE,
+        'SprykerEcoTest' => self::NAMESPACE_SPRYKER_ECO,
+        'SprykerSdkTest' => self::NAMESPACE_SPRYKER_SDK,
+        'SprykerMiddlewareTest' => self::NAMESPACE_SPRYKER_MIDDLEWARE,
+        'SprykerMerchantPortalTest' => self::NAMESPACE_SPRYKER_MERCHANT_PORTAL,
+    ];
+
+    /**
      * @var array
      */
     protected const APPLICATION_LAYERS = [
@@ -214,6 +227,31 @@ class DevelopmentConfig extends AbstractBundleConfig
     public function getApplicationNamespaces()
     {
         return static::APPLICATION_NAMESPACES;
+    }
+
+    /**
+     * Gets Application namespaces that only appear inside test namespaces.
+     *
+     * @api
+     *
+     * @return array<string>
+     */
+    public function getTestApplicationNamespaces(): array
+    {
+        return static::TEST_APPLICATION_NAMESPACES;
+    }
+
+    /**
+     * Maps a test root namespace to the organization owning the module under test, so that a
+     * `SprykerTest\...` use statement resolves to `spryker/<module>` and not to a `spryker-test` vendor.
+     *
+     * @api
+     *
+     * @return array<string, string>
+     */
+    public function getTestNamespaceToOrganizationMap(): array
+    {
+        return static::TEST_NAMESPACE_TO_ORGANIZATION_MAP;
     }
 
     /**
