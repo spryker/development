@@ -182,7 +182,6 @@ class CodeStyleSnifferTest extends Unit
     {
         $reflectedObject = new ReflectionObject($developmentCsConfiguration);
         $reflectedModuleConfigProperty = $reflectedObject->getProperty('moduleConfig');
-        $reflectedModuleConfigProperty->setAccessible(true);
         $moduleConfig = $reflectedModuleConfigProperty->getValue($developmentCsConfiguration);
 
         return $moduleConfig['level'] ?? $this->tester->getDefaultLevel();

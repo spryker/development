@@ -155,7 +155,6 @@ class ArchitectureSnifferTest extends Unit
         $architectureSniffer = new ArchitectureSniffer($xmlReaderMock, $defaultCommand, $configurationBuilderMock);
 
         $reflectionMethod = new ReflectionMethod(ArchitectureSniffer::class, 'resolveRulesetPath');
-        $reflectionMethod->setAccessible(true);
 
         // Act
         $result = $reflectionMethod->invoke($architectureSniffer, $tempDir . DIRECTORY_SEPARATOR . 'module');
@@ -177,7 +176,6 @@ class ArchitectureSnifferTest extends Unit
         $architectureSniffer = new ArchitectureSniffer($xmlReaderMock, $defaultCommand, $configurationBuilderMock);
 
         $reflectionMethod = new ReflectionMethod(ArchitectureSniffer::class, 'resolveRulesetPath');
-        $reflectionMethod->setAccessible(true);
 
         // Act
         $result = $reflectionMethod->invoke($architectureSniffer, $tempDir . DIRECTORY_SEPARATOR . 'module');
