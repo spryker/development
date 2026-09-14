@@ -47,13 +47,7 @@ class PropelAbstractValidateConsole extends Console
         $this->addOption(static::OPTION_MODULE, 'm', InputOption::VALUE_OPTIONAL, 'Name of module to run validation for.');
     }
 
-    /**
-     * @param \Symfony\Component\Console\Input\InputInterface $input
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
-     *
-     * @return int Exit code
-     */
-    public function execute(InputInterface $input, OutputInterface $output)
+    public function execute(InputInterface $input, OutputInterface $output): int
     {
         /** @var string|null $module */
         $module = $this->input->getOption(static::OPTION_MODULE);

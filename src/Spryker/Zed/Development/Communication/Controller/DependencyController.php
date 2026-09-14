@@ -166,7 +166,7 @@ class DependencyController extends AbstractController
         $callback = function () use ($request) {
             $module = $request->query->getAlpha(static::QUERY_KEY_MODULE) ?: '*';
 
-            if ($request->query->getBoolean(static::QUERY_KEY_BUILD_TREE, !$this->hasDependencyTreeCache())) {
+            if ($this->getQueryBoolean($request, static::QUERY_KEY_BUILD_TREE, !$this->hasDependencyTreeCache())) {
                 $this->getFacade()->buildDependencyTree($module);
             }
 
@@ -185,9 +185,9 @@ class DependencyController extends AbstractController
     {
         $callback = function () use ($request) {
             $module = $request->query->getAlpha(static::QUERY_KEY_MODULE) ?: '*';
-            $showEngineBundle = $request->query->getBoolean('show-engine-bundle', true);
+            $showEngineBundle = $this->getQueryBoolean($request, 'show-engine-bundle', true);
 
-            if ($request->query->getBoolean(static::QUERY_KEY_BUILD_TREE, !$this->hasDependencyTreeCache())) {
+            if ($this->getQueryBoolean($request, static::QUERY_KEY_BUILD_TREE, !$this->hasDependencyTreeCache())) {
                 $this->getFacade()->buildDependencyTree($module);
             }
 
@@ -204,7 +204,7 @@ class DependencyController extends AbstractController
      */
     public function adjacencyMatrixAction(Request $request)
     {
-        if ($request->query->getBoolean(static::QUERY_KEY_BUILD_TREE, !$this->hasDependencyTreeCache())) {
+        if ($this->getQueryBoolean($request, static::QUERY_KEY_BUILD_TREE, !$this->hasDependencyTreeCache())) {
             $this->getFacade()->buildDependencyTree('*');
         }
 
@@ -224,7 +224,7 @@ class DependencyController extends AbstractController
         $callback = function () use ($request) {
             $module = $request->query->getAlpha(static::QUERY_KEY_MODULE) ?: '*';
 
-            if ($request->query->getBoolean(static::QUERY_KEY_BUILD_TREE, !$this->hasDependencyTreeCache())) {
+            if ($this->getQueryBoolean($request, static::QUERY_KEY_BUILD_TREE, !$this->hasDependencyTreeCache())) {
                 $this->getFacade()->buildDependencyTree($module);
             }
 
@@ -240,5 +240,18 @@ class DependencyController extends AbstractController
     protected function hasDependencyTreeCache()
     {
         return file_exists($this->getFactory()->getConfig()->getPathToJsonDependencyTree());
+    }
+
+    // `InputBag::getBoolean()` throws a `BadRequestException` when the query key is present but
+    // empty instead of falling back to the default, so parse and fall back manually.
+    protected function getQueryBoolean(Request $request, string $key, bool $default): bool
+    {
+        $rawValue = $request->query->get($key);
+
+        if ($rawValue === null) {
+            return $default;
+        }
+
+        return filter_var($rawValue, \FILTER_VALIDATE_BOOLEAN, \FILTER_NULL_ON_FAILURE) ?? $default;
     }
 }

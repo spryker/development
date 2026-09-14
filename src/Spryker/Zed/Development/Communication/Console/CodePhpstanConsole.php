@@ -76,13 +76,7 @@ class CodePhpstanConsole extends Console
         $this->addOption(static::OPTION_OFFSET, 'o', InputOption::VALUE_OPTIONAL, $description);
     }
 
-    /**
-     * @param \Symfony\Component\Console\Input\InputInterface $input
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
-     *
-     * @return int Exit code
-     */
-    public function execute(InputInterface $input, OutputInterface $output)
+    public function execute(InputInterface $input, OutputInterface $output): int
     {
         return $this->getFacade()->runPhpstan($this->input, $this->output);
     }

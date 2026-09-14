@@ -65,13 +65,7 @@ class ModuleBridgeCreateConsole extends Console
         $this->addOption(static::OPTION_METHODS, static::OPTION_METHODS_SHORT, InputOption::VALUE_OPTIONAL, 'Methods to be added to bridge if it already exists, if bridge does not exist, a new bridge with its interface with this comma separated function names is created');
     }
 
-    /**
-     * @param \Symfony\Component\Console\Input\InputInterface $input
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
-     *
-     * @return int|null
-     */
-    public function execute(InputInterface $input, OutputInterface $output)
+    public function execute(InputInterface $input, OutputInterface $output): int
     {
         /** @var string $module */
         $module = $this->input->getArgument(static::OPTION_MODULE);
@@ -87,6 +81,6 @@ class ModuleBridgeCreateConsole extends Console
 
         $this->getFacade()->createBridge($module, $toModule, $methods);
 
-        return null;
+        return static::CODE_SUCCESS;
     }
 }

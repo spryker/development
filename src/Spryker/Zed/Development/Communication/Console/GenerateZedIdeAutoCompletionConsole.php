@@ -36,13 +36,7 @@ class GenerateZedIdeAutoCompletionConsole extends Console
         $this->setAliases([static::OLD_COMMAND_NAME]);
     }
 
-    /**
-     * @param \Symfony\Component\Console\Input\InputInterface $input
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
-     *
-     * @return int|null
-     */
-    public function execute(InputInterface $input, OutputInterface $output)
+    public function execute(InputInterface $input, OutputInterface $output): int
     {
         $this->getFacade()->generateZedIdeAutoCompletion();
 

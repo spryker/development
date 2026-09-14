@@ -570,7 +570,6 @@ class DevelopmentConfig extends AbstractBundleConfig
             'symfony/routing' => 'spryker/symfony',
             'symfony/security-core' => 'spryker/symfony',
             'symfony/security-csrf' => 'spryker/symfony',
-            'symfony/security-guard' => 'spryker/symfony',
             'symfony/security-http' => 'spryker/symfony',
             'symfony/serializer' => 'spryker/symfony',
             'symfony/stopwatch' => 'spryker/symfony',

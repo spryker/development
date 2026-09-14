@@ -48,13 +48,7 @@ class ComposerJsonUpdaterConsole extends AbstractCoreModuleAwareConsole
         $this->setAliases(['dev:dependency:update-composer-files']);
     }
 
-    /**
-     * @param \Symfony\Component\Console\Input\InputInterface $input
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
-     *
-     * @return int
-     */
-    public function execute(InputInterface $input, OutputInterface $output)
+    public function execute(InputInterface $input, OutputInterface $output): int
     {
         $modules = $this->getModulesToExecute($input);
 

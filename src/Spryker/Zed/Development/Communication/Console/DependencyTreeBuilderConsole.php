@@ -54,13 +54,7 @@ class DependencyTreeBuilderConsole extends Console
         $this->addOption(static::OPTION_LAYER, 'l', InputOption::VALUE_OPTIONAL, 'Name of layer (only for Zed)');
     }
 
-    /**
-     * @param \Symfony\Component\Console\Input\InputInterface $input
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
-     *
-     * @return int|null
-     */
-    public function execute(InputInterface $input, OutputInterface $output)
+    public function execute(InputInterface $input, OutputInterface $output): int
     {
         $module = '*';
 
