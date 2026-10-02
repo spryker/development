@@ -9,6 +9,7 @@ namespace SprykerTest\Zed\Development\Business\Composer\Updater;
 
 use Codeception\Test\Unit;
 use Spryker\Zed\Development\Business\Composer\Updater\AutoloadUpdater;
+use SprykerTest\Zed\Development\DevelopmentBusinessTester;
 use Symfony\Component\Finder\SplFileInfo;
 
 /**
@@ -25,6 +26,8 @@ use Symfony\Component\Finder\SplFileInfo;
  */
 class AutoloadUpdaterTest extends Unit
 {
+    protected DevelopmentBusinessTester $tester;
+
     public function testWhenTestsFolderExistsDefaultAutoloadDevIsAddedToComposer(): void
     {
         $updatedJson = $this->updateJsonForTests($this->getComposerJson());
@@ -109,6 +112,91 @@ class AutoloadUpdaterTest extends Unit
         $this->assertSame($this->getComposerJson()['autoload'], $updatedJson['autoload']);
     }
 
+    public function testGivenHelperInSupportDirectoryWhenAutoloadIsUpdatedThenItsDirectoryIsPublishedInAutoload(): void
+    {
+        // Arrange
+        $composerJsonFile = $this->tester->haveModuleComposerJsonFile([
+            'tests/SprykerTest/Zed/Foo/_support/Helper/FooHelper.php',
+            'tests/SprykerTest/Zed/Foo/_support/PageObject/FooListPage.php',
+        ]);
+
+        // Act
+        $updatedComposerJson = (new AutoloadUpdater())->update([], $composerJsonFile);
+
+        // Assert
+        $this->assertSame([
+            'SprykerTest\\Zed\\Foo\\Helper\\' => 'tests/SprykerTest/Zed/Foo/_support/Helper/',
+            'SprykerTest\\Zed\\Foo\\PageObject\\' => 'tests/SprykerTest/Zed/Foo/_support/PageObject/',
+        ], $updatedComposerJson['autoload']['psr-4']);
+    }
+
+    public function testGivenHelpersOnlyInANestedHelperDirectoryWhenAutoloadIsUpdatedThenTheOutermostHelperDirectoryIsPublished(): void
+    {
+        // Arrange
+        $composerJsonFile = $this->tester->haveModuleComposerJsonFile([
+            'tests/SprykerTest/Zed/Foo/_support/Helper/Plugin/FooPluginForTesting.php',
+        ]);
+
+        // Act
+        $updatedComposerJson = (new AutoloadUpdater())->update([], $composerJsonFile);
+
+        // Assert
+        $this->assertSame([
+            'SprykerTest\\Zed\\Foo\\Helper\\' => 'tests/SprykerTest/Zed/Foo/_support/Helper/',
+        ], $updatedComposerJson['autoload']['psr-4']);
+    }
+
+    public function testGivenHelperDirectlyInTheModuleTestDirectoryWhenAutoloadIsUpdatedThenItsDirectoryIsPublishedInAutoload(): void
+    {
+        // Arrange
+        $composerJsonFile = $this->tester->haveModuleComposerJsonFile([
+            'tests/SprykerTest/Shared/Foo/Helper/FooHelper.php',
+        ]);
+
+        // Act
+        $updatedComposerJson = (new AutoloadUpdater())->update([], $composerJsonFile);
+
+        // Assert
+        $this->assertSame([
+            'SprykerTest\\Shared\\Foo\\Helper\\' => 'tests/SprykerTest/Shared/Foo/Helper/',
+        ], $updatedComposerJson['autoload']['psr-4']);
+    }
+
+    public function testGivenFeatureModuleHelperInAsyncApiApplicationWhenAutoloadIsUpdatedThenItsDirectoryIsPublishedInAutoload(): void
+    {
+        // Arrange
+        $composerJsonFile = $this->tester->haveModuleComposerJsonFile([
+            'tests/SprykerFeatureTest/AsyncApi/Foo/_support/Helper/FooHelper.php',
+        ]);
+
+        // Act
+        $updatedComposerJson = (new AutoloadUpdater())->update([], $composerJsonFile);
+
+        // Assert
+        $this->assertSame([
+            'SprykerFeatureTest\\AsyncApi\\Foo\\Helper\\' => 'tests/SprykerFeatureTest/AsyncApi/Foo/_support/Helper/',
+        ], $updatedComposerJson['autoload']['psr-4']);
+    }
+
+    public function testGivenOnlyTestCasesTestersStubsAndGeneratedClassesWhenAutoloadIsUpdatedThenNothingIsPublishedInAutoload(): void
+    {
+        // Arrange
+        $composerJsonFile = $this->tester->haveModuleComposerJsonFile([
+            'tests/SprykerTest/Zed/Foo/_support/FooBusinessTester.php',
+            'tests/SprykerTest/Zed/Foo/_support/TestableFooModel.php',
+            'tests/SprykerTest/Zed/Foo/_support/Stub/FooConfigStub.php',
+            'tests/SprykerTest/Zed/Foo/_support/_generated/FooBusinessTesterActions.php',
+            'tests/SprykerTest/Zed/Foo/Helper/FooHelperTest.php',
+            'tests/SprykerTest/Zed/Foo/PageObject/FooListCest.php',
+        ]);
+
+        // Act
+        $updatedComposerJson = (new AutoloadUpdater())->update([], $composerJsonFile);
+
+        // Assert
+        $this->assertArrayNotHasKey('autoload', $updatedComposerJson);
+    }
+
     protected function updateJsonForTests(array $composerJson): array
     {
         $pathParts = [
@@ -190,7 +278,7 @@ class AutoloadUpdaterTest extends Unit
             },
         );
 
-        $autoloadUpdaterMock->method('getNonEmptyDirectoriesWithHelpers')->willReturn([]);
+        $autoloadUpdaterMock->method('getTestSupportDirectories')->willReturn([]);
 
         return $autoloadUpdaterMock->update($composerJson, $splFileInfo);
     }
@@ -211,7 +299,7 @@ class AutoloadUpdaterTest extends Unit
     protected function getAutoloadUpdaterMock(): AutoloadUpdater
     {
         $autoloadUpdaterMock = $this->getMockBuilder(AutoloadUpdater::class)
-            ->onlyMethods(['pathExists', 'getPath', 'getNonEmptyDirectoriesWithHelpers'])
+            ->onlyMethods(['pathExists', 'getPath', 'getTestSupportDirectories'])
             ->getMock();
 
         return $autoloadUpdaterMock;

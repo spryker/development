@@ -99,6 +99,15 @@ class AutoloadUpdater implements UpdaterInterface
      */
     public const SPRYKER_MERCHANT_PORTAL_SHOP_TEST_NAMESPACE = 'SprykerMerchantPortalTest';
 
+    public const string SPRYKER_FEATURE_TEST_NAMESPACE = 'SprykerFeatureTest';
+
+    protected const string GENERATED_DIRECTORY = '_generated';
+
+    /**
+     * @var array<string>
+     */
+    protected const array NON_TEST_SUPPORT_FILE_PATTERNS = ['*Tester.php', '*Test.php', '*Cest.php'];
+
     /**
      * @var string
      */
@@ -167,6 +176,8 @@ class AutoloadUpdater implements UpdaterInterface
         'Yves',
         'Zed',
         'Glue',
+        'AsyncApi',
+        'ApiPlatform',
     ];
 
     /**
@@ -208,6 +219,7 @@ class AutoloadUpdater implements UpdaterInterface
         self::SPRYKER_ECO_TEST_NAMESPACE,
         self::SPRYKER_SDK_TEST_NAMESPACE,
         self::SPRYKER_MERCHANT_PORTAL_SHOP_TEST_NAMESPACE,
+        self::SPRYKER_FEATURE_TEST_NAMESPACE,
     ];
 
     public function update(array $composerJson, SplFileInfo $composerJsonFile): array
@@ -291,27 +303,26 @@ class AutoloadUpdater implements UpdaterInterface
      */
     protected function updateAutoloadWithSupportTestClasses(array $composerJson, $modulePath)
     {
-        $moduleName = $this->getLastPartOfPath($modulePath);
+        $moduleName = $this->convertDashToCamelCase($this->getLastPartOfPath($modulePath));
         foreach ($this->sprykerCodeTestNamespacesMapping as $testNamespace) {
             foreach ($this->applications as $application) {
-                $pathParts = [
+                $moduleTestPathParts = [
                     static::BASE_TESTS_DIRECTORY,
                     $testNamespace,
                     $application,
-                    $this->convertDashToCamelCase($moduleName),
-                    static::BASE_SUPPORT_DIRECTORY,
+                    $moduleName,
                 ];
 
-                $supportDirectoryPath = $this->getPath(array_merge([rtrim($modulePath, DIRECTORY_SEPARATOR)], $pathParts));
+                $moduleTestDirectoryPath = $this->getPath(array_merge([rtrim($modulePath, DIRECTORY_SEPARATOR)], $moduleTestPathParts));
 
-                if ($this->pathExists($supportDirectoryPath)) {
-                    $nonEmptySupportDirectories = $this->getNonEmptyDirectoriesWithHelpers($supportDirectoryPath);
+                if (!$this->pathExists($moduleTestDirectoryPath)) {
+                    continue;
+                }
+
+                foreach ($this->getTestSupportDirectories($moduleTestDirectoryPath) as $testSupportDirectoryParts) {
                     $composerJson = $this->addAutoloadPsr4($composerJson);
-                    foreach ($nonEmptySupportDirectories as $directory) {
-                        preg_match('/' . static::BASE_SUPPORT_DIRECTORY . '\/(.+)/', $directory, $subNameSpace);
-                        $composerJson[static::AUTOLOAD_KEY][static::PSR_4][$testNamespace . '\\' . $application . '\\' . $this->convertDashToCamelCase($moduleName) . '\\' . str_replace('/', '\\', $subNameSpace[1]) . '\\']
-                            = $this->getPath(array_merge($pathParts, explode(DIRECTORY_SEPARATOR, $subNameSpace[1])));
-                    }
+                    $namespace = implode('\\', [$testNamespace, $application, $moduleName, end($testSupportDirectoryParts)]) . '\\';
+                    $composerJson[static::AUTOLOAD_KEY][static::PSR_4][$namespace] = $this->getPath(array_merge($moduleTestPathParts, $testSupportDirectoryParts));
                 }
             }
         }
@@ -320,26 +331,32 @@ class AutoloadUpdater implements UpdaterInterface
     }
 
     /**
-     * @param string $directory
+     * Test support classes are published per top-level directory of `_support/`, so nested directories are covered
+     * by their parent's entry. `Helper/` and `PageObject/` placed directly in the module's test directory count too.
      *
-     * @return array
+     * @return array<string, array<string>> Directory path parts, relative to the module's test directory.
      */
-    protected function getNonEmptyDirectoriesWithHelpers($directory)
+    protected function getTestSupportDirectories(string $moduleTestDirectoryPath): array
     {
-        $files = (new Finder())->files()->in($directory)
-            ->exclude('_generated')
-            ->name('*.php$')
-            ->notName('/Tester.php$/');
+        $files = (new Finder())->files()->in($moduleTestDirectoryPath)
+            ->exclude(static::GENERATED_DIRECTORY)
+            ->name('*.php')
+            ->notName(static::NON_TEST_SUPPORT_FILE_PATTERNS)
+            ->path(sprintf(
+                '#^(%s/[^/]+|%s|%s)/#',
+                static::BASE_SUPPORT_DIRECTORY,
+                static::BASE_HELPER_DIRECTORY,
+                static::BASE_PAGE_OBJECT_DIRECTORY,
+            ));
 
         $directories = [];
         foreach ($files as $file) {
-            /** @var string $name */
-            $name = str_replace('//', '/', $file);
-            $directoryName = dirname($name);
-            if (!in_array($directoryName, $directories, true)) {
-                $directories[] = $directoryName;
-            }
+            $pathParts = explode('/', str_replace(DIRECTORY_SEPARATOR, '/', $file->getRelativePath()));
+            $directoryParts = $pathParts[0] === static::BASE_SUPPORT_DIRECTORY ? array_slice($pathParts, 0, 2) : [$pathParts[0]];
+            $directories[implode('/', $directoryParts)] = $directoryParts;
         }
+
+        ksort($directories);
 
         return $directories;
     }

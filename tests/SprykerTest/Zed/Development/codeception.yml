@@ -27,6 +27,7 @@ suites:
                 - \SprykerTest\Zed\Development\Helper\DependencyValidatorModule
                 - \SprykerTest\Zed\Development\Helper\DependencyFinderHelper
                 - \SprykerTest\Zed\Development\Helper\SnifferConfigurationHelper
+                - \SprykerTest\Zed\Development\Helper\AutoloadUpdaterHelper
     Communication:
         path: Communication
         actor: DevelopmentCommunicationTester
