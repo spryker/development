@@ -7,9 +7,9 @@
 
 namespace Spryker\Zed\Development\Business;
 
-use Laminas\Config\Reader\Xml;
 use Laminas\Filter\Word\CamelCaseToDash;
 use Nette\DI\Config\Loader;
+use Spryker\Service\UtilEncoding\UtilEncodingServiceInterface;
 use Spryker\Zed\Development\Business\ArchitectureSniffer\AllBundleFinder;
 use Spryker\Zed\Development\Business\ArchitectureSniffer\AllModuleFinder;
 use Spryker\Zed\Development\Business\ArchitectureSniffer\AllModuleFinderInterface;
@@ -234,6 +234,7 @@ class DevelopmentBusinessFactory extends AbstractBusinessFactory
         return new CodeStyleSniffer(
             $this->getConfig(),
             $this->createCodeStylePathResolver(),
+            $this->getUtilEncodingService(),
         );
     }
 
@@ -1885,22 +1886,18 @@ class DevelopmentBusinessFactory extends AbstractBusinessFactory
 
     public function createArchitectureSniffer(): ArchitectureSnifferInterface
     {
-        $xml = $this->createXmlReader();
         $command = $this->getConfig()->getArchitectureSnifferCommand();
 
         return new ArchitectureSniffer(
-            $xml,
+            $this->getUtilEncodingService(),
             $command,
             $this->createArchitectureSnifferConfigurationBuilder(),
         );
     }
 
-    /**
-     * @return \Laminas\Config\Reader\ReaderInterface
-     */
-    protected function createXmlReader()
+    public function getUtilEncodingService(): UtilEncodingServiceInterface
     {
-        return new Xml();
+        return $this->getProvidedDependency(DevelopmentDependencyProvider::SERVICE_UTIL_ENCODING);
     }
 
     /**

@@ -24,45 +24,23 @@ use Twig\Loader\FilesystemLoader;
  */
 class DevelopmentDependencyProvider extends AbstractBundleDependencyProvider
 {
-    /**
-     * @var string
-     */
-    public const FACADE_MODULE_FINDER = 'module finder facade';
+    public const string FACADE_MODULE_FINDER = 'module finder facade';
 
-    /**
-     * @var string
-     */
-    public const PLUGIN_GRAPH = 'graph plugin';
+    public const string PLUGIN_GRAPH = 'graph plugin';
 
-    /**
-     * @var string
-     */
-    public const FINDER = 'finder';
+    public const string FINDER = 'finder';
 
-    /**
-     * @var string
-     */
-    public const FILESYSTEM = 'filesystem';
+    public const string FILESYSTEM = 'filesystem';
 
-    /**
-     * @var string
-     */
-    public const CONFIG_LOADER = 'config loader';
+    public const string CONFIG_LOADER = 'config loader';
 
-    /**
-     * @var string
-     */
-    public const TWIG_ENVIRONMENT = 'twig environment';
+    public const string TWIG_ENVIRONMENT = 'twig environment';
 
-    /**
-     * @var string
-     */
-    public const TWIG_LOADER_FILESYSTEM = 'twig loader filesystem';
+    public const string TWIG_LOADER_FILESYSTEM = 'twig loader filesystem';
 
-    /**
-     * @var string
-     */
-    public const PHPSTAN_ADAPTERS = 'PHPSTAN_ADAPTERS';
+    public const string PHPSTAN_ADAPTERS = 'PHPSTAN_ADAPTERS';
+
+    public const string SERVICE_UTIL_ENCODING = 'SERVICE_UTIL_ENCODING';
 
     /**
      * @param \Spryker\Zed\Kernel\Container $container
@@ -96,6 +74,7 @@ class DevelopmentDependencyProvider extends AbstractBundleDependencyProvider
         });
 
         $container = $this->addModuleFinderFacade($container);
+        $container = $this->addUtilEncodingService($container);
         $container = $this->addPhpstanAdapters($container);
 
         return $container;
@@ -147,6 +126,15 @@ class DevelopmentDependencyProvider extends AbstractBundleDependencyProvider
     protected function createTwigLoaderFilesystem()
     {
         return new FilesystemLoader();
+    }
+
+    protected function addUtilEncodingService(Container $container): Container
+    {
+        $container->set(static::SERVICE_UTIL_ENCODING, function (Container $container) {
+            return $container->getLocator()->utilEncoding()->service();
+        });
+
+        return $container;
     }
 
     protected function addModuleFinderFacade(Container $container): Container

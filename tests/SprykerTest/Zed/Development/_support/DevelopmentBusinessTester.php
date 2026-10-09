@@ -8,6 +8,7 @@
 namespace SprykerTest\Zed\Development;
 
 use Codeception\Actor;
+use Spryker\Service\UtilEncoding\UtilEncodingService;
 use Spryker\Zed\Development\Business\CodeStyleSniffer\CodeStyleSniffer;
 use Spryker\Zed\Development\Business\CodeStyleSniffer\Config\CodeStyleSnifferConfiguration;
 use Spryker\Zed\Development\Business\CodeStyleSniffer\Config\CodeStyleSnifferConfigurationLoader;
@@ -104,6 +105,7 @@ class DevelopmentBusinessTester extends Actor
         return new CodeStyleSniffer(
             $this->createDevelopmentConfig(),
             $this->createCodeStylePathResolver(),
+            new UtilEncodingService(),
         );
     }
 

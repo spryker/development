@@ -7,7 +7,7 @@
 
 namespace Spryker\Zed\Development\Business\CodeStyleSniffer;
 
-use Laminas\Config\Reader\Xml;
+use Spryker\Service\UtilEncoding\UtilEncodingServiceInterface;
 use Spryker\Zed\Development\Business\CodeStyleSniffer\Config\CodeStyleSnifferConfigurationInterface;
 use Spryker\Zed\Development\Business\Resolver\PathResolverInterface;
 use Spryker\Zed\Development\DevelopmentConfig;
@@ -15,57 +15,34 @@ use Symfony\Component\Process\Process;
 
 class CodeStyleSniffer
 {
-    /**
-     * @var int
-     */
-    protected const CODE_SUCCESS = 0;
+    protected const int CODE_SUCCESS = 0;
 
-    /**
-     * @var string
-     */
-    protected const OPTION_IGNORE = 'ignore';
+    protected const string OPTION_IGNORE = 'ignore';
 
     /**
      * @var array<string>
      */
-    protected const EXTENSIONS = ['php'];
-
-    /**
-     * @var \Spryker\Zed\Development\DevelopmentConfig
-     */
-    protected $config;
+    protected const array EXTENSIONS = ['php'];
 
     /**
      * @var array <string, mixed>
      */
-    protected $options = [];
+    protected array $options = [];
 
-    /**
-     * @var \Spryker\Zed\Development\Business\Resolver\PathResolverInterface
-     */
-    protected PathResolverInterface $pathResolver;
+    protected int $countResolvedPaths = 0;
 
-    /**
-     * @var int
-     */
-    protected $countResolvedPaths = 0;
-
-    /**
-     * @var int
-     */
-    protected $countTotalPaths = 0;
+    protected int $countTotalPaths = 0;
 
     /**
      * @var array<string>
      */
-    protected $commandsToFix = [];
+    protected array $commandsToFix = [];
 
     public function __construct(
-        DevelopmentConfig $config,
-        PathResolverInterface $pathResolver
+        protected DevelopmentConfig $config,
+        protected PathResolverInterface $pathResolver,
+        protected UtilEncodingServiceInterface $utilEncodingService
     ) {
-        $this->config = $config;
-        $this->pathResolver = $pathResolver;
     }
 
     /**
@@ -247,7 +224,7 @@ class CodeStyleSniffer
 
     protected function hasLegacyConfiguration(string $path): bool
     {
-        $xml = (new Xml())->fromFile($path);
+        $xml = $this->utilEncodingService->convertXmlFileToArray($path);
 
         return empty($xml['file']);
     }

@@ -8,139 +8,59 @@
 namespace Spryker\Zed\Development\Business\ArchitectureSniffer;
 
 use Exception;
-use Laminas\Config\Reader\ReaderInterface;
 use PHPMD\RuleSetFactory;
 use PHPMD\TextUI\CommandLineOptions;
 use RuntimeException;
+use Spryker\Service\UtilEncoding\UtilEncodingServiceInterface;
 use Spryker\Zed\Development\Business\SnifferConfiguration\Builder\SnifferConfigurationBuilderInterface;
 use Spryker\Zed\Development\DevelopmentConfig;
 use Symfony\Component\Process\Process;
 
 class ArchitectureSniffer implements ArchitectureSnifferInterface
 {
-    /**
-     * @var string
-     */
-    public const OPTION_PRIORITY = 'priority';
+    public const string OPTION_PRIORITY = 'priority';
 
-    /**
-     * @var string
-     */
-    public const OPTION_STRICT = 'strict';
+    public const string OPTION_STRICT = 'strict';
 
-    /**
-     * @var string
-     */
-    public const OPTION_DRY_RUN = 'dry-run';
+    public const string OPTION_DRY_RUN = 'dry-run';
 
-    /**
-     * @var string
-     */
-    public const NAME_VISIBLE_VIOLATIONS = 'visible';
+    public const string NAME_VISIBLE_VIOLATIONS = 'visible';
 
-    /**
-     * @var string
-     */
-    public const NAME_IGNORED_VIOLATIONS = 'ignored';
+    public const string NAME_IGNORED_VIOLATIONS = 'ignored';
 
-    /**
-     * @var string
-     */
-    public const VIOLATION_FIELD_NAME_DESCRIPTION = 'description';
+    public const string VIOLATION_FIELD_NAME_DESCRIPTION = 'description';
 
-    /**
-     * @var string
-     */
-    public const VIOLATION_FIELD_NAME_RULESET = 'ruleset';
+    public const string VIOLATION_FIELD_NAME_RULESET = 'ruleset';
 
-    /**
-     * @var string
-     */
-    public const VIOLATION_FIELD_NAME_RULE = 'rule';
+    public const string VIOLATION_FIELD_NAME_RULE = 'rule';
 
-    /**
-     * @var string
-     */
-    public const OPTION_UPDATE = 'update-baseline';
+    public const string OPTION_UPDATE = 'update-baseline';
 
-    /**
-     * @var string
-     */
-    protected const SOURCE_FOLDER_NAME = 'src';
+    protected const string SOURCE_FOLDER_NAME = 'src';
 
-    /**
-     * @var string
-     */
-    protected const OPTION_MODULE = 'module';
+    protected const string OPTION_MODULE = 'module';
 
-    /**
-     * @var string
-     */
-    protected const OPTION_IGNORE_ERRORS = 'ignoreErrors';
+    protected const string OPTION_IGNORE_ERRORS = 'ignoreErrors';
 
-    /**
-     * @var string
-     */
-    protected const OPTION_VERBOSE = 'verbose';
+    protected const string OPTION_VERBOSE = 'verbose';
 
-    /**
-     * @var string
-     */
-    protected const ARCHITECTURE_BASELINE_JSON = 'architecture-baseline.json';
+    protected const string ARCHITECTURE_BASELINE_JSON = 'architecture-baseline.json';
 
-    /**
-     * @var string
-     */
-    protected const CUSTOM_RULESET = 'architectural-ruleset.xml';
+    protected const string CUSTOM_RULESET = 'architectural-ruleset.xml';
 
-    /**
-     * @var string
-     */
-    protected const DEFAULT_RULESET_PATTERN = '/\s\/[^\s]+\/ruleset\.xml/';
+    protected const string DEFAULT_RULESET_PATTERN = '/\s\/[^\s]+\/ruleset\.xml/';
 
-    /**
-     * @var string
-     */
-    protected const REPLACEMENT_PLACEHOLDER = ' %s';
+    protected const string REPLACEMENT_PLACEHOLDER = ' %s';
 
-    /**
-     * @var string
-     */
     protected const VIOLATION_FIELD_NAME_PRIORITY = 'priority';
 
-    /**
-     * @var string
-     */
-    protected const VIOLATION_FIELD_NAME_FILENAME = 'fileName';
+    protected const string VIOLATION_FIELD_NAME_FILENAME = 'fileName';
 
-    /**
-     * @var string
-     */
-    protected $command;
-
-    /**
-     * @var \Laminas\Config\Reader\ReaderInterface
-     */
-    protected $xmlReader;
-
-    /**
-     * @var \Spryker\Zed\Development\Business\SnifferConfiguration\Builder\SnifferConfigurationBuilderInterface
-     */
-    protected $configurationBuilder;
-
-    /**
-     * @param \Laminas\Config\Reader\ReaderInterface $xmlReader
-     * @param string $command
-     * @param \Spryker\Zed\Development\Business\SnifferConfiguration\Builder\SnifferConfigurationBuilderInterface $configurationBuilder
-     */
     public function __construct(
-        ReaderInterface $xmlReader,
-        $command,
-        SnifferConfigurationBuilderInterface $configurationBuilder
+        protected UtilEncodingServiceInterface $utilEncodingService,
+        protected string $command,
+        protected SnifferConfigurationBuilderInterface $configurationBuilder
     ) {
-        $this->xmlReader = $xmlReader;
-        $this->command = $command;
-        $this->configurationBuilder = $configurationBuilder;
     }
 
     /**
@@ -203,12 +123,7 @@ class ArchitectureSniffer implements ArchitectureSnifferInterface
         }
 
         $output = $this->runCommand($directory, $options);
-        $results = $this->xmlReader->fromString($output);
-
-        if (!is_array($results)) {
-            $results = [];
-        }
-
+        $results = $this->utilEncodingService->convertXmlStringToArray($output);
         $results = $this->getResultsWithoutIgnoredErrors($results, $options);
         $fileViolations = $this->formatResult($results);
 
@@ -298,7 +213,7 @@ class ArchitectureSniffer implements ArchitectureSnifferInterface
      *
      * @throws \Exception
      *
-     * @return string|null
+     * @return string
      */
     protected function runCommand($directory, array $options = [])
     {

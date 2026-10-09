@@ -9,8 +9,8 @@ namespace SprykerTest\Zed\Development\Business\ArchitectureSniffer;
 
 use Codeception\Test\Unit;
 use Exception;
-use Laminas\Config\Reader\ReaderInterface;
 use ReflectionMethod;
+use Spryker\Service\UtilEncoding\UtilEncodingServiceInterface;
 use Spryker\Zed\Development\Business\ArchitectureSniffer\ArchitectureSniffer;
 use Spryker\Zed\Development\Business\SnifferConfiguration\Builder\SnifferConfigurationBuilderInterface;
 
@@ -35,11 +35,11 @@ class ArchitectureSnifferTest extends Unit
     public function shouldReturnEmptyArrayForEmptyConfiguration(): void
     {
         // Arrange
-        $xmlReaderMock = $this->createMock(ReaderInterface::class);
+        $utilEncodingServiceMock = $this->createMock(UtilEncodingServiceInterface::class);
         $configurationBuilderMock = $this->createMock(SnifferConfigurationBuilderInterface::class);
         $configurationBuilderMock->method('getConfiguration')->willReturn([]);
 
-        $architectureSniffer = new ArchitectureSniffer($xmlReaderMock, 'command', $configurationBuilderMock);
+        $architectureSniffer = new ArchitectureSniffer($utilEncodingServiceMock, 'command', $configurationBuilderMock);
 
         // Act
         $result = $architectureSniffer->run('directory', []);
@@ -54,13 +54,13 @@ class ArchitectureSnifferTest extends Unit
         $this->expectException(Exception::class);
 
         // Arrange
-        $xmlReaderMock = $this->createMock(ReaderInterface::class);
+        $utilEncodingServiceMock = $this->createMock(UtilEncodingServiceInterface::class);
         $configurationBuilderMock = $this->createMock(SnifferConfigurationBuilderInterface::class);
         $configurationBuilderMock
             ->method('getConfiguration')
             ->willReturn(['someOption' => 'value']);
 
-        $architectureSniffer = new ArchitectureSniffer($xmlReaderMock, 'command', $configurationBuilderMock);
+        $architectureSniffer = new ArchitectureSniffer($utilEncodingServiceMock, 'command', $configurationBuilderMock);
 
         // Act
         $architectureSniffer->run('invalid/directory', []);
@@ -69,8 +69,8 @@ class ArchitectureSnifferTest extends Unit
     public function shouldProcessValidDirectory(): void
     {
         // Arrange
-        $xmlReaderMock = $this->createMock(ReaderInterface::class);
-        $xmlReaderMock->method('fromString')->willReturn([
+        $utilEncodingServiceMock = $this->createMock(UtilEncodingServiceInterface::class);
+        $utilEncodingServiceMock->method('convertXmlStringToArray')->willReturn([
             'file' => [
                 '@attributes' => ['name' => 'someFile'],
                 'violation' => [
@@ -83,7 +83,7 @@ class ArchitectureSnifferTest extends Unit
             ->method('getConfiguration')
             ->willReturn(['priority' => 1]);
 
-        $architectureSniffer = new ArchitectureSniffer($xmlReaderMock, 'command', $configurationBuilderMock);
+        $architectureSniffer = new ArchitectureSniffer($utilEncodingServiceMock, 'command', $configurationBuilderMock);
 
         // Act
         $result = $architectureSniffer->run('src/Spryker/Development', []);
@@ -97,13 +97,13 @@ class ArchitectureSnifferTest extends Unit
     public function shouldHandleDryRunOption(): void
     {
         // Arrange
-        $xmlReaderMock = $this->createMock(ReaderInterface::class);
+        $utilEncodingServiceMock = $this->createMock(UtilEncodingServiceInterface::class);
         $configurationBuilderMock = $this->createMock(SnifferConfigurationBuilderInterface::class);
         $configurationBuilderMock
             ->method('getConfiguration')
             ->willReturn(['dry-run' => true]);
 
-        $architectureSniffer = new ArchitectureSniffer($xmlReaderMock, 'command', $configurationBuilderMock);
+        $architectureSniffer = new ArchitectureSniffer($utilEncodingServiceMock, 'command', $configurationBuilderMock);
 
         // Assert
         $this->expectOutputRegex('/command/');
@@ -115,8 +115,8 @@ class ArchitectureSnifferTest extends Unit
     public function shouldIgnoreErrorsBasedOnConfiguration(): void
     {
         // Arrabge
-        $xmlReaderMock = $this->createMock(ReaderInterface::class);
-        $xmlReaderMock->method('fromString')->willReturn([
+        $utilEncodingServiceMock = $this->createMock(UtilEncodingServiceInterface::class);
+        $utilEncodingServiceMock->method('convertXmlStringToArray')->willReturn([
             'file' => [
                 '@attributes' => ['name' => 'someFile'],
                 'violation' => [
@@ -130,7 +130,7 @@ class ArchitectureSnifferTest extends Unit
             ->method('getConfiguration')
             ->willReturn(['ignoreErrors' => ['/Ignored violation/']]);
 
-        $architectureSniffer = new ArchitectureSniffer($xmlReaderMock, 'command', $configurationBuilderMock);
+        $architectureSniffer = new ArchitectureSniffer($utilEncodingServiceMock, 'command', $configurationBuilderMock);
 
         // Act
         $result = $architectureSniffer->run('directory', ['ignoreErrors' => ['/Ignored violation/']]);
@@ -149,10 +149,10 @@ class ArchitectureSnifferTest extends Unit
         $rulesetFile = $tempDir . DIRECTORY_SEPARATOR . 'architectural-ruleset.xml';
         touch($rulesetFile);
 
-        $xmlReaderMock = $this->createMock(ReaderInterface::class);
+        $utilEncodingServiceMock = $this->createMock(UtilEncodingServiceInterface::class);
         $configurationBuilderMock = $this->createMock(SnifferConfigurationBuilderInterface::class);
         $defaultCommand = 'phpmd /path/to/src text /path/to/ruleset.xml';
-        $architectureSniffer = new ArchitectureSniffer($xmlReaderMock, $defaultCommand, $configurationBuilderMock);
+        $architectureSniffer = new ArchitectureSniffer($utilEncodingServiceMock, $defaultCommand, $configurationBuilderMock);
 
         $reflectionMethod = new ReflectionMethod(ArchitectureSniffer::class, 'resolveRulesetPath');
 
@@ -170,10 +170,10 @@ class ArchitectureSnifferTest extends Unit
         $tempDir = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'testDir' . uniqid();
         mkdir($tempDir, 0777, true);
 
-        $xmlReaderMock = $this->createMock(ReaderInterface::class);
+        $utilEncodingServiceMock = $this->createMock(UtilEncodingServiceInterface::class);
         $configurationBuilderMock = $this->createMock(SnifferConfigurationBuilderInterface::class);
         $defaultCommand = 'phpmd /path/to/src text /path/to/ruleset.xml';
-        $architectureSniffer = new ArchitectureSniffer($xmlReaderMock, $defaultCommand, $configurationBuilderMock);
+        $architectureSniffer = new ArchitectureSniffer($utilEncodingServiceMock, $defaultCommand, $configurationBuilderMock);
 
         $reflectionMethod = new ReflectionMethod(ArchitectureSniffer::class, 'resolveRulesetPath');
 

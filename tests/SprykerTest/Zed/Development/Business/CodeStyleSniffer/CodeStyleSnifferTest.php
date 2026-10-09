@@ -10,6 +10,7 @@ namespace SprykerTest\Zed\Development\Business\CodeStyleSniffer;
 use Codeception\Test\Unit;
 use ReflectionMethod;
 use ReflectionObject;
+use Spryker\Service\UtilEncoding\UtilEncodingService;
 use Spryker\Zed\Development\Business\CodeStyleSniffer\CodeStyleSniffer;
 use Spryker\Zed\Development\Business\CodeStyleSniffer\Config\CodeStyleSnifferConfigurationInterface;
 use Spryker\Zed\Development\Business\Resolver\CodeStylePathResolver;
@@ -141,6 +142,7 @@ class CodeStyleSnifferTest extends Unit
             ->setConstructorArgs([
                 $developmentConfig,
                 $this->tester->createCodeStylePathResolver(),
+                new UtilEncodingService(),
             ])
             ->onlyMethods(['runSnifferCommand'])
             ->getMock();
