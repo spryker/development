@@ -467,7 +467,6 @@ class DevelopmentConfig extends AbstractBundleConfig
             'GuzzleHttp\\' => 'spryker/guzzle',
             'JsonPath\\' => 'spryker/json-path',
             'JsonSchema\\' => 'spryker/json-schema',
-            'Laminas\\Config' => 'spryker/laminas',
             'Laminas\\Filter' => 'spryker/laminas',
             'Laminas\\ServiceManager' => 'spryker/laminas',
             'League\\Csv\\' => 'spryker/csv',
