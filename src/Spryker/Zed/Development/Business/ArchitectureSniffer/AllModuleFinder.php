@@ -25,10 +25,15 @@ class AllModuleFinder implements AllModuleFinderInterface
     protected $developmentConfig;
 
     /**
-     * @var \Laminas\Filter\FilterInterface
+     * @var \Laminas\Filter\FilterInterface<string|array<array-key, string|mixed>>
      */
     protected $filter;
 
+    /**
+     * @param \Symfony\Component\Finder\Finder $finder
+     * @param \Spryker\Zed\Development\DevelopmentConfig $developmentConfig
+     * @param \Laminas\Filter\FilterInterface<string|array<array-key, string|mixed>> $filter
+     */
     public function __construct(Finder $finder, DevelopmentConfig $developmentConfig, FilterInterface $filter)
     {
         $this->finder = $finder;
@@ -63,6 +68,7 @@ class AllModuleFinder implements AllModuleFinderInterface
         $modules = [];
         foreach ($this->developmentConfig->getInternalNamespacesList() as $internalNamespace) {
             foreach (range('A', 'Z') as $letter) {
+                /** @var string $namespaceDir */
                 $namespaceDir = $this->filter->filter($internalNamespace);
                 $namespaceDir = strtolower($namespaceDir);
 
@@ -91,6 +97,7 @@ class AllModuleFinder implements AllModuleFinderInterface
         $modules = [];
         foreach ($this->developmentConfig->getCoreNamespaces() as $coreNamespace) {
             foreach (range('a', 'z') as $letter) {
+                /** @var string $namespaceDir */
                 $namespaceDir = $this->filter->filter($coreNamespace);
                 $namespaceDir = strtolower($namespaceDir);
 

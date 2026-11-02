@@ -1925,7 +1925,7 @@ class DevelopmentBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \Laminas\Filter\FilterInterface
+     * @return \Laminas\Filter\FilterInterface<string|array<array-key, string|mixed>>
      */
     protected function createCamelCaseToDashFilter()
     {

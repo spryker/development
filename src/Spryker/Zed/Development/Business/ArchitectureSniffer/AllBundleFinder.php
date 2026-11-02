@@ -22,7 +22,7 @@ class AllBundleFinder implements AllBundleFinderInterface
     protected $finder;
 
     /**
-     * @var \Laminas\Filter\FilterInterface
+     * @var \Laminas\Filter\FilterInterface<string|array<array-key, string|mixed>>
      */
     protected $filter;
 
@@ -38,7 +38,7 @@ class AllBundleFinder implements AllBundleFinderInterface
 
     /**
      * @param \Symfony\Component\Finder\Finder $finder
-     * @param \Laminas\Filter\FilterInterface $filter
+     * @param \Laminas\Filter\FilterInterface<string|array<array-key, string|mixed>> $filter
      * @param array<string> $projectNamespaces
      * @param array<string> $coreNamespaces
      */
@@ -133,6 +133,7 @@ class AllBundleFinder implements AllBundleFinderInterface
     protected function loadOtherCoreBundles(array $allBundles)
     {
         foreach ($this->coreNamespaces as $coreNamespace) {
+            /** @var string $namespaceDir */
             $namespaceDir = $this->filter->filter($coreNamespace);
             $namespaceDir = strtolower($namespaceDir);
 

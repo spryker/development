@@ -17,3 +17,6 @@ parameters:
         - '#Parameter \#2 \$callback of function array_filter expects \(callable\(string\): bool\)\|null, .+ given.#'
         -
             identifier: missingType.iterableValue
+        -
+            message: '#Laminas\\Filter\\FilterInterface.+is not generic#'
+            identifier: generics.notGeneric
