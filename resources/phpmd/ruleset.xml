@@ -124,6 +124,7 @@ By default it ignores methods starting with 'get' or 'set'.
     </rule>
 
     <rule ref="rulesets/naming.xml">
+        <exclude name="LongClassName"/>
         <exclude name="LongVariable"/>
         <exclude name="ShortVariable"/>
     </rule>
