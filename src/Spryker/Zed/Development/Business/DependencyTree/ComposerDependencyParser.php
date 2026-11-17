@@ -87,7 +87,7 @@ class ComposerDependencyParser implements ComposerDependencyParserInterface
             $dependencies[] = [
                 'composerName' => $composerName,
                 'types' => $this->getDependencyTypes($composerName, $dependencyCollectionTransfer),
-                'isOptional' => $this->getIsOptional($composerName, $dependencyCollectionTransfer),
+                'isOptional' => $this->isOptional($composerName, $dependencyCollectionTransfer),
                 'src' => in_array($composerName, $composerNamesInSrc, true) ? $composerName : '',
                 'tests' => in_array($composerName, $composerNamesInTests, true) ? $composerName : '',
                 'composerRequire' => in_array($composerName, $composerRequiredNames, true) ? $composerName : '',
@@ -126,7 +126,7 @@ class ComposerDependencyParser implements ComposerDependencyParserInterface
      *
      * @return bool
      */
-    protected function getIsOptional($composerName, DependencyCollectionTransfer $moduleDependencyCollectionTransfer)
+    protected function isOptional($composerName, DependencyCollectionTransfer $moduleDependencyCollectionTransfer)
     {
         $isOptional = true;
         $isInTestsOnly = true;

@@ -56,7 +56,7 @@ class TarjanCycleFinder implements CycleFinderInterface
         $state['stack'][] = $node;
         $state['onStack'][$node] = true;
 
-        foreach ($adjacency[$node] ?? [] as $neighbour => $_) {
+        foreach (array_keys($adjacency[$node] ?? []) as $neighbour) {
             $neighbour = (string)$neighbour;
             if (!isset($adjacency[$neighbour])) {
                 continue;

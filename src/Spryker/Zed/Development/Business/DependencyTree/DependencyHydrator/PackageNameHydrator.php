@@ -54,8 +54,10 @@ class PackageNameHydrator implements DependencyHydratorInterface
 
                     return $composerConfig->name;
                 }
-            } while (count($pathParts) > 0);
+                $hasNextBatch = count($pathParts) > 0;
+            } while ($hasNextBatch);
         } catch (Exception $e) {
+            return false;
         }
 
         return false;

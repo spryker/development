@@ -286,7 +286,7 @@ class DependencyContainer implements DependencyContainerInterface
 
     protected function getModuleNameFromComposerName(string $composerName): string
     {
-        [$organizationName, $moduleName] = explode('/', $composerName);
+        [, $moduleName] = explode('/', $composerName);
 
         $filter = new DashToCamelCase();
         /** @var string $camelCasedModuleName */

@@ -16,6 +16,9 @@ use Spryker\Zed\Development\Business\SnifferConfiguration\Builder\SnifferConfigu
 use Spryker\Zed\Development\DevelopmentConfig;
 use Symfony\Component\Process\Process;
 
+/**
+ * @SuppressWarnings(PHPMD.ExitExpression)
+ */
 class ArchitectureSniffer implements ArchitectureSnifferInterface
 {
     public const string OPTION_PRIORITY = 'priority';

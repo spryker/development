@@ -20,3 +20,4 @@ parameters:
         -
             message: '#Laminas\\Filter\\FilterInterface.+is not generic#'
             identifier: generics.notGeneric
+        - '#PHPDoc tag @SuppressWarnings has invalid value#'

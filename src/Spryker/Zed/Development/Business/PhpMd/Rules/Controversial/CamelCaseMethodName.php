@@ -32,6 +32,8 @@ class CamelCaseMethodName extends AbstractRule implements MethodAware
         '__set_state',
         '__clone',
         '__debugInfo',
+        '__serialize',
+        '__unserialize',
         // codeception method names
         '_setConfig',
         '_getConfig',
@@ -46,6 +48,7 @@ class CamelCaseMethodName extends AbstractRule implements MethodAware
         '_before',
         '_after',
         '_depends',
+        '_failed',
         '_inject',
     ];
 

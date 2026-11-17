@@ -90,13 +90,15 @@ class DependencyViolationFinderConsole extends AbstractCoreModuleAwareConsole
             if (!$this->isNamespacedModuleName($index)) {
                 continue;
             }
-            $this->validateModule($moduleTransfer, $output, $dependencyType, $isWithUsage);
+            if ($this->validateModule($moduleTransfer, $output, $dependencyType, $isWithUsage)) {
+                return static::CODE_ERROR;
+            }
         }
 
         return $this->endValidation();
     }
 
-    protected function validateModule(ModuleTransfer $moduleTransfer, OutputInterface $output, ?string $dependencyType = null, bool $isWithUsage = false): void
+    protected function validateModule(ModuleTransfer $moduleTransfer, OutputInterface $output, ?string $dependencyType = null, bool $isWithUsage = false): bool
     {
         $this->startModuleValidation($this->buildModuleKey($moduleTransfer));
 
@@ -111,13 +113,16 @@ class DependencyViolationFinderConsole extends AbstractCoreModuleAwareConsole
             $this->printDependencyViolationErrors($this->buildModuleKey($moduleTransfer), $moduleDependencyTransferCollection, $output, $dependencyType);
             if ($this->input->getOption(static::OPTION_STOP_ON_VIOLATION)) {
                 $this->output->writeln(sprintf('Found <fg=red>%s</> errors, stop execution now as requested.', $moduleViolationCount));
-                exit(static::CODE_ERROR);
+
+                return true;
             }
         }
 
         $this->dependencyViolationCount += $moduleViolationCount;
 
         $this->endModuleValidation($output, $moduleViolationCount, $dependencyType);
+
+        return false;
     }
 
     /**

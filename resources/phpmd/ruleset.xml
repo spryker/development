@@ -21,6 +21,7 @@
     <rule ref="rulesets/cleancode.xml">
         <exclude name="StaticAccess"/>
         <exclude name="ElseExpression"/>
+        <exclude name="BooleanArgumentFlag"/>
     </rule>
 
     <rule ref="rulesets/design.xml">
@@ -127,10 +128,25 @@ By default it ignores methods starting with 'get' or 'set'.
         <exclude name="LongClassName"/>
         <exclude name="LongVariable"/>
         <exclude name="ShortVariable"/>
+        <exclude name="ShortMethodName"/>
+    </rule>
+
+    <rule ref="rulesets/naming.xml/ShortMethodName">
+        <properties>
+            <!-- gc() is a method of the PHP SessionHandlerInterface, and in() mirrors the Symfony Finder API. -->
+            <property name="exceptions" value="gc,in"/>
+        </properties>
     </rule>
 
     <rule ref="rulesets/unusedcode.xml">
         <exclude name="UnusedFormalParameter"/>
+        <exclude name="UnusedLocalVariable"/>
+    </rule>
+
+    <rule ref="rulesets/unusedcode.xml/UnusedLocalVariable">
+        <properties>
+            <property name="allow-unused-foreach-variables" value="true"/>
+        </properties>
     </rule>
 
     <rule
@@ -146,7 +162,7 @@ By default it ignores methods starting with 'get' or 'set'.
         <priority>3</priority>
         <properties>
             <property name="minimum" description="Minimum length for a variable, property or parameter name" value="3"/>
-            <property name="exceptions" description="Comma-separated list of exceptions" value=""/>
+            <property name="exceptions" description="Comma-separated list of exceptions" value="a,b,id,io,to,in,ip"/>
         </properties>
         <example>
             <![CDATA[

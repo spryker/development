@@ -20,7 +20,7 @@ class DirectCycleFinder implements CycleFinderInterface
         $seen = [];
 
         foreach ($adjacency as $from => $neighbours) {
-            foreach ($neighbours as $to => $_) {
+            foreach (array_keys($neighbours) as $to) {
                 if ($from === $to) {
                     continue;
                 }
